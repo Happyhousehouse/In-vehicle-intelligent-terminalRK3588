@@ -1,0 +1,3 @@
+/home/firefly/RKLLM/demo_Linux_aarch64/rkllm_demo/build/CMakeFiles/rkllm_demo.dir
+/home/firefly/RKLLM/demo_Linux_aarch64/rkllm_demo/build/CMakeFiles/edit_cache.dir
+/home/firefly/RKLLM/demo_Linux_aarch64/rkllm_demo/build/CMakeFiles/rebuild_cache.dir
