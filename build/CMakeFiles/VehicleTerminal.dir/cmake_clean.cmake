@@ -1,0 +1,33 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/VehicleTerminal_autogen.dir/AutogenUsed.txt"
+  "CMakeFiles/VehicleTerminal_autogen.dir/ParseCache.txt"
+  "VehicleTerminal_autogen"
+  "CMakeFiles/VehicleTerminal.dir/VehicleTerminal_autogen/mocs_compilation.cpp.o"
+  "CMakeFiles/VehicleTerminal.dir/VehicleTerminal_autogen/mocs_compilation.cpp.o.d"
+  "CMakeFiles/VehicleTerminal.dir/assistant/VehicleAssistant.cpp.o"
+  "CMakeFiles/VehicleTerminal.dir/assistant/VehicleAssistant.cpp.o.d"
+  "CMakeFiles/VehicleTerminal.dir/llm/LLMService.cpp.o"
+  "CMakeFiles/VehicleTerminal.dir/llm/LLMService.cpp.o.d"
+  "CMakeFiles/VehicleTerminal.dir/llm/RKLLMWrapper.cpp.o"
+  "CMakeFiles/VehicleTerminal.dir/llm/RKLLMWrapper.cpp.o.d"
+  "CMakeFiles/VehicleTerminal.dir/main.cpp.o"
+  "CMakeFiles/VehicleTerminal.dir/main.cpp.o.d"
+  "CMakeFiles/VehicleTerminal.dir/qrc_resources.cpp.o"
+  "CMakeFiles/VehicleTerminal.dir/qrc_resources.cpp.o.d"
+  "CMakeFiles/VehicleTerminal.dir/rag/KnowledgeBase.cpp.o"
+  "CMakeFiles/VehicleTerminal.dir/rag/KnowledgeBase.cpp.o.d"
+  "CMakeFiles/VehicleTerminal.dir/rag/PromptBuilder.cpp.o"
+  "CMakeFiles/VehicleTerminal.dir/rag/PromptBuilder.cpp.o.d"
+  "CMakeFiles/VehicleTerminal.dir/rag/RAGService.cpp.o"
+  "CMakeFiles/VehicleTerminal.dir/rag/RAGService.cpp.o.d"
+  "CMakeFiles/VehicleTerminal.dir/rag/Retriever.cpp.o"
+  "CMakeFiles/VehicleTerminal.dir/rag/Retriever.cpp.o.d"
+  "VehicleTerminal"
+  "VehicleTerminal.pdb"
+  "qrc_resources.cpp"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/VehicleTerminal.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

@@ -1,0 +1,17 @@
+<RCC>
+
+<qresource prefix="/">
+
+    <file>qml/Main.qml</file>
+    <file>qml/NavItem.qml</file>
+    <file>image/backgroundimage.png</file>
+    <file>qml/Home.qml</file>
+    <file>qml/Camera.qml</file>
+    <file>qml/AI.qml</file>
+    <file>qml/Vehicle.qml</file>
+    <file>qml/Cloud.qml</file>
+    <file>qml/Setting.qml</file>
+
+</qresource>
+
+</RCC>

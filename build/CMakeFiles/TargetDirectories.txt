@@ -1,0 +1,4 @@
+/home/firefly/VehicleTerminal/build/CMakeFiles/VehicleTerminal.dir
+/home/firefly/VehicleTerminal/build/CMakeFiles/edit_cache.dir
+/home/firefly/VehicleTerminal/build/CMakeFiles/rebuild_cache.dir
+/home/firefly/VehicleTerminal/build/CMakeFiles/VehicleTerminal_autogen.dir
