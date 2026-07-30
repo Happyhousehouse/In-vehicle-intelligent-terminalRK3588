@@ -11,7 +11,18 @@ ApplicationWindow {
 
 
     visible:true
+    
+    Loader {
 
+        id:pageLoader
+
+
+        anchors.fill:parent
+
+
+        z:100
+
+    }
 
     title:"Vehicle AI Assistant"
 
@@ -857,7 +868,7 @@ ApplicationWindow {
 
                 onClicked:{
 
-                    console.log("AI")
+                    pageLoader.source=""
 
                 }
 
@@ -905,7 +916,8 @@ ApplicationWindow {
 
                 onClicked:{
 
-                    console.log("Camera")
+                    pageLoader.source =
+                        "qrc:/qml/Camera.qml"
 
                 }
 

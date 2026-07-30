@@ -207,6 +207,12 @@
 		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Quick/Qt5QuickConfig.cmake",
 		"/usr/lib/aarch64-linux-gnu/cmake/Qt5QmlModels/Qt5QmlModelsConfigVersion.cmake",
 		"/usr/lib/aarch64-linux-gnu/cmake/Qt5QmlModels/Qt5QmlModelsConfig.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/opencv4/OpenCVConfig-version.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/opencv4/OpenCVConfig.cmake",
+		"/usr/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake",
+		"/usr/share/cmake-3.22/Modules/FindPackageMessage.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/opencv4/OpenCVModules.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/opencv4/OpenCVModules-release.cmake",
 		"/home/firefly/VehicleTerminal/resources.qrc"
 	],
 	"CMAKE_SOURCE_DIR" : "/home/firefly/VehicleTerminal",
@@ -221,6 +227,24 @@
 			null
 		],
 		[
+			"/home/firefly/VehicleTerminal/camera/CameraService.h",
+			"MU",
+			"GHZOWQQRZX/moc_CameraService.cpp",
+			null
+		],
+		[
+			"/home/firefly/VehicleTerminal/controller/CameraController.h",
+			"MU",
+			"NPUKSKGWT2/moc_CameraController.cpp",
+			null
+		],
+		[
+			"/home/firefly/VehicleTerminal/controller/CameraImageProvider.h",
+			"MU",
+			"NPUKSKGWT2/moc_CameraImageProvider.cpp",
+			null
+		],
+		[
 			"/home/firefly/VehicleTerminal/llm/LLMService.h",
 			"MU",
 			"WCGREUQGIN/moc_LLMService.cpp",
@@ -230,6 +254,12 @@
 			"/home/firefly/VehicleTerminal/llm/RKLLMWrapper.h",
 			"MU",
 			"WCGREUQGIN/moc_RKLLMWrapper.cpp",
+			null
+		],
+		[
+			"/home/firefly/VehicleTerminal/photo/GalleryService.h",
+			"MU",
+			"S2XPZXFKSL/moc_GalleryService.cpp",
 			null
 		],
 		[
@@ -284,6 +314,9 @@
 		"/home/firefly/VehicleTerminal/assistant",
 		"/home/firefly/VehicleTerminal/llm",
 		"/home/firefly/VehicleTerminal/rag",
+		"/home/firefly/VehicleTerminal/camera",
+		"/home/firefly/VehicleTerminal/photo",
+		"/home/firefly/VehicleTerminal/controller",
 		"/usr/include/aarch64-linux-gnu/qt5",
 		"/usr/include/aarch64-linux-gnu/qt5/QtCore",
 		"/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++",
@@ -292,6 +325,7 @@
 		"/usr/include/aarch64-linux-gnu/qt5/QtNetwork",
 		"/usr/include/aarch64-linux-gnu/qt5/QtQuick",
 		"/usr/include/aarch64-linux-gnu/qt5/QtQmlModels",
+		"/usr/include/opencv4",
 		"/usr/include/c++/11",
 		"/usr/include/aarch64-linux-gnu/c++/11",
 		"/usr/include/c++/11/backward",
@@ -329,9 +363,21 @@
 			"MU",
 			null
 		],
+		[ "/home/firefly/VehicleTerminal/camera/CameraService.cpp", "MU", null ],
+		[
+			"/home/firefly/VehicleTerminal/controller/CameraController.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/firefly/VehicleTerminal/controller/CameraImageProvider.cpp",
+			"MU",
+			null
+		],
 		[ "/home/firefly/VehicleTerminal/llm/LLMService.cpp", "MU", null ],
 		[ "/home/firefly/VehicleTerminal/llm/RKLLMWrapper.cpp", "MU", null ],
 		[ "/home/firefly/VehicleTerminal/main.cpp", "MU", null ],
+		[ "/home/firefly/VehicleTerminal/photo/GalleryService.cpp", "MU", null ],
 		[ "/home/firefly/VehicleTerminal/rag/KnowledgeBase.cpp", "MU", null ],
 		[ "/home/firefly/VehicleTerminal/rag/PromptBuilder.cpp", "MU", null ],
 		[ "/home/firefly/VehicleTerminal/rag/RAGService.cpp", "MU", null ],

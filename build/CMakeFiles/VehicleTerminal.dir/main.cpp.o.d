@@ -286,11 +286,211 @@ CMakeFiles/VehicleTerminal.dir/main.cpp.o: \
  /usr/include/aarch64-linux-gnu/qt5/QtQml/qqmlcontext.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QDebug \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qdebug.h \
- /home/firefly/VehicleTerminal/assistant/VehicleAssistant.h \
+ /home/firefly/VehicleTerminal/controller/CameraController.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QObject \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qobject.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtGui/QImage \
+ /usr/include/aarch64-linux-gnu/qt5/QtGui/qimage.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtGui/qcolor.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtGui/qrgb.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtGui/qrgba64.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtGui/qpaintdevice.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qrect.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtGui/qpixelformat.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtGui/qtransform.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtGui/qmatrix.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtGui/qpolygon.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtGui/qregion.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qdatastream.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qline.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QTimer \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qtimer.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qbasictimer.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QString \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qstring.h \
+ /home/firefly/VehicleTerminal/controller/../camera/CameraService.h \
+ /usr/include/c++/11/mutex /usr/include/c++/11/bits/std_mutex.h \
+ /usr/include/c++/11/bits/unique_lock.h /usr/include/c++/11/thread \
+ /usr/include/c++/11/bits/std_thread.h \
+ /usr/include/c++/11/bits/this_thread_sleep.h \
+ /usr/include/linux/videodev2.h /usr/include/aarch64-linux-gnu/sys/time.h \
+ /usr/include/linux/ioctl.h /usr/include/aarch64-linux-gnu/asm/ioctl.h \
+ /usr/include/asm-generic/ioctl.h /usr/include/linux/types.h \
+ /usr/include/aarch64-linux-gnu/asm/types.h \
+ /usr/include/asm-generic/types.h /usr/include/asm-generic/int-ll64.h \
+ /usr/include/aarch64-linux-gnu/asm/bitsperlong.h \
+ /usr/include/asm-generic/bitsperlong.h /usr/include/linux/posix_types.h \
+ /usr/include/linux/stddef.h \
+ /usr/include/aarch64-linux-gnu/asm/posix_types.h \
+ /usr/include/asm-generic/posix_types.h /usr/include/linux/v4l2-common.h \
+ /usr/include/linux/v4l2-controls.h /usr/include/linux/const.h \
+ /usr/include/opencv4/opencv2/opencv.hpp \
+ /usr/include/opencv4/opencv2/opencv_modules.hpp \
+ /usr/include/opencv4/opencv2/core.hpp \
+ /usr/include/opencv4/opencv2/core/cvdef.h \
+ /usr/include/opencv4/opencv2/core/version.hpp \
+ /usr/include/opencv4/opencv2/core/hal/interface.h \
+ /usr/include/opencv4/opencv2/core/cv_cpu_dispatch.h \
+ /usr/lib/gcc/aarch64-linux-gnu/11/include/arm_neon.h \
+ /usr/lib/gcc/aarch64-linux-gnu/11/include/arm_fp16.h \
+ /usr/lib/gcc/aarch64-linux-gnu/11/include/arm_bf16.h \
+ /usr/include/opencv4/opencv2/core/base.hpp /usr/include/c++/11/climits \
+ /usr/include/opencv4/opencv2/core/cvstd.hpp /usr/include/c++/11/cstring \
+ /usr/include/c++/11/cmath /usr/include/math.h \
+ /usr/include/aarch64-linux-gnu/bits/math-vector.h \
+ /usr/include/aarch64-linux-gnu/bits/libm-simd-decl-stubs.h \
+ /usr/include/aarch64-linux-gnu/bits/flt-eval-method.h \
+ /usr/include/aarch64-linux-gnu/bits/fp-logb.h \
+ /usr/include/aarch64-linux-gnu/bits/fp-fast.h \
+ /usr/include/aarch64-linux-gnu/bits/mathcalls-helper-functions.h \
+ /usr/include/aarch64-linux-gnu/bits/mathcalls.h \
+ /usr/include/aarch64-linux-gnu/bits/mathcalls-narrow.h \
+ /usr/include/aarch64-linux-gnu/bits/iscanonical.h \
+ /usr/include/c++/11/bits/specfun.h /usr/include/c++/11/tr1/gamma.tcc \
+ /usr/include/c++/11/tr1/special_function_util.h \
+ /usr/include/c++/11/tr1/bessel_function.tcc \
+ /usr/include/c++/11/tr1/beta_function.tcc \
+ /usr/include/c++/11/tr1/ell_integral.tcc \
+ /usr/include/c++/11/tr1/exp_integral.tcc \
+ /usr/include/c++/11/tr1/hypergeometric.tcc \
+ /usr/include/c++/11/tr1/legendre_function.tcc \
+ /usr/include/c++/11/tr1/modified_bessel_func.tcc \
+ /usr/include/c++/11/tr1/poly_hermite.tcc \
+ /usr/include/c++/11/tr1/poly_laguerre.tcc \
+ /usr/include/c++/11/tr1/riemann_zeta.tcc \
+ /usr/include/opencv4/opencv2/core/cvstd_wrapper.hpp \
+ /usr/include/opencv4/opencv2/core/neon_utils.hpp \
+ /usr/include/opencv4/opencv2/core/vsx_utils.hpp \
+ /usr/include/opencv4/opencv2/core/check.hpp \
+ /usr/include/opencv4/opencv2/core/traits.hpp \
+ /usr/include/opencv4/opencv2/core/matx.hpp \
+ /usr/include/opencv4/opencv2/core/saturate.hpp \
+ /usr/include/opencv4/opencv2/core/fast_math.hpp \
+ /usr/include/opencv4/opencv2/core/types.hpp /usr/include/c++/11/cfloat \
+ /usr/lib/gcc/aarch64-linux-gnu/11/include/float.h \
+ /usr/include/opencv4/opencv2/core/mat.hpp \
+ /usr/include/opencv4/opencv2/core/bufferpool.hpp \
+ /usr/include/opencv4/opencv2/core/mat.inl.hpp \
+ /usr/include/opencv4/opencv2/core/persistence.hpp \
+ /usr/include/opencv4/opencv2/core/operations.hpp \
+ /usr/include/opencv4/opencv2/core/cvstd.inl.hpp \
+ /usr/include/c++/11/complex /usr/include/c++/11/sstream \
+ /usr/include/c++/11/istream /usr/include/c++/11/ios \
+ /usr/include/c++/11/bits/basic_ios.h \
+ /usr/include/c++/11/bits/locale_facets.h /usr/include/c++/11/cwctype \
+ /usr/include/wctype.h /usr/include/aarch64-linux-gnu/bits/wctype-wchar.h \
+ /usr/include/aarch64-linux-gnu/c++/11/bits/ctype_base.h \
+ /usr/include/aarch64-linux-gnu/c++/11/bits/ctype_inline.h \
+ /usr/include/c++/11/bits/locale_facets.tcc \
+ /usr/include/c++/11/bits/basic_ios.tcc /usr/include/c++/11/ostream \
+ /usr/include/c++/11/bits/ostream.tcc \
+ /usr/include/c++/11/bits/istream.tcc \
+ /usr/include/c++/11/bits/sstream.tcc \
+ /usr/include/opencv4/opencv2/core/utility.hpp \
+ /usr/include/opencv4/opencv2/core/optim.hpp \
+ /usr/include/opencv4/opencv2/core/ovx.hpp \
+ /usr/include/opencv4/opencv2/core/cvdef.h \
+ /usr/include/opencv4/opencv2/calib3d.hpp \
+ /usr/include/opencv4/opencv2/features2d.hpp \
+ /usr/include/opencv4/opencv2/flann/miniflann.hpp \
+ /usr/include/opencv4/opencv2/flann/defines.h \
+ /usr/include/opencv4/opencv2/flann/config.h \
+ /usr/include/opencv4/opencv2/core/affine.hpp \
+ /usr/include/opencv4/opencv2/dnn.hpp \
+ /usr/include/opencv4/opencv2/dnn/dnn.hpp \
+ /usr/include/opencv4/opencv2/core/async.hpp \
+ /usr/include/opencv4/opencv2/dnn/version.hpp \
+ /usr/include/opencv4/opencv2/dnn/dict.hpp \
+ /usr/include/opencv4/opencv2/dnn/layer.hpp \
+ /usr/include/opencv4/opencv2/dnn/dnn.inl.hpp \
+ /usr/include/opencv4/opencv2/dnn/utils/inference_engine.hpp \
+ /usr/include/opencv4/opencv2/dnn/dnn.hpp \
+ /usr/include/opencv4/opencv2/flann.hpp \
+ /usr/include/opencv4/opencv2/flann/flann_base.hpp \
+ /usr/include/opencv4/opencv2/flann/general.h \
+ /usr/include/opencv4/opencv2/flann/matrix.h \
+ /usr/include/opencv4/opencv2/flann/params.h \
+ /usr/include/opencv4/opencv2/flann/any.h \
+ /usr/include/opencv4/opencv2/flann/defines.h \
+ /usr/include/c++/11/iostream /usr/include/opencv4/opencv2/flann/saving.h \
+ /usr/include/opencv4/opencv2/flann/nn_index.h \
+ /usr/include/opencv4/opencv2/flann/result_set.h /usr/include/c++/11/set \
+ /usr/include/c++/11/bits/stl_set.h \
+ /usr/include/c++/11/bits/stl_multiset.h \
+ /usr/include/opencv4/opencv2/flann/all_indices.h \
+ /usr/include/opencv4/opencv2/flann/kdtree_index.h \
+ /usr/include/opencv4/opencv2/flann/dynamic_bitset.h \
+ /usr/include/opencv4/opencv2/flann/dist.h \
+ /usr/include/opencv4/opencv2/flann/heap.h \
+ /usr/include/opencv4/opencv2/flann/allocator.h \
+ /usr/include/opencv4/opencv2/flann/random.h \
+ /usr/include/opencv4/opencv2/flann/kdtree_single_index.h \
+ /usr/include/opencv4/opencv2/flann/kmeans_index.h \
+ /usr/include/opencv4/opencv2/flann/logger.h \
+ /usr/include/opencv4/opencv2/flann/composite_index.h \
+ /usr/include/opencv4/opencv2/flann/linear_index.h \
+ /usr/include/opencv4/opencv2/flann/hierarchical_clustering_index.h \
+ /usr/include/opencv4/opencv2/flann/lsh_index.h \
+ /usr/include/opencv4/opencv2/flann/lsh_table.h \
+ /usr/include/c++/11/iomanip /usr/include/c++/11/locale \
+ /usr/include/c++/11/bits/locale_facets_nonio.h \
+ /usr/include/aarch64-linux-gnu/c++/11/bits/time_members.h \
+ /usr/include/aarch64-linux-gnu/c++/11/bits/messages_members.h \
+ /usr/include/libintl.h /usr/include/c++/11/bits/codecvt.h \
+ /usr/include/c++/11/bits/locale_facets_nonio.tcc \
+ /usr/include/c++/11/bits/locale_conv.h \
+ /usr/include/c++/11/bits/quoted_string.h /usr/include/c++/11/math.h \
+ /usr/include/opencv4/opencv2/flann/autotuned_index.h \
+ /usr/include/opencv4/opencv2/flann/ground_truth.h \
+ /usr/include/opencv4/opencv2/flann/index_testing.h \
+ /usr/include/opencv4/opencv2/flann/timer.h \
+ /usr/include/opencv4/opencv2/flann/sampling.h \
+ /usr/include/opencv4/opencv2/highgui.hpp \
+ /usr/include/opencv4/opencv2/imgcodecs.hpp \
+ /usr/include/opencv4/opencv2/videoio.hpp \
+ /usr/include/opencv4/opencv2/imgproc.hpp \
+ /usr/include/opencv4/opencv2/imgproc/segmentation.hpp \
+ /usr/include/opencv4/opencv2/ml.hpp \
+ /usr/include/opencv4/opencv2/ml/ml.inl.hpp \
+ /usr/include/opencv4/opencv2/objdetect.hpp \
+ /usr/include/opencv4/opencv2/objdetect/detection_based_tracker.hpp \
+ /usr/include/opencv4/opencv2/objdetect/face.hpp \
+ /usr/include/opencv4/opencv2/photo.hpp \
+ /usr/include/opencv4/opencv2/stitching.hpp \
+ /usr/include/opencv4/opencv2/stitching/warpers.hpp \
+ /usr/include/opencv4/opencv2/stitching/detail/warpers.hpp \
+ /usr/include/opencv4/opencv2/core/cuda.hpp \
+ /usr/include/opencv4/opencv2/core/cuda_types.hpp \
+ /usr/include/opencv4/opencv2/core/cuda.inl.hpp \
+ /usr/include/opencv4/opencv2/stitching/detail/warpers_inl.hpp \
+ /usr/include/opencv4/opencv2/stitching/detail/warpers.hpp \
+ /usr/include/opencv4/opencv2/stitching/detail/matchers.hpp \
+ /usr/include/opencv4/opencv2/stitching/detail/motion_estimators.hpp \
+ /usr/include/opencv4/opencv2/stitching/detail/matchers.hpp \
+ /usr/include/opencv4/opencv2/stitching/detail/util.hpp \
+ /usr/include/opencv4/opencv2/stitching/detail/util_inl.hpp \
+ /usr/include/c++/11/queue /usr/include/c++/11/deque \
+ /usr/include/c++/11/bits/stl_deque.h /usr/include/c++/11/bits/deque.tcc \
+ /usr/include/c++/11/bits/stl_queue.h \
+ /usr/include/opencv4/opencv2/stitching/detail/camera.hpp \
+ /usr/include/opencv4/opencv2/stitching/detail/exposure_compensate.hpp \
+ /usr/include/opencv4/opencv2/stitching/detail/seam_finders.hpp \
+ /usr/include/opencv4/opencv2/stitching/detail/blenders.hpp \
+ /usr/include/opencv4/opencv2/stitching/detail/camera.hpp \
+ /usr/include/opencv4/opencv2/video.hpp \
+ /usr/include/opencv4/opencv2/video/tracking.hpp \
+ /usr/include/opencv4/opencv2/video/background_segm.hpp \
+ /home/firefly/VehicleTerminal/controller/../photo/GalleryService.h \
+ /home/firefly/VehicleTerminal/controller/CameraImageProvider.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtQuick/QQuickImageProvider \
+ /usr/include/aarch64-linux-gnu/qt5/QtQuick/qquickimageprovider.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtQuick/qtquickglobal.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtQuick/qtquick-config.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtGui/qimage.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtGui/qpixmap.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QMutex \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qmutex.h \
+ /home/firefly/VehicleTerminal/assistant/VehicleAssistant.h \
  /home/firefly/VehicleTerminal/assistant/../llm/LLMService.h \
  /home/firefly/VehicleTerminal/assistant/../llm/RKLLMWrapper.h \
  /home/firefly/VehicleTerminal/include/rkllm.h \

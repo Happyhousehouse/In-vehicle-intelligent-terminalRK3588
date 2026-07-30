@@ -17,8 +17,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # =========================
 # Qt自动功能
-# 很重要
-# 解决 Q_OBJECT vtable问题
 # =========================
 
 set(CMAKE_AUTOMOC ON)
@@ -51,6 +49,16 @@ find_package(Qt5 REQUIRED COMPONENTS
 
 
 
+# =========================
+# OpenCV
+# 摄像头模块需要
+# =========================
+
+find_package(OpenCV REQUIRED)
+
+
+
+
 
 
 # =========================
@@ -79,6 +87,8 @@ set(QML_FILES
 
 
 
+
+
 qt5_add_resources(
 
     RESOURCE_FILES
@@ -86,7 +96,6 @@ qt5_add_resources(
     resources.qrc
 
 )
-
 
 
 
@@ -103,17 +112,64 @@ qt5_add_resources(
 set(SOURCES
 
 
+    # =====================
     # Qt入口
+    # =====================
 
     main.cpp
 
 
 
-    # Vehicle控制
+
+
+    # =====================
+    # Camera模块
+    # =====================
+
+
+    camera/CameraService.cpp
+
+    camera/CameraService.h
 
 
 
+
+
+    # =====================
+    # Photo模块
+    # =====================
+
+
+    photo/GalleryService.cpp
+
+    photo/GalleryService.h
+
+
+
+
+
+    # =====================
+    # Qt控制层
+    # =====================
+
+
+    controller/CameraController.cpp
+
+    controller/CameraController.h
+
+
+    controller/CameraImageProvider.cpp
+
+    controller/CameraImageProvider.h
+
+
+
+
+
+    # =====================
     # AI Assistant
+    # =====================
+
 
     assistant/VehicleAssistant.cpp
 
@@ -121,11 +177,17 @@ set(SOURCES
 
 
 
+
+
+    # =====================
     # LLM
+    # =====================
+
 
     llm/LLMService.cpp
 
     llm/LLMService.h
+
 
     llm/RKLLMWrapper.cpp
 
@@ -133,19 +195,27 @@ set(SOURCES
 
 
 
+
+
+    # =====================
     # RAG
+    # =====================
+
 
     rag/KnowledgeBase.cpp
 
     rag/KnowledgeBase.h
 
+
     rag/RAGService.cpp
 
     rag/RAGService.h
 
+
     rag/PromptBuilder.cpp
 
     rag/PromptBuilder.h
+
 
     rag/Retriever.cpp
 
@@ -154,6 +224,7 @@ set(SOURCES
 
 
 )
+
 
 
 
@@ -199,6 +270,7 @@ target_include_directories(
     PRIVATE
 
 
+
     ${CMAKE_CURRENT_SOURCE_DIR}
 
 
@@ -206,13 +278,40 @@ target_include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 
 
+
+    # AI
+
     ${CMAKE_CURRENT_SOURCE_DIR}/assistant
 
+
+
+    # LLM
 
     ${CMAKE_CURRENT_SOURCE_DIR}/llm
 
 
+
+    # RAG
+
     ${CMAKE_CURRENT_SOURCE_DIR}/rag
+
+
+
+    # Camera
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/camera
+
+
+
+    # Photo
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/photo
+
+
+
+    # Controller
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/controller
 
 
 )
@@ -235,6 +334,7 @@ target_link_libraries(
     VehicleTerminal
 
 
+
     Qt5::Core
 
     Qt5::Gui
@@ -245,7 +345,19 @@ target_link_libraries(
 
 
 
+
+    # OpenCV
+
+    ${OpenCV_LIBS}
+
+
+
+
+
+    # RKLLM
+
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/librkllmrt.so
+
 
 )
 
@@ -261,11 +373,13 @@ target_link_libraries(
 # RKLLM运行时搜索路径
 # =========================
 
+
 set_target_properties(
 
     VehicleTerminal
 
     PROPERTIES
+
 
 
     BUILD_RPATH

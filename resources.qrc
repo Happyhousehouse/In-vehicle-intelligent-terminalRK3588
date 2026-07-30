@@ -11,6 +11,7 @@
     <file>qml/Vehicle.qml</file>
     <file>qml/Cloud.qml</file>
     <file>qml/Setting.qml</file>
+    <file>qml/Gallery.qml</file>
 
 </qresource>
 

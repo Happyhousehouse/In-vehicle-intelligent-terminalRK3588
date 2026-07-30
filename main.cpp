@@ -1,69 +1,149 @@
 #include <QGuiApplication>
+
 #include <QQmlApplicationEngine>
+
 #include <QQmlContext>
+
 #include <QDebug>
+
+
+
+#include "controller/CameraController.h"
+
+#include "controller/CameraImageProvider.h"
+
 
 
 #include "assistant/VehicleAssistant.h"
 
 
 
+
+
 int main(int argc, char *argv[])
 {
+
 
     QGuiApplication app(argc, argv);
 
 
 
+
+
+
     /*
-        创建AI助手对象
+        AI助手
+
     */
 
     VehicleAssistant assistant;
 
 
 
+
+
+
+    /*
+        摄像头控制
+
+    */
+
+    CameraController cameraController;
+
+
+
+
+
+
+    /*
+        摄像头图片提供器
+
+    */
+
+    CameraImageProvider cameraProvider;
+
+
+
+
+
+
+    /*
+        CameraController连接Provider
+
+    */
+
+    cameraController.setProvider(
+
+        &cameraProvider
+
+    );
+
+
+
+
+
+
+
+
     /*
         模型路径
+
     */
 
     QString modelPath =
+
     "/home/firefly/VehicleTerminal/model/Qwen3.5-0.8B_w8a8_rk3588.rkllm";
+
+
+
 
 
 
     /*
         知识库路径
+
     */
 
     QString knowledgePath =
+
     "/home/firefly/VehicleTerminal/knowledge";
 
 
 
 
 
+
+
+
+
     /*
-        初始化LLM + RAG
+        初始化AI
+
     */
 
     if(!assistant.init(
 
-            modelPath.toStdString(),
+        modelPath.toStdString(),
 
-            knowledgePath.toStdString()
+        knowledgePath.toStdString()
 
-        ))
+    ))
+
     {
 
 
         qDebug()
+
         <<"VehicleAssistant init failed";
 
 
         return -1;
 
+
     }
+
+
+
 
 
 
@@ -73,16 +153,17 @@ int main(int argc, char *argv[])
 
 
 
-    /*
-        暴露给QML
 
-        QML:
-        vehicleAssistant.chat()
+
+
+
+    /*
+        注册AI
 
     */
 
-
     engine.rootContext()
+
     ->setContextProperty(
 
         "vehicleAssistant",
@@ -95,11 +176,70 @@ int main(int argc, char *argv[])
 
 
 
-    const QUrl url(
-        QStringLiteral(
-            "qrc:/qml/Main.qml"
-        )
+
+
+
+
+    /*
+        注册摄像头控制
+
+    */
+
+    engine.rootContext()
+
+    ->setContextProperty(
+
+        "cameraController",
+
+        &cameraController
+
     );
+
+
+
+
+
+
+
+
+    /*
+        注册图片Provider
+
+        QML:
+
+        image://camera/live
+
+    */
+
+    engine.addImageProvider(
+
+        "camera",
+
+        &cameraProvider
+
+    );
+
+
+
+
+
+
+
+
+
+    const QUrl url(
+
+        QStringLiteral(
+
+            "qrc:/qml/Main.qml"
+
+        )
+
+    );
+
+
+
+
 
 
 
@@ -130,7 +270,12 @@ int main(int argc, char *argv[])
 
 
 
+
+
     engine.load(url);
+
+
+
 
 
 
