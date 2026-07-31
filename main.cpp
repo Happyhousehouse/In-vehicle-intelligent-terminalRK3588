@@ -60,10 +60,6 @@ int main(int argc, char *argv[])
 
 
 
-
-
-
-
     /*
         摄像头图片提供器
 
@@ -88,7 +84,6 @@ int main(int argc, char *argv[])
         &cameraProvider
 
     );
-
 
 
 

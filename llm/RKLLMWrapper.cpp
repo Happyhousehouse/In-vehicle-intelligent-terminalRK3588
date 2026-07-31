@@ -212,6 +212,27 @@ void RKLLMWrapper::stop()
 
     stop_flag_=true;
 
+    if(handle_)
+    {
+
+        int ret =
+
+        rkllm_abort(handle_);
+
+
+
+        if(ret != 0)
+        {
+
+            std::cout
+            <<"rkllm_abort failed:"
+            <<ret
+            <<std::endl;
+
+        }
+
+    }
+
 }
 
 

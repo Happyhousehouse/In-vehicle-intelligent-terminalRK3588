@@ -8,6 +8,11 @@
 #include "../llm/LLMService.h"
 #include "../rag/RAGService.h"
 
+#include <thread>
+#include <atomic>
+#include <mutex>
+
+class CameraController;
 
 
 class VehicleAssistant : public QObject
@@ -33,11 +38,7 @@ public:
 
     );
 
-
-
-    /*
-        QML调用接口
-    */
+    ~VehicleAssistant();
 
     Q_INVOKABLE
     void chat(
@@ -52,14 +53,6 @@ signals:
 
 
 
-    /*
-        AI流式输出
-
-        每收到一次RKLLM callback
-        发送一次
-
-    */
-
     void answerToken(
 
         QString token
@@ -68,23 +61,37 @@ signals:
 
 
 
-    /*
-        生成结束
-
-    */
-
     void answerFinished();
 
 
 
-private:
+    /*
+        打开/关闭摄像头页面
 
+    */
+
+    void openCameraPage();
+    /*
+        打开相册页面
+
+    */
+    void openGalleryPage();
+
+private:
 
     LLMService llm_;
 
 
     RAGService rag_;
 
+    
+    std::thread llmThread_;
 
+
+    std::atomic<bool> llmRunning_{false};
+
+
+
+    std::mutex llmMutex_;
 
 };

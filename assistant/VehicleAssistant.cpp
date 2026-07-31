@@ -7,9 +7,7 @@
 
 #include <thread>
 
-
-
-
+#include <mutex>
 
 VehicleAssistant::VehicleAssistant(
         QObject *parent
@@ -20,8 +18,6 @@ VehicleAssistant::VehicleAssistant(
 {
 
 }
-
-
 
 
 
@@ -89,7 +85,143 @@ void VehicleAssistant::chat(
 )
 {
 
+    /*
+        中断当前回答
+    */
+    if(llmRunning_)
+    {
 
+        llm_.stop();
+
+        llmRunning_=false;
+
+    }
+
+    QString cmd = question.trimmed();
+
+    /*
+        相册控制命令
+    */
+
+    if(cmd.contains("打开相册") ||
+       cmd.contains("查看相册") ||
+       cmd.contains("打开照片") ||
+       cmd.contains("查看照片"))
+    {
+
+
+        QMetaObject::invokeMethod(
+
+            this,
+
+            [this]()
+            {
+
+                emit openGalleryPage();
+
+
+            },
+
+            Qt::QueuedConnection
+
+        );
+
+
+
+        emit answerToken(
+
+            "正在打开相册"
+
+        );
+
+
+
+        emit answerFinished();
+
+
+
+        return;
+
+
+    }
+
+    /*
+        摄像头控制命令
+    */
+
+
+    if(cmd.contains("打开摄像头") ||
+       cmd.contains("开启摄像头") ||
+       cmd.contains("打开相机"))
+    {
+
+
+        QMetaObject::invokeMethod(
+
+            this,
+
+            [this]()
+            {
+
+                emit openCameraPage();
+
+
+            },
+
+            Qt::QueuedConnection
+
+        );
+
+
+
+        emit answerToken(
+
+            "正在打开摄像头"
+
+        );
+
+
+        emit answerFinished();
+
+
+        return;
+
+
+    }
+
+
+
+
+
+
+    /*
+        拍照命令
+
+    */
+
+
+    if(cmd.contains("拍照") ||
+       cmd.contains("拍一张"))
+    {
+
+
+        emit answerToken(
+
+            "拍照功能暂未绑定"
+
+        );
+
+
+        emit answerFinished();
+
+
+        return;
+
+
+    }
+
+
+    
     std::string q =
             question.toStdString();
 
@@ -105,71 +237,77 @@ void VehicleAssistant::chat(
     */
 
 
-    std::thread(
-
-        [this,q]()
-
-        {
+    {
 
 
-
-            /*
-                RAG增强
-
-            */
+        std::lock_guard<std::mutex> lock(
+            llmMutex_
+        );
 
 
-            std::string prompt =
+        llmRunning_=true;
 
-                    rag_.buildPrompt(q);
+
+    }
 
 
 
+    llmThread_=std::thread(
+
+    [this,q]()
+
+    {
 
 
+        /*
+            RAG增强
+        */
 
+        std::string prompt =
 
-
-
-            /*
-                RKLLM推理
-
-            */
-
-
-            llm_.chat(
-
-                prompt,
-
-
-                [this](const std::string& token)
-
-                {
-
-
-
-                    QString qtoken =
-
-                    QString::fromStdString(token);
+                rag_.buildPrompt(q);
 
 
 
 
 
+        /*
+            RKLLM推理
+        */
 
-                    /*
-                        回到Qt主线程
+        llm_.chat(
 
-                    */
-
-
-                    QMetaObject::invokeMethod(
-
-                        this,
+            prompt,
 
 
-                        [this,qtoken]()
+            [this](const std::string& token)
 
+            {
+
+
+                if(!llmRunning_)
+                    return;
+
+
+
+                QString qtoken =
+
+                QString::fromStdString(token);
+
+
+
+
+
+                QMetaObject::invokeMethod(
+
+                    this,
+
+
+                    [this,qtoken]()
+
+                    {
+
+                        if(llmRunning_)
                         {
 
 
@@ -180,64 +318,79 @@ void VehicleAssistant::chat(
                             );
 
 
-                        },
+                        }
 
 
-                        Qt::QueuedConnection
+                    },
 
 
-                    );
+                    Qt::QueuedConnection
 
 
-
-                }
-
-
-            );
+                );
 
 
 
+            }
 
 
-
-
-
-
-            /*
-                通知QML结束
-
-            */
-
-
-            QMetaObject::invokeMethod(
-
-                this,
-
-
-                [this]()
-
-                {
-
-
-                    emit answerFinished();
-
-
-                },
-
-
-                Qt::QueuedConnection
-
-
-            );
+        );
 
 
 
 
-        }
+
+        llmRunning_=false;
 
 
-    ).detach();
 
+
+
+        QMetaObject::invokeMethod(
+
+            this,
+
+
+            [this]()
+
+            {
+
+                emit answerFinished();
+
+
+            },
+
+
+            Qt::QueuedConnection
+
+        );
+
+
+
+    }
+
+    );
+
+}
+
+VehicleAssistant::~VehicleAssistant()
+{
+
+
+    llm_.stop();
+
+
+
+    llmRunning_=false;
+
+
+
+    if(llmThread_.joinable())
+    {
+
+        llmThread_.join();
+
+    }
 
 
 }

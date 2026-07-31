@@ -240,6 +240,11 @@ CMakeFiles/VehicleTerminal.dir/assistant/VehicleAssistant.cpp.o: \
  /home/firefly/VehicleTerminal/assistant/../rag/RAGService.h \
  /home/firefly/VehicleTerminal/assistant/../rag/KnowledgeBase.h \
  /home/firefly/VehicleTerminal/assistant/../rag/Retriever.h \
+ /usr/include/c++/11/thread /usr/include/c++/11/bits/std_thread.h \
+ /usr/include/c++/11/bits/unique_ptr.h \
+ /usr/include/c++/11/bits/this_thread_sleep.h /usr/include/c++/11/mutex \
+ /usr/include/c++/11/bits/std_mutex.h \
+ /usr/include/c++/11/bits/unique_lock.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QMetaObject \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qobjectdefs.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QDebug \
@@ -259,12 +264,9 @@ CMakeFiles/VehicleTerminal.dir/assistant/VehicleAssistant.cpp.o: \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qsharedpointer_impl.h \
  /usr/include/c++/11/memory \
  /usr/include/c++/11/bits/stl_raw_storage_iter.h \
- /usr/include/c++/11/bits/align.h /usr/include/c++/11/bits/unique_ptr.h \
- /usr/include/c++/11/bits/shared_ptr.h \
+ /usr/include/c++/11/bits/align.h /usr/include/c++/11/bits/shared_ptr.h \
  /usr/include/c++/11/bits/shared_ptr_base.h \
  /usr/include/c++/11/ext/concurrence.h \
  /usr/include/c++/11/bits/shared_ptr_atomic.h \
  /usr/include/c++/11/backward/auto_ptr.h \
- /usr/include/c++/11/pstl/glue_memory_defs.h /usr/include/c++/11/thread \
- /usr/include/c++/11/bits/std_thread.h \
- /usr/include/c++/11/bits/this_thread_sleep.h
+ /usr/include/c++/11/pstl/glue_memory_defs.h

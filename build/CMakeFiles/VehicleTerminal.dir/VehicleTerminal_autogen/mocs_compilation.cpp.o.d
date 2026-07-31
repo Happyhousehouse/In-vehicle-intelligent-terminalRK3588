@@ -251,6 +251,10 @@ CMakeFiles/VehicleTerminal.dir/VehicleTerminal_autogen/mocs_compilation.cpp.o: \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/DOKHWH3PII/../../../assistant/../rag/RAGService.h \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/DOKHWH3PII/../../../assistant/../rag/KnowledgeBase.h \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/DOKHWH3PII/../../../assistant/../rag/Retriever.h \
+ /usr/include/c++/11/thread /usr/include/c++/11/bits/std_thread.h \
+ /usr/include/c++/11/bits/this_thread_sleep.h /usr/include/c++/11/mutex \
+ /usr/include/c++/11/bits/std_mutex.h \
+ /usr/include/c++/11/bits/unique_lock.h \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/NPUKSKGWT2/moc_CameraController.cpp \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/NPUKSKGWT2/../../../controller/CameraController.h \
  /usr/include/aarch64-linux-gnu/qt5/QtGui/QImage \
@@ -279,10 +283,6 @@ CMakeFiles/VehicleTerminal.dir/VehicleTerminal_autogen/mocs_compilation.cpp.o: \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qtimer.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qbasictimer.h \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/NPUKSKGWT2/../../../controller/../camera/CameraService.h \
- /usr/include/c++/11/mutex /usr/include/c++/11/bits/std_mutex.h \
- /usr/include/c++/11/bits/unique_lock.h /usr/include/c++/11/thread \
- /usr/include/c++/11/bits/std_thread.h \
- /usr/include/c++/11/bits/this_thread_sleep.h \
  /usr/include/linux/videodev2.h /usr/include/aarch64-linux-gnu/sys/time.h \
  /usr/include/linux/ioctl.h /usr/include/aarch64-linux-gnu/asm/ioctl.h \
  /usr/include/asm-generic/ioctl.h /usr/include/linux/types.h \

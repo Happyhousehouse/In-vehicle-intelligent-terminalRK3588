@@ -66,7 +66,36 @@ ApplicationWindow {
 
         target:vehicleAssistant
 
+        function onOpenCameraPage()
+        {
 
+
+            pageLoader.source =
+
+                "qrc:/qml/Camera.qml"
+
+
+        }
+
+        function onOpenGalleryPage()
+        {
+
+
+            console.log(
+                "AI open gallery"
+            )
+
+
+            previousPage="Main"
+
+
+
+            pageLoader.source =
+
+                "qrc:/qml/Gallery.qml"
+
+
+        }
 
         /*
             AI流式token
