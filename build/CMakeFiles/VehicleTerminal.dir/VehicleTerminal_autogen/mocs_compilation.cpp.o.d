@@ -488,4 +488,8 @@ CMakeFiles/VehicleTerminal.dir/VehicleTerminal_autogen/mocs_compilation.cpp.o: \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qcontiguouscache.h \
  /usr/include/aarch64-linux-gnu/qt5/QtQml/qqmlerror.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QMutex \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/qmutex.h
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qmutex.h \
+ /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/NPUKSKGWT2/moc_GalleryController.cpp \
+ /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/NPUKSKGWT2/../../../controller/GalleryController.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QStringList \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qstringlist.h

@@ -3,6 +3,8 @@
 
 #include <string>
 
+#include <vector>
+
 
 #include <opencv2/opencv.hpp>
 
@@ -31,6 +33,18 @@ public:
 
 
 
+    /*
+        获取所有照片路径
+
+    */
+
+    std::vector<std::string> getPhotos();
+
+    bool removePhoto(
+        const std::string& path
+    );
+
+
 private:
 
 
@@ -45,6 +59,7 @@ private:
 
 
     int photoIndex_;
+
 
 
 };

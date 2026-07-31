@@ -13,6 +13,9 @@
 
 #include <iostream>
 
+#include <algorithm>
+
+
 
 
 
@@ -22,6 +25,8 @@ GalleryService::GalleryService()
     photoIndex_=0;
 
 }
+
+
 
 
 
@@ -59,6 +64,8 @@ bool GalleryService::init(
 
 
 
+
+
 void GalleryService::scanIndex()
 {
 
@@ -78,6 +85,7 @@ void GalleryService::scanIndex()
 
 
     int maxIndex=-1;
+
 
 
 
@@ -157,6 +165,7 @@ std::string GalleryService::save(
 
 
 
+
     std::stringstream ss;
 
 
@@ -173,8 +182,10 @@ std::string GalleryService::save(
 
 
 
+
     std::string filename =
         ss.str();
+
 
 
 
@@ -201,6 +212,263 @@ std::string GalleryService::save(
 
 
 
+
     return "";
+
+}
+
+
+
+
+
+
+
+
+
+std::vector<std::string> GalleryService::getPhotos()
+{
+
+
+    std::vector<std::pair<int,std::string>> temp;
+
+
+
+    DIR* dir =
+
+        opendir(
+
+            galleryPath_.c_str()
+
+        );
+
+
+
+    if(!dir)
+
+        return {};
+
+
+
+
+
+
+
+    struct dirent* entry;
+
+
+
+
+
+    while(
+
+        (entry=readdir(dir))
+
+    )
+    {
+
+
+
+        std::string name =
+
+            entry->d_name;
+
+
+
+
+
+
+        std::regex pattern(
+
+            "photo_([0-9]+)\\.jpg"
+
+        );
+
+
+
+
+
+        std::smatch match;
+
+
+
+
+
+        if(std::regex_match(
+
+            name,
+
+            match,
+
+            pattern
+
+        ))
+        {
+
+
+            int index =
+
+                std::stoi(
+
+                    match[1]
+
+                );
+
+
+
+
+
+            std::string path =
+
+                galleryPath_
+
+                +
+
+                "/"
+
+                +
+
+                name;
+
+
+
+
+
+            temp.push_back(
+
+                {
+
+                    index,
+
+                    path
+
+                }
+
+            );
+
+
+
+        }
+
+
+
+    }
+
+
+
+
+
+    closedir(dir);
+
+
+
+
+
+
+
+    /*
+        按编号倒序
+
+        最新照片在前
+
+    */
+
+
+    std::sort(
+
+        temp.begin(),
+
+        temp.end(),
+
+        [](
+
+            const auto& a,
+
+            const auto& b
+
+        )
+
+        {
+
+            return a.first > b.first;
+
+        }
+
+    );
+
+
+
+
+
+
+
+    std::vector<std::string> photos;
+
+
+
+
+
+
+    for(auto &p:temp)
+
+    {
+
+        photos.push_back(
+
+            p.second
+
+        );
+
+    }
+
+
+
+
+
+
+    return photos;
+
+
+
+}
+
+bool GalleryService::removePhoto(
+        const std::string& path
+)
+{
+
+
+    if(
+        path.empty()
+    )
+        return false;
+
+
+
+    int ret =
+
+        remove(
+            path.c_str()
+        );
+
+
+
+    if(ret==0)
+    {
+
+        std::cout
+        <<"deleted:"
+        <<path
+        <<std::endl;
+
+
+
+        return true;
+
+    }
+
+
+
+    return false;
+
 
 }

@@ -12,9 +12,14 @@
 
 #include "controller/CameraImageProvider.h"
 
+#include "controller/GalleryController.h"
+
 
 
 #include "assistant/VehicleAssistant.h"
+
+
+
 
 
 
@@ -25,6 +30,7 @@ int main(int argc, char *argv[])
 
 
     QGuiApplication app(argc, argv);
+
 
 
 
@@ -43,12 +49,15 @@ int main(int argc, char *argv[])
 
 
 
+
     /*
         摄像头控制
 
     */
 
     CameraController cameraController;
+
+
 
 
 
@@ -67,8 +76,10 @@ int main(int argc, char *argv[])
 
 
 
+
+
     /*
-        CameraController连接Provider
+        连接Camera和Provider
 
     */
 
@@ -85,14 +96,33 @@ int main(int argc, char *argv[])
 
 
 
+
     /*
-        模型路径
+        相册控制
+
+    */
+
+    GalleryController galleryController;
+
+
+
+
+
+
+
+
+
+    /*
+        AI模型路径
 
     */
 
     QString modelPath =
 
     "/home/firefly/VehicleTerminal/model/Qwen3.5-0.8B_w8a8_rk3588.rkllm";
+
+
+
 
 
 
@@ -107,6 +137,9 @@ int main(int argc, char *argv[])
     QString knowledgePath =
 
     "/home/firefly/VehicleTerminal/knowledge";
+
+
+
 
 
 
@@ -149,7 +182,10 @@ int main(int argc, char *argv[])
 
 
 
+
     QQmlApplicationEngine engine;
+
+
 
 
 
@@ -181,7 +217,7 @@ int main(int argc, char *argv[])
 
 
     /*
-        注册摄像头控制
+        注册Camera
 
     */
 
@@ -194,6 +230,30 @@ int main(int argc, char *argv[])
         &cameraController
 
     );
+
+
+
+
+
+
+
+
+
+    /*
+        注册Gallery
+
+    */
+
+    engine.rootContext()
+
+    ->setContextProperty(
+
+        "galleryController",
+
+        &galleryController
+
+    );
+
 
 
 
@@ -243,6 +303,8 @@ int main(int argc, char *argv[])
 
 
 
+
+
     QObject::connect(
 
         &engine,
@@ -272,7 +334,10 @@ int main(int argc, char *argv[])
 
 
 
+
+
     engine.load(url);
+
 
 
 

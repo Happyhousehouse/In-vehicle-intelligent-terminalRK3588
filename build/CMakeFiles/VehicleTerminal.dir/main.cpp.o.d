@@ -490,6 +490,9 @@ CMakeFiles/VehicleTerminal.dir/main.cpp.o: \
  /usr/include/aarch64-linux-gnu/qt5/QtGui/qpixmap.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QMutex \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qmutex.h \
+ /home/firefly/VehicleTerminal/controller/GalleryController.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QStringList \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qstringlist.h \
  /home/firefly/VehicleTerminal/assistant/VehicleAssistant.h \
  /home/firefly/VehicleTerminal/assistant/../llm/LLMService.h \
  /home/firefly/VehicleTerminal/assistant/../llm/RKLLMWrapper.h \

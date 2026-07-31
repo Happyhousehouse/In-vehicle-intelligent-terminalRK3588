@@ -245,6 +245,12 @@
 			null
 		],
 		[
+			"/home/firefly/VehicleTerminal/controller/GalleryController.h",
+			"MU",
+			"NPUKSKGWT2/moc_GalleryController.cpp",
+			null
+		],
+		[
 			"/home/firefly/VehicleTerminal/llm/LLMService.h",
 			"MU",
 			"WCGREUQGIN/moc_LLMService.cpp",
@@ -371,6 +377,11 @@
 		],
 		[
 			"/home/firefly/VehicleTerminal/controller/CameraImageProvider.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/firefly/VehicleTerminal/controller/GalleryController.cpp",
 			"MU",
 			null
 		],

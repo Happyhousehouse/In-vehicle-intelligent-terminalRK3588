@@ -162,7 +162,9 @@ set(SOURCES
 
     controller/CameraImageProvider.h
 
+    controller/GalleryController.cpp
 
+    controller/GalleryController.h
 
 
 

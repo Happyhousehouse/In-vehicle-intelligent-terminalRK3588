@@ -3,6 +3,8 @@ import QtQuick.Controls 2.15
 
 
 
+
+
 Rectangle {
 
 
@@ -17,20 +19,57 @@ Rectangle {
     property int frameCounter:0
 
 
-
-
-
+    property string newPhotoPath:""
 
 
     Component.onCompleted:
     {
 
-        console.log("Camera Page Loaded")
+
+        console.log(
+            "Camera Page Loaded"
+        )
+
 
 
         cameraController.startCamera()
 
+
+
+
+
+        /*
+            加载最新照片
+
+        */
+
+
+        var photos =
+
+            galleryController.getPhotos()
+
+
+
+
+
+
+        if(photos.length > 0)
+
+        {
+
+
+            lastPhoto.source =
+
+                "file:///" + photos[0]
+
+
+        }
+
+
+
     }
+
+
 
 
 
@@ -54,7 +93,7 @@ Rectangle {
 
 
     /*
-        接收拍照完成信号
+        拍照完成
 
     */
 
@@ -71,30 +110,25 @@ Rectangle {
 
 
             console.log(
+
                 "photo saved:",
+
                 path
+
             )
 
 
 
-            lastPhoto.source =
 
-                    "file:///" + path
+            /*
+                更新最新照片
 
-
-
-
-
-            photoBox.visible=true
+            */
 
 
+            newPhotoPath = path
 
-
-            photoShowAnimation.start()
-
-
-
-            photoHideTimer.restart()
+            photoChangeAnimation.start()
 
 
 
@@ -102,6 +136,7 @@ Rectangle {
 
 
     }
+
 
 
 
@@ -128,6 +163,7 @@ Rectangle {
 
 
         anchors.fill:parent
+
 
 
 
@@ -162,7 +198,7 @@ Rectangle {
 
 
     /*
-        刷新ImageProvider
+        刷新画面
 
     */
 
@@ -192,6 +228,9 @@ Rectangle {
 
     }
 
+    
+
+
 
 
 
@@ -204,7 +243,7 @@ Rectangle {
 
 
     /*
-        白色快门闪光层
+        白色快门闪光
 
     */
 
@@ -238,12 +277,6 @@ Rectangle {
 
 
 
-    /*
-        快门闪光动画
-
-    */
-
-
     SequentialAnimation {
 
 
@@ -271,7 +304,6 @@ Rectangle {
 
 
             duration:50
-
 
 
         }
@@ -303,8 +335,8 @@ Rectangle {
             duration:150
 
 
-
         }
+
 
 
     }
@@ -354,8 +386,9 @@ Rectangle {
 
 
 
-
         color:"#55000000"
+
+
 
 
 
@@ -387,16 +420,10 @@ Rectangle {
 
 
 
-
-
-
-
-
-
-
-
     /*
-        最新照片缩略图
+        最新照片显示
+
+        固定存在
 
     */
 
@@ -404,7 +431,7 @@ Rectangle {
     Rectangle {
 
 
-        id:photoBox
+        id:lastPhotoBox
 
 
 
@@ -421,27 +448,19 @@ Rectangle {
 
 
 
-        visible:false
+        anchors.left:parent.left
 
 
 
-
-
-        anchors.right:
-
-            parent.right
+        anchors.bottom:captureArea.top
 
 
 
-        anchors.rightMargin:30
+        anchors.leftMargin:30
 
 
 
-
-
-        y:
-
-            parent.height+20
+        anchors.bottomMargin:30
 
 
 
@@ -453,10 +472,13 @@ Rectangle {
 
 
 
+
         border.width:2
 
 
+
         border.color:"white"
+
 
 
 
@@ -479,10 +501,10 @@ Rectangle {
 
 
 
-
             fillMode:
 
                 Image.PreserveAspectCrop
+
 
 
 
@@ -492,6 +514,33 @@ Rectangle {
 
 
         }
+
+        Rectangle {
+
+
+            id:photoBlackLayer
+
+
+
+            anchors.fill:parent
+
+
+
+            color:"black"
+
+
+
+            opacity:0
+
+
+
+        }
+
+
+
+
+
+
 
         MouseArea {
 
@@ -504,14 +553,9 @@ Rectangle {
 
             {
 
+                mainWindow.previousPage="Camera"
 
-                console.log(
-                    "open gallery"
-                )
-
-
-
-                pageLoader.source =
+                pageLoader.source=
 
                     "qrc:/qml/Gallery.qml"
 
@@ -522,185 +566,94 @@ Rectangle {
 
         }
 
-    }
-
-
-
-
-
-
-
-
-
-    /*
-        缩略图进入动画
-
-    */
-
-
-    NumberAnimation {
-
-
-        id:photoShowAnimation
-
-
-
-        target:photoBox
-
-
-
-        property:"y"
-
-
-
-
-        from:
-
-            parent.height+20
-
-
-
-
-        to:
-
-            parent.height-250
-
-
-
-
-        duration:400
-
-
-
-
-        easing.type:
-
-            Easing.OutCubic
-
-
 
     }
 
+    SequentialAnimation {
+
+
+        id:photoChangeAnimation
 
 
 
+        NumberAnimation {
+
+
+            target:photoBlackLayer
+
+
+            property:"opacity"
 
 
 
+            from:0
 
 
-    /*
-        缩略图停留时间
-
-    */
-
-
-    Timer {
-
-
-        id:photoHideTimer
+            to:1
 
 
 
-        interval:3000
-
-
-
-
-        onTriggered:
-
-        {
-
-            photoHideAnimation.start()
+            duration:100
 
 
         }
 
 
-    }
 
 
 
+        ScriptAction {
+
+
+            script:
+            {
+
+
+                lastPhoto.source =
+
+                "file:///" + newPhotoPath
 
 
 
+            }
 
-
-
-    /*
-        缩略图退出动画
-
-    */
-
-
-    NumberAnimation {
-
-
-        id:photoHideAnimation
-
-
-
-        target:photoBox
-
-
-
-        property:"y"
-
-
-
-
-        from:
-
-            parent.height-250
-
-
-
-
-        to:
-
-            parent.height+20
-
-
-
-
-        duration:400
-
-
-
-
-        easing.type:
-
-            Easing.InCubic
-
-
-
-
-
-
-        onFinished:
-
-        {
-
-            photoBox.visible=false
 
         }
 
 
+
+
+
+
+        NumberAnimation {
+
+
+            target:photoBlackLayer
+
+
+            property:"opacity"
+
+
+
+            from:1
+
+
+            to:0
+
+
+
+            duration:200
+
+
+        }
+
+
+
     }
 
 
-
-
-
-
-
-
-
-
-
-
     /*
-        底部区域
+        底部拍照区域
 
     */
 
@@ -719,7 +672,9 @@ Rectangle {
         anchors.left:parent.left
 
 
+
         anchors.right:parent.right
+
 
 
         anchors.bottom:parent.bottom
@@ -730,7 +685,9 @@ Rectangle {
         color:"#22000000"
 
 
+
     }
+
 
 
 
@@ -759,6 +716,7 @@ Rectangle {
         width:90
 
 
+
         height:90
 
 
@@ -768,10 +726,8 @@ Rectangle {
 
 
 
-        anchors.centerIn:
 
-            captureArea
-
+        anchors.centerIn:captureArea
 
 
 
@@ -792,6 +748,7 @@ Rectangle {
 
 
             width:70
+
 
 
             height:70
@@ -815,6 +772,7 @@ Rectangle {
 
 
 
+
         MouseArea {
 
 
@@ -827,14 +785,22 @@ Rectangle {
             {
 
 
+
                 /*
                     按钮反馈
+
                 */
+
 
                 captureButton.scale=0.85
 
 
+
                 buttonTimer.start()
+
+
+
+
 
 
                 /*
@@ -877,8 +843,11 @@ Rectangle {
 
 
 
+
+
+
     /*
-        按钮恢复动画
+        按钮恢复
 
     */
 
@@ -900,11 +869,110 @@ Rectangle {
 
             captureButton.scale=1
 
+
         }
 
 
     }
 
+    /*
+    返回主界面按钮
+*/
+
+
+    Rectangle {
+
+
+        id:backButton
+
+
+        width:100
+
+
+        height:45
+
+
+        radius:20
+
+
+
+        anchors.left:parent.left
+
+
+        anchors.top:parent.top
+
+
+
+        anchors.leftMargin:20
+
+
+        anchors.topMargin:20
+
+
+
+        color:"#55000000"
+
+
+
+        z:999
+
+
+
+
+
+
+        Text {
+
+
+            anchors.centerIn:parent
+
+
+
+            text:"← 返回"
+
+
+
+            color:"white"
+
+
+
+            font.pixelSize:20
+
+
+
+        }
+
+
+
+
+
+
+
+
+        MouseArea {
+
+
+            anchors.fill:parent
+
+
+
+            onClicked:
+
+            {
+
+
+                pageLoader.source=""
+
+
+
+            }
+
+
+        }
+
+
+
+    }
 
 
 

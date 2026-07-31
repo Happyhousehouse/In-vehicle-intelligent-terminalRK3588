@@ -4,6 +4,7 @@ import QtQuick.Controls 2.15
 
 ApplicationWindow {
 
+    id:mainWindow
 
     width:1280
 
@@ -30,7 +31,7 @@ ApplicationWindow {
 
     property string currentTime:"00:00:00"
 
-
+    property string previousPage:""
 
 
     /*
@@ -849,7 +850,7 @@ ApplicationWindow {
 
 
 
-            spacing:80
+            spacing:60
 
 
 
@@ -923,7 +924,30 @@ ApplicationWindow {
 
             }
 
+            NavItem{
 
+
+                icon:"🖼"
+
+
+                title:"相册"
+
+
+
+                onClicked:{
+
+                    mainWindow.previousPage="Main"
+
+                    pageLoader.source =
+
+                        "qrc:/qml/Gallery.qml"
+
+
+
+                }
+
+
+            }
 
 
 
