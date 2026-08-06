@@ -14,6 +14,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/VehicleTerminal.dir/controller/CameraImageProvider.cpp.o.d"
   "CMakeFiles/VehicleTerminal.dir/controller/GalleryController.cpp.o"
   "CMakeFiles/VehicleTerminal.dir/controller/GalleryController.cpp.o.d"
+  "CMakeFiles/VehicleTerminal.dir/controller/OnboardController.cpp.o"
+  "CMakeFiles/VehicleTerminal.dir/controller/OnboardController.cpp.o.d"
   "CMakeFiles/VehicleTerminal.dir/llm/LLMService.cpp.o"
   "CMakeFiles/VehicleTerminal.dir/llm/LLMService.cpp.o.d"
   "CMakeFiles/VehicleTerminal.dir/llm/RKLLMWrapper.cpp.o"

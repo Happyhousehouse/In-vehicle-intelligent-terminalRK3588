@@ -215,6 +215,9 @@ OpenCV_DIR:PATH=/usr/lib/aarch64-linux-gnu/cmake/opencv4
 //The directory containing a CMake configuration file for Qt5Core.
 Qt5Core_DIR:PATH=/usr/lib/aarch64-linux-gnu/cmake/Qt5Core
 
+//The directory containing a CMake configuration file for Qt5DBus.
+Qt5DBus_DIR:PATH=/usr/lib/aarch64-linux-gnu/cmake/Qt5DBus
+
 //The directory containing a CMake configuration file for Qt5Gui.
 Qt5Gui_DIR:PATH=/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui
 

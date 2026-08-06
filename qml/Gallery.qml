@@ -304,10 +304,10 @@ Rectangle {
 
 
 
-        cellWidth:200
+        cellWidth:300
 
 
-        cellHeight:200
+        cellHeight:300
 
 
 
@@ -324,10 +324,10 @@ Rectangle {
         delegate:Rectangle{
 
 
-            width:180
+            width:280
 
 
-            height:180
+            height:280
 
 
 

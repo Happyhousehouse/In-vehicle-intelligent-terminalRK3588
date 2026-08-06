@@ -435,10 +435,10 @@ Rectangle {
 
 
 
-        width:120
+        width:180
 
 
-        height:120
+        height:180
 
 
 
@@ -713,11 +713,11 @@ Rectangle {
 
 
 
-        width:90
+        width:140
 
 
 
-        height:90
+        height:140
 
 
 
@@ -747,11 +747,11 @@ Rectangle {
 
 
 
-            width:70
+            width:110
 
 
 
-            height:70
+            height:110
 
 
 
@@ -886,13 +886,13 @@ Rectangle {
         id:backButton
 
 
-        width:100
+        width:160
 
 
-        height:45
+        height:70
 
 
-        radius:20
+        radius:30
 
 
 

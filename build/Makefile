@@ -286,6 +286,30 @@ controller/GalleryController.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/controller/GalleryController.cpp.s
 .PHONY : controller/GalleryController.cpp.s
 
+controller/OnboardController.o: controller/OnboardController.cpp.o
+.PHONY : controller/OnboardController.o
+
+# target to build an object file
+controller/OnboardController.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/controller/OnboardController.cpp.o
+.PHONY : controller/OnboardController.cpp.o
+
+controller/OnboardController.i: controller/OnboardController.cpp.i
+.PHONY : controller/OnboardController.i
+
+# target to preprocess a source file
+controller/OnboardController.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/controller/OnboardController.cpp.i
+.PHONY : controller/OnboardController.cpp.i
+
+controller/OnboardController.s: controller/OnboardController.cpp.s
+.PHONY : controller/OnboardController.s
+
+# target to generate assembly for a file
+controller/OnboardController.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/controller/OnboardController.cpp.s
+.PHONY : controller/OnboardController.cpp.s
+
 llm/LLMService.o: llm/LLMService.cpp.o
 .PHONY : llm/LLMService.o
 
@@ -530,6 +554,9 @@ help:
 	@echo "... controller/GalleryController.o"
 	@echo "... controller/GalleryController.i"
 	@echo "... controller/GalleryController.s"
+	@echo "... controller/OnboardController.o"
+	@echo "... controller/OnboardController.i"
+	@echo "... controller/OnboardController.s"
 	@echo "... llm/LLMService.o"
 	@echo "... llm/LLMService.i"
 	@echo "... llm/LLMService.s"

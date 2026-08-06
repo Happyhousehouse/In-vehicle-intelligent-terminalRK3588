@@ -216,6 +216,7 @@
 #define __VERSION__ "11.4.0"
 #define __UINT64_C(c) c ## UL
 #define __cpp_unicode_characters 201411L
+#define QT_DBUS_LIB 1
 #define __FLT128_IS_IEC_60559__ 2
 #define __GXX_ABI_VERSION 1016
 #define __WINT_MAX__ 0xffffffffU

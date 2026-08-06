@@ -207,6 +207,12 @@
 		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Quick/Qt5QuickConfig.cmake",
 		"/usr/lib/aarch64-linux-gnu/cmake/Qt5QmlModels/Qt5QmlModelsConfigVersion.cmake",
 		"/usr/lib/aarch64-linux-gnu/cmake/Qt5QmlModels/Qt5QmlModelsConfig.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5DBus/Qt5DBusConfigVersion.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5DBus/Qt5DBusConfig.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5DBus/Qt5DBusConfigExtras.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5DBus/Qt5DBusMacros.cmake",
+		"/usr/share/cmake-3.22/Modules/MacroAddFileDependencies.cmake",
+		"/usr/share/cmake-3.22/Modules/CMakeParseArguments.cmake",
 		"/usr/lib/aarch64-linux-gnu/cmake/opencv4/OpenCVConfig-version.cmake",
 		"/usr/lib/aarch64-linux-gnu/cmake/opencv4/OpenCVConfig.cmake",
 		"/usr/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake",
@@ -248,6 +254,12 @@
 			"/home/firefly/VehicleTerminal/controller/GalleryController.h",
 			"MU",
 			"NPUKSKGWT2/moc_GalleryController.cpp",
+			null
+		],
+		[
+			"/home/firefly/VehicleTerminal/controller/OnboardController.h",
+			"MU",
+			"NPUKSKGWT2/moc_OnboardController.cpp",
 			null
 		],
 		[
@@ -299,6 +311,7 @@
 	"MOC_DEFINITIONS" : 
 	[
 		"QT_CORE_LIB",
+		"QT_DBUS_LIB",
 		"QT_GUI_LIB",
 		"QT_NETWORK_LIB",
 		"QT_NO_DEBUG",
@@ -331,6 +344,7 @@
 		"/usr/include/aarch64-linux-gnu/qt5/QtNetwork",
 		"/usr/include/aarch64-linux-gnu/qt5/QtQuick",
 		"/usr/include/aarch64-linux-gnu/qt5/QtQmlModels",
+		"/usr/include/aarch64-linux-gnu/qt5/QtDBus",
 		"/usr/include/opencv4",
 		"/usr/include/c++/11",
 		"/usr/include/aarch64-linux-gnu/c++/11",
@@ -382,6 +396,11 @@
 		],
 		[
 			"/home/firefly/VehicleTerminal/controller/GalleryController.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/firefly/VehicleTerminal/controller/OnboardController.cpp",
 			"MU",
 			null
 		],

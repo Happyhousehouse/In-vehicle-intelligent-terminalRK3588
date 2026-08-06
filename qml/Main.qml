@@ -6,9 +6,9 @@ ApplicationWindow {
 
     id:mainWindow
 
-    width:1280
+    width:2160
 
-    height:720
+    height:1080
 
 
     visible:true
@@ -32,6 +32,8 @@ ApplicationWindow {
     property string currentTime:"00:00:00"
 
     property string previousPage:""
+
+    property int keyboardLiftDistance: 190
 
 
     /*
@@ -69,6 +71,9 @@ ApplicationWindow {
         function onOpenCameraPage()
         {
 
+            onboardController.hideKeyboard()
+
+            mainWindow.contentItem.forceActiveFocus()
 
             pageLoader.source =
 
@@ -85,6 +90,9 @@ ApplicationWindow {
                 "AI open gallery"
             )
 
+            onboardController.hideKeyboard()
+
+            mainWindow.contentItem.forceActiveFocus()
 
             previousPage="Main"
 
@@ -259,7 +267,7 @@ ApplicationWindow {
 
 
 
-            font.pixelSize:28
+            font.pixelSize:40
 
 
         }
@@ -355,10 +363,10 @@ ApplicationWindow {
     Rectangle {
 
 
-        width:850
+        width:1300
 
 
-        height:430
+        height:650
 
 
 
@@ -368,7 +376,21 @@ ApplicationWindow {
 
         anchors.centerIn:parent
 
+            /*
+     * 每次 Onboard 显示时都主动上移，
+     * 不再依赖窗口管理器自动调整。
+     */
+        anchors.verticalCenterOffset:
+            onboardController.keyboardVisible
+            ? -mainWindow.keyboardLiftDistance
+            : 0
 
+        Behavior on anchors.verticalCenterOffset {
+            NumberAnimation {
+                duration: 180
+                easing.type: Easing.OutCubic
+            }
+        }
 
         color:"#66101828"
 
@@ -591,7 +613,7 @@ ApplicationWindow {
                             color:"white"
 
 
-                            font.pixelSize:18
+                            font.pixelSize:30
 
 
                             wrapMode:
@@ -622,87 +644,113 @@ ApplicationWindow {
             //========================
 
 
-            Rectangle {
-
-
-                width:600
-
-
-
-                height:55
-
-
-
-                radius:28
-
-
+                        /*
+            * 输入区域：
+            * 左边是输入框，右边是中英文切换按钮。
+            */
+            Row {
+                id: inputRow
 
                 anchors.horizontalCenter:
-                parent.horizontalCenter
+                    parent.horizontalCenter
 
+                spacing: 15
 
+                Rectangle {
+                    width: 680
+                    height: 82
 
-                color:"#3300A8FF"
+                    radius: 30
 
+                    color: "#3300A8FF"
 
+                    border.width: 1
+                    border.color: "#3388CCFF"
 
+                    TextField {
+                        id: questionInput
 
+                        anchors.fill: parent
 
-                TextField {
+                        /*
+                        * 不再通过 anchors.margins 压缩上下高度，
+                        * 使用左右内边距。
+                        */
+                        leftPadding: 20
+                        rightPadding: 20
+                        topPadding: 0
+                        bottomPadding: 0
 
+                        placeholderText:
+                            "请输入您的问题..."
 
-                    id:questionInput
+                        placeholderTextColor:
+                            "#A0B8D0"
 
+                        color: "white"
 
+                        font.pixelSize: 32
 
-                    anchors.fill:parent
+                        verticalAlignment:
+                            TextInput.AlignVCenter
 
+                        selectByMouse: true
 
+                        background: Rectangle {
+                            color: "transparent"
+                        }
 
-                    anchors.margins:10
+                        /*
+                        * 用户明确点击输入框时显示 Onboard。
+                        *
+                        * 不再使用 onActiveFocusChanged 自动弹出，
+                        * 防止 Onboard 隐藏后因焦点恢复而再次弹出。
+                        */
+                        TapHandler {
+                            onTapped: {
+                                console.log(
+                                    "[Main.qml] questionInput 被点击"
+                                )
 
+                                questionInput.forceActiveFocus()
 
+                                onboardController.showKeyboard()
+                            }
+                        }
 
-
-                    placeholderText:
-
-                    "请输入您的问题..."
-
-
-
-
-                    placeholderTextColor:
-                    "#A0B8D0"
-
-
-
-                    color:"white"
-
-
-
-                    font.pixelSize:20
-
-
-
-
-
-                    background:
-
-
-                    Rectangle{
-
-
-                        color:"transparent"
-
-
+                        onAccepted: {
+                            sendButton.sendMessage()
+                        }
                     }
-
-
                 }
 
+                /*
+                * 中英文切换按钮。
+                *
+                * 不再依赖 Onboard 模拟 Ctrl+Space。
+                */
+                Button {
+                    id: inputMethodButton
 
+                    width: 110
+                    height: 82
+
+                    text: "中/英"
+
+                    font.pixelSize: 24
+
+                    onClicked: {
+                        /*
+                        * Fcitx5 切换时需要输入框处于焦点状态。
+                        */
+                        questionInput.forceActiveFocus()
+
+                        onboardController.showKeyboard()
+
+                        onboardController.toggleInputMethod()
+                    }
+                }
             }
-
 
 
 
@@ -716,123 +764,78 @@ ApplicationWindow {
 
 
             Button {
+                id: sendButton
 
-
-                width:160
-
-
-                height:45
-
-
+                width: 160
+                height: 55
 
                 anchors.horizontalCenter:
-                parent.horizontalCenter
+                    parent.horizontalCenter
 
+                text: "发送"
 
+                font.pixelSize: 22
 
-                text:"发送"
-
-
-
-                font.pixelSize:20
-
-
-
-
-
-
-                onClicked:{
-
-
-
+                /*
+                * 点击按钮和输入法回车共用同一个发送函数。
+                */
+                function sendMessage() {
                     var question =
-                    questionInput.text
+                        questionInput.text.trim()
 
-
-
-
-                    if(question.length>0)
-
-                    {
-
-
-
-                        /*
-                            清空输入框
-
-                        */
-
-
-                        questionInput.text=""
-
-
-
-
-
-
-
-                        /*
-                            用户消息
-
-                        */
-
-
-                        chatModel.append({
-
-                            "role":"User",
-
-                            "message":question
-
-                        })
-
-
-
-
-
-
-
-
-                        /*
-                            AI占位
-
-                        */
-
-
-                        chatModel.append({
-
-                            "role":"AI",
-
-                            "message":""
-
-                        })
-
-
-
-
-
-
-
-
-                        /*
-                            调用C++
-
-                        */
-
-
-                        vehicleAssistant.chat(
-
-                            question
-
-                        )
-
-
+                    if (question.length === 0) {
+                        return
                     }
 
+                    /*
+                    * 发送前隐藏键盘，并恢复 AI 面板位置。
+                    */
+                    onboardController.hideKeyboard()
 
+                    /*
+                    * 将焦点从输入框移走。
+                    *
+                    * 这样下一次点击输入框时，
+                    * TapHandler 会重新触发显示逻辑。
+                    */
+                    mainWindow.contentItem.forceActiveFocus()
+
+                    /*
+                    * 清空输入框。
+                    */
+                    questionInput.text = ""
+
+                    /*
+                    * 用户消息。
+                    */
+                    chatModel.append({
+                        "role": "User",
+                        "message": question
+                    })
+
+                    /*
+                    * AI 回复占位。
+                    */
+                    chatModel.append({
+                        "role": "AI",
+                        "message": ""
+                    })
+
+                    chatList.positionViewAtEnd()
+
+                    /*
+                    * 调用 C++。
+                    */
+                    vehicleAssistant.chat(
+                        question
+                    )
                 }
 
-
+                onClicked: {
+                    sendMessage()
+                }
             }
+
 
 
         }
@@ -859,7 +862,7 @@ ApplicationWindow {
         width:parent.width
 
 
-        height:100
+        height:150
 
 
 
@@ -879,7 +882,7 @@ ApplicationWindow {
 
 
 
-            spacing:60
+            spacing:100
 
 
 
@@ -897,6 +900,9 @@ ApplicationWindow {
 
 
                 onClicked:{
+                    onboardController.hideKeyboard()
+
+                    mainWindow.contentItem.forceActiveFocus()
 
                     pageLoader.source=""
 
@@ -922,6 +928,10 @@ ApplicationWindow {
 
                 onClicked:{
 
+                    onboardController.hideKeyboard()
+
+                    mainWindow.contentItem.forceActiveFocus()
+
                     console.log("Vehicle")
 
                 }
@@ -943,8 +953,11 @@ ApplicationWindow {
                 title:"摄像头"
 
 
-
                 onClicked:{
+                    
+                    onboardController.hideKeyboard()
+
+                    mainWindow.contentItem.forceActiveFocus()
 
                     pageLoader.source =
                         "qrc:/qml/Camera.qml"
@@ -965,7 +978,11 @@ ApplicationWindow {
 
                 onClicked:{
 
-                    mainWindow.previousPage="Main"
+                    onboardController.hideKeyboard()
+
+                    mainWindow.contentItem.forceActiveFocus()
+
+                    mainWindow.previousPage = "Main"
 
                     pageLoader.source =
 
@@ -994,6 +1011,10 @@ ApplicationWindow {
 
                 onClicked:{
 
+                    onboardController.hideKeyboard()
+
+                    mainWindow.contentItem.forceActiveFocus()
+
                     console.log("Cloud")
 
                 }
@@ -1017,6 +1038,10 @@ ApplicationWindow {
 
 
                 onClicked:{
+
+                    onboardController.hideKeyboard()
+
+                    mainWindow.contentItem.forceActiveFocus()
 
                     console.log("Setting")
 

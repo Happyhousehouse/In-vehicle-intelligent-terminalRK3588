@@ -36,12 +36,10 @@ set(CMAKE_AUTORCC ON)
 find_package(Qt5 REQUIRED COMPONENTS
 
     Core
-
     Gui
-
     Qml
-
     Quick
+    DBus
 
 )
 
@@ -166,7 +164,8 @@ set(SOURCES
 
     controller/GalleryController.h
 
-
+    controller/OnboardController.cpp
+    controller/OnboardController.h
 
     # =====================
     # AI Assistant
@@ -345,6 +344,7 @@ target_link_libraries(
 
     Qt5::Quick
 
+    Qt5::DBus
 
 
 

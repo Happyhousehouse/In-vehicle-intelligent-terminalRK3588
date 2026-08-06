@@ -14,7 +14,7 @@
 
 #include "controller/GalleryController.h"
 
-
+#include "controller/OnboardController.h"
 
 #include "assistant/VehicleAssistant.h"
 
@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
 
-
+    OnboardController onboardController;
 
 
 
@@ -204,7 +204,11 @@ int main(int argc, char *argv[])
     );
 
 
-
+    engine.rootContext()
+        ->setContextProperty(
+            "onboardController",
+            &onboardController
+        );    
 
 
 
@@ -323,9 +327,14 @@ int main(int argc, char *argv[])
 
     );
 
-
-
-
+    
+    QObject::connect(
+        &app,
+        &QCoreApplication::aboutToQuit,
+        &onboardController,
+        &OnboardController::quitKeyboard
+    );
+    
 
 
 

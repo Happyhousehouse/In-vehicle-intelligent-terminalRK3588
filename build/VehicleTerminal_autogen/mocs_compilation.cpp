@@ -2,3 +2,4 @@
 #include "DOKHWH3PII/moc_VehicleAssistant.cpp"
 #include "NPUKSKGWT2/moc_CameraController.cpp"
 #include "NPUKSKGWT2/moc_GalleryController.cpp"
+#include "NPUKSKGWT2/moc_OnboardController.cpp"
