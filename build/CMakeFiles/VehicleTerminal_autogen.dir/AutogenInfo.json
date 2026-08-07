@@ -263,6 +263,12 @@
 			null
 		],
 		[
+			"/home/firefly/VehicleTerminal/conversation/ConversationManager.h",
+			"MU",
+			"LTKMLA5N6S/moc_ConversationManager.cpp",
+			null
+		],
+		[
 			"/home/firefly/VehicleTerminal/llm/LLMService.h",
 			"MU",
 			"WCGREUQGIN/moc_LLMService.cpp",
@@ -331,6 +337,7 @@
 		"/home/firefly/VehicleTerminal",
 		"/home/firefly/VehicleTerminal/include",
 		"/home/firefly/VehicleTerminal/assistant",
+		"/home/firefly/VehicleTerminal/conversation",
 		"/home/firefly/VehicleTerminal/llm",
 		"/home/firefly/VehicleTerminal/rag",
 		"/home/firefly/VehicleTerminal/camera",
@@ -401,6 +408,11 @@
 		],
 		[
 			"/home/firefly/VehicleTerminal/controller/OnboardController.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/firefly/VehicleTerminal/conversation/ConversationManager.cpp",
 			"MU",
 			null
 		],

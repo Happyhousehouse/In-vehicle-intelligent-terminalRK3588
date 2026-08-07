@@ -502,4 +502,16 @@ CMakeFiles/VehicleTerminal.dir/main.cpp.o: \
  /home/firefly/VehicleTerminal/include/rkllm.h \
  /home/firefly/VehicleTerminal/assistant/../rag/RAGService.h \
  /home/firefly/VehicleTerminal/assistant/../rag/KnowledgeBase.h \
- /home/firefly/VehicleTerminal/assistant/../rag/Retriever.h
+ /home/firefly/VehicleTerminal/assistant/../rag/Retriever.h \
+ /home/firefly/VehicleTerminal/assistant/../conversation/ConversationManager.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QJsonArray \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qjsonarray.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qjsonvalue.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qcborvalue.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qdatetime.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qcborcommon.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qregularexpression.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/quuid.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QJsonObject \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qjsonobject.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QVariantList

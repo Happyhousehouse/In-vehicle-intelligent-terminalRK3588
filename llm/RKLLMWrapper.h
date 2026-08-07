@@ -1,92 +1,83 @@
 #pragma once
 
-
-#include <string>
 #include <atomic>
 #include <functional>
-
+#include <string>
 
 #include "rkllm.h"
 
 
-
 class RKLLMWrapper
 {
-
-
 public:
-
 
     using StreamCallback =
-        std::function<void(const std::string&)>;
-
+        std::function<
+            void(const std::string &)
+        >;
 
 
 public:
 
-
     RKLLMWrapper();
-
 
     ~RKLLMWrapper();
 
 
-
-    /*
-        初始化模型
-    */
     bool init(
-        const std::string& model_path
+        const std::string &model_path
     );
 
 
-
     /*
-        流式生成
-
-        每生成一个token
-        调用一次callback
-    */
+     * 流式生成。
+     */
     void generate(
-        const std::string& prompt,
+        const std::string &prompt,
         StreamCallback callback
     );
 
 
-
     /*
-        停止生成
-    */
+     * 停止当前回答。
+     */
     void stop();
 
+
+    /*
+     * 当前 RKLLM 是否正在运行。
+     */
+    bool isRunning() const;
+
+
+    /*
+     * 清除当前对话上下文。
+     *
+     * keepSystemPrompt = true：
+     * 保留 system prompt，
+     * 清除用户和 AI 的历史上下文。
+     */
+    bool clearHistory(
+        bool keepSystemPrompt = true
+    );
 
 
 private:
 
-
-    /*
-        RKLLM回调
-    */
     static int callback(
-        RKLLMResult* result,
-        void* userdata,
+        RKLLMResult *result,
+        void *userdata,
         LLMCallState state
     );
 
 
-
 private:
 
+    LLMHandle handle_ = nullptr;
 
-    LLMHandle handle_;
+    bool initialized_ = false;
 
-
-    bool initialized_;
-
-
-    std::atomic<bool> stop_flag_;
-
+    std::atomic<bool> stop_flag_{false};
 
     StreamCallback stream_callback_;
-
 };

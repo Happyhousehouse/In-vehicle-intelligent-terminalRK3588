@@ -176,7 +176,12 @@ set(SOURCES
 
     assistant/VehicleAssistant.h
 
+    # =====================
+    # Conversation
+    # =====================
 
+    conversation/ConversationManager.cpp
+    conversation/ConversationManager.h
 
 
 
@@ -284,7 +289,9 @@ target_include_directories(
 
     ${CMAKE_CURRENT_SOURCE_DIR}/assistant
 
+    # Conversation
 
+    ${CMAKE_CURRENT_SOURCE_DIR}/conversation
 
     # LLM
 

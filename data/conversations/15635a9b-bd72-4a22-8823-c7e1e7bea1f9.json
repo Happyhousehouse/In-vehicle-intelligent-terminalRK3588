@@ -1,0 +1,21 @@
+{
+    "createdAt": "2026-08-07T16:41:37",
+    "id": "15635a9b-bd72-4a22-8823-c7e1e7bea1f9",
+    "messages": [
+        {
+            "content": "can是什么",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-07T16:42:38"
+        },
+        {
+            "content": "**can** 是一个非常常用的英语单词，在中文中通常对应“可以”、“能够”或“能”。\n\n它主要用作副词来修饰动词（如 can drive, can see），表示动作的可行性；同时也常用来引导疑问句、陈述句中的情态部分。以下是它的详细用法：\n\n### 1. 基本含义\n*   **意思**：能够，可以，可行。\n*   **语境**：通常表示某人或某物具备某种能力或条件满足特定要求的能力。\n\n### 2. 常见搭配 (Phrases)\n| 英文 | 中文释义/用法示例 |\n| :--- | :--- |\n| **can do sth.**<br>例句：**She can write.**<br>(她**能**写字。) / **It is difficult for them to learn the language.**<br>(他们**很难**学外语。) | 表示能力、条件或可能性 |\n| **Can you help me with it?** | 你能帮我解决它吗？ |\n| **I can't go there yet.** | 我现在还不能去那里。（暂时做不到） |\n\n### 3. 其他使用场景\n*   **疑问句**：Can you do that? (你能做那个吗？/你能做吗？)\n*   **陈述句（情态动词）**：He can speak fluently. (他说话流利。) / It is possible to travel by plane. (乘坐飞机是可以的。)\n\n### 总结\n简单来说，当你看到**can**时，它的意思就是\"**可以**\"。在回答“can是什么”这个问题时，最准确的中文翻译是：**能**。\n",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-07T16:43:06"
+        }
+    ],
+    "summary": "",
+    "title": "can是什么",
+    "updatedAt": "2026-08-07T16:43:06"
+}

@@ -245,16 +245,44 @@ CMakeFiles/VehicleTerminal.dir/VehicleTerminal_autogen/mocs_compilation.cpp.o: \
  /usr/include/c++/11/bits/parse_numbers.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QString \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qstring.h \
+ /usr/include/c++/11/mutex /usr/include/c++/11/bits/std_mutex.h \
+ /usr/include/c++/11/bits/unique_lock.h /usr/include/c++/11/thread \
+ /usr/include/c++/11/bits/std_thread.h \
+ /usr/include/c++/11/bits/this_thread_sleep.h \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/DOKHWH3PII/../../../assistant/../llm/LLMService.h \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/DOKHWH3PII/../../../assistant/../llm/RKLLMWrapper.h \
  /home/firefly/VehicleTerminal/include/rkllm.h \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/DOKHWH3PII/../../../assistant/../rag/RAGService.h \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/DOKHWH3PII/../../../assistant/../rag/KnowledgeBase.h \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/DOKHWH3PII/../../../assistant/../rag/Retriever.h \
- /usr/include/c++/11/thread /usr/include/c++/11/bits/std_thread.h \
- /usr/include/c++/11/bits/this_thread_sleep.h /usr/include/c++/11/mutex \
- /usr/include/c++/11/bits/std_mutex.h \
- /usr/include/c++/11/bits/unique_lock.h \
+ /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/DOKHWH3PII/../../../assistant/../conversation/ConversationManager.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QJsonArray \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qjsonarray.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qjsonvalue.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qshareddata.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qhash.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qcborvalue.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qdatetime.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qcborcommon.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qdebug.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qmap.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qtextstream.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qiodevice.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qobject.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qlocale.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qvariant.h \
+ /usr/include/c++/11/variant \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qset.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qcontiguouscache.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qsharedpointer.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qsharedpointer_impl.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qregularexpression.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qurl.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/quuid.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QJsonObject \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qjsonobject.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QVariantList \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qvariant.h \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/NPUKSKGWT2/moc_CameraController.cpp \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/NPUKSKGWT2/../../../controller/CameraController.h \
  /usr/include/aarch64-linux-gnu/qt5/QtGui/QImage \
@@ -276,8 +304,6 @@ CMakeFiles/VehicleTerminal.dir/VehicleTerminal_autogen/mocs_compilation.cpp.o: \
  /usr/include/aarch64-linux-gnu/qt5/QtGui/qpolygon.h \
  /usr/include/aarch64-linux-gnu/qt5/QtGui/qregion.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qdatastream.h \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/qiodevice.h \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/qobject.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qline.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QTimer \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qtimer.h \
@@ -462,16 +488,8 @@ CMakeFiles/VehicleTerminal.dir/VehicleTerminal_autogen/mocs_compilation.cpp.o: \
  /usr/include/aarch64-linux-gnu/qt5/QtQuick/qtquick-config.h \
  /usr/include/aarch64-linux-gnu/qt5/QtGui/qimage.h \
  /usr/include/aarch64-linux-gnu/qt5/QtGui/qpixmap.h \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/qsharedpointer.h \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/qshareddata.h \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/qhash.h \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/qsharedpointer_impl.h \
  /usr/include/aarch64-linux-gnu/qt5/QtQml/qqmlengine.h \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/qurl.h \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/qmap.h \
  /usr/include/aarch64-linux-gnu/qt5/QtQml/qjsengine.h \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/qvariant.h \
- /usr/include/c++/11/variant \
  /usr/include/aarch64-linux-gnu/qt5/QtQml/qjsvalue.h \
  /usr/include/aarch64-linux-gnu/qt5/QtQml/qqmldebug.h \
  /usr/include/aarch64-linux-gnu/qt5/QtQml/qqml.h \
@@ -481,11 +499,6 @@ CMakeFiles/VehicleTerminal.dir/VehicleTerminal_autogen/mocs_compilation.cpp.o: \
  /usr/include/aarch64-linux-gnu/qt5/QtQml/qqmlpropertyvaluesource.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qpointer.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qmetaobject.h \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/qdebug.h \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/qtextstream.h \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/qlocale.h \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/qset.h \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/qcontiguouscache.h \
  /usr/include/aarch64-linux-gnu/qt5/QtQml/qqmlerror.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QMutex \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qmutex.h \
@@ -495,5 +508,4 @@ CMakeFiles/VehicleTerminal.dir/VehicleTerminal_autogen/mocs_compilation.cpp.o: \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qstringlist.h \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/NPUKSKGWT2/moc_OnboardController.cpp \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/NPUKSKGWT2/../../../controller/OnboardController.h \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/QVariantMap \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/qvariant.h
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QVariantMap

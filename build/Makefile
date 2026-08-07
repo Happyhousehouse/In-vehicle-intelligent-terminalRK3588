@@ -310,6 +310,30 @@ controller/OnboardController.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/controller/OnboardController.cpp.s
 .PHONY : controller/OnboardController.cpp.s
 
+conversation/ConversationManager.o: conversation/ConversationManager.cpp.o
+.PHONY : conversation/ConversationManager.o
+
+# target to build an object file
+conversation/ConversationManager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/conversation/ConversationManager.cpp.o
+.PHONY : conversation/ConversationManager.cpp.o
+
+conversation/ConversationManager.i: conversation/ConversationManager.cpp.i
+.PHONY : conversation/ConversationManager.i
+
+# target to preprocess a source file
+conversation/ConversationManager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/conversation/ConversationManager.cpp.i
+.PHONY : conversation/ConversationManager.cpp.i
+
+conversation/ConversationManager.s: conversation/ConversationManager.cpp.s
+.PHONY : conversation/ConversationManager.s
+
+# target to generate assembly for a file
+conversation/ConversationManager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/conversation/ConversationManager.cpp.s
+.PHONY : conversation/ConversationManager.cpp.s
+
 llm/LLMService.o: llm/LLMService.cpp.o
 .PHONY : llm/LLMService.o
 
@@ -557,6 +581,9 @@ help:
 	@echo "... controller/OnboardController.o"
 	@echo "... controller/OnboardController.i"
 	@echo "... controller/OnboardController.s"
+	@echo "... conversation/ConversationManager.o"
+	@echo "... conversation/ConversationManager.i"
+	@echo "... conversation/ConversationManager.s"
 	@echo "... llm/LLMService.o"
 	@echo "... llm/LLMService.i"
 	@echo "... llm/LLMService.s"

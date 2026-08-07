@@ -155,4 +155,108 @@ CMakeFiles/VehicleTerminal.dir/llm/LLMService.cpp.o: \
  /usr/include/c++/11/bits/stl_heap.h \
  /usr/include/c++/11/bits/stl_tempbuf.h \
  /usr/include/c++/11/bits/uniform_int_dist.h \
- /home/firefly/VehicleTerminal/include/rkllm.h
+ /home/firefly/VehicleTerminal/include/rkllm.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QDebug \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qdebug.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qalgorithms.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qglobal.h \
+ /usr/include/c++/11/cstddef /usr/include/assert.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qconfig.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qtcore-config.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qsystemdetection.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qprocessordetection.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qcompilerdetection.h \
+ /usr/include/c++/11/algorithm \
+ /usr/include/c++/11/pstl/glue_algorithm_defs.h \
+ /usr/include/c++/11/pstl/execution_defs.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qtypeinfo.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qsysinfo.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qlogging.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qflags.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qatomic.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qbasicatomic.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qatomic_cxx11.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qgenericatomic.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qglobalstatic.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qnumeric.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qversiontagging.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qhash.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qchar.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qiterator.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qlist.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qrefcount.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qarraydata.h \
+ /usr/include/string.h /usr/include/strings.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qhashfunctions.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qstring.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qbytearray.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qnamespace.h \
+ /usr/include/c++/11/stdlib.h /usr/include/c++/11/iterator \
+ /usr/include/c++/11/bits/stream_iterator.h \
+ /usr/include/c++/11/bits/streambuf_iterator.h \
+ /usr/include/c++/11/streambuf /usr/include/c++/11/bits/ios_base.h \
+ /usr/include/c++/11/bits/locale_classes.h \
+ /usr/include/c++/11/bits/locale_classes.tcc \
+ /usr/include/c++/11/system_error \
+ /usr/include/aarch64-linux-gnu/c++/11/bits/error_constants.h \
+ /usr/include/c++/11/stdexcept /usr/include/c++/11/exception \
+ /usr/include/c++/11/bits/exception_ptr.h \
+ /usr/include/c++/11/bits/cxxabi_init_exception.h \
+ /usr/include/c++/11/bits/nested_exception.h \
+ /usr/include/c++/11/bits/streambuf.tcc \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qstringliteral.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qstringalgorithms.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qstringview.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qpair.h \
+ /usr/include/c++/11/numeric /usr/include/c++/11/bits/stl_numeric.h \
+ /usr/include/c++/11/bit /usr/include/c++/11/pstl/glue_numeric_defs.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qvector.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qcontainertools_impl.h \
+ /usr/include/c++/11/list /usr/include/c++/11/bits/stl_list.h \
+ /usr/include/c++/11/bits/allocated_ptr.h \
+ /usr/include/c++/11/bits/list.tcc \
+ /usr/lib/gcc/aarch64-linux-gnu/11/include/limits.h \
+ /usr/lib/gcc/aarch64-linux-gnu/11/include/syslimits.h \
+ /usr/include/limits.h /usr/include/aarch64-linux-gnu/bits/posix1_lim.h \
+ /usr/include/aarch64-linux-gnu/bits/local_lim.h \
+ /usr/include/linux/limits.h \
+ /usr/include/aarch64-linux-gnu/bits/posix2_lim.h \
+ /usr/include/aarch64-linux-gnu/bits/xopen_lim.h \
+ /usr/include/aarch64-linux-gnu/bits/uio_lim.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qbytearraylist.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qstringlist.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qregexp.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qstringmatcher.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qmap.h /usr/include/c++/11/map \
+ /usr/include/c++/11/bits/stl_tree.h /usr/include/c++/11/bits/stl_map.h \
+ /usr/include/c++/11/bits/stl_multimap.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qtextstream.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qiodevice.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qobject.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qobjectdefs.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qobjectdefs_impl.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qscopedpointer.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qmetatype.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qvarlengtharray.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qcontainerfwd.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qobject_impl.h \
+ /usr/include/c++/11/chrono /usr/include/c++/11/ratio \
+ /usr/include/c++/11/limits /usr/include/c++/11/ctime \
+ /usr/include/c++/11/bits/parse_numbers.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qlocale.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qvariant.h \
+ /usr/include/c++/11/variant \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qshareddata.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qset.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qcontiguouscache.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qsharedpointer.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qsharedpointer_impl.h \
+ /usr/include/c++/11/memory \
+ /usr/include/c++/11/bits/stl_raw_storage_iter.h \
+ /usr/include/c++/11/bits/align.h /usr/include/c++/11/bits/unique_ptr.h \
+ /usr/include/c++/11/bits/shared_ptr.h \
+ /usr/include/c++/11/bits/shared_ptr_base.h \
+ /usr/include/c++/11/ext/concurrence.h \
+ /usr/include/c++/11/bits/shared_ptr_atomic.h \
+ /usr/include/c++/11/backward/auto_ptr.h \
+ /usr/include/c++/11/pstl/glue_memory_defs.h

@@ -15,6 +15,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/firefly/VehicleTerminal/controller/CameraImageProvider.cpp" "CMakeFiles/VehicleTerminal.dir/controller/CameraImageProvider.cpp.o" "gcc" "CMakeFiles/VehicleTerminal.dir/controller/CameraImageProvider.cpp.o.d"
   "/home/firefly/VehicleTerminal/controller/GalleryController.cpp" "CMakeFiles/VehicleTerminal.dir/controller/GalleryController.cpp.o" "gcc" "CMakeFiles/VehicleTerminal.dir/controller/GalleryController.cpp.o.d"
   "/home/firefly/VehicleTerminal/controller/OnboardController.cpp" "CMakeFiles/VehicleTerminal.dir/controller/OnboardController.cpp.o" "gcc" "CMakeFiles/VehicleTerminal.dir/controller/OnboardController.cpp.o.d"
+  "/home/firefly/VehicleTerminal/conversation/ConversationManager.cpp" "CMakeFiles/VehicleTerminal.dir/conversation/ConversationManager.cpp.o" "gcc" "CMakeFiles/VehicleTerminal.dir/conversation/ConversationManager.cpp.o.d"
   "/home/firefly/VehicleTerminal/llm/LLMService.cpp" "CMakeFiles/VehicleTerminal.dir/llm/LLMService.cpp.o" "gcc" "CMakeFiles/VehicleTerminal.dir/llm/LLMService.cpp.o.d"
   "/home/firefly/VehicleTerminal/llm/RKLLMWrapper.cpp" "CMakeFiles/VehicleTerminal.dir/llm/RKLLMWrapper.cpp.o" "gcc" "CMakeFiles/VehicleTerminal.dir/llm/RKLLMWrapper.cpp.o.d"
   "/home/firefly/VehicleTerminal/main.cpp" "CMakeFiles/VehicleTerminal.dir/main.cpp.o" "gcc" "CMakeFiles/VehicleTerminal.dir/main.cpp.o.d"

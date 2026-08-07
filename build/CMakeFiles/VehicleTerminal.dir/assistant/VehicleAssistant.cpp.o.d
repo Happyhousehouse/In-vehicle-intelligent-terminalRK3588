@@ -234,22 +234,27 @@ CMakeFiles/VehicleTerminal.dir/assistant/VehicleAssistant.cpp.o: \
  /usr/include/c++/11/bits/parse_numbers.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QString \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qstring.h \
+ /usr/include/c++/11/mutex /usr/include/c++/11/bits/std_mutex.h \
+ /usr/include/c++/11/bits/unique_lock.h /usr/include/c++/11/thread \
+ /usr/include/c++/11/bits/std_thread.h \
+ /usr/include/c++/11/bits/unique_ptr.h \
+ /usr/include/c++/11/bits/this_thread_sleep.h \
  /home/firefly/VehicleTerminal/assistant/../llm/LLMService.h \
  /home/firefly/VehicleTerminal/assistant/../llm/RKLLMWrapper.h \
  /home/firefly/VehicleTerminal/include/rkllm.h \
  /home/firefly/VehicleTerminal/assistant/../rag/RAGService.h \
  /home/firefly/VehicleTerminal/assistant/../rag/KnowledgeBase.h \
  /home/firefly/VehicleTerminal/assistant/../rag/Retriever.h \
- /usr/include/c++/11/thread /usr/include/c++/11/bits/std_thread.h \
- /usr/include/c++/11/bits/unique_ptr.h \
- /usr/include/c++/11/bits/this_thread_sleep.h /usr/include/c++/11/mutex \
- /usr/include/c++/11/bits/std_mutex.h \
- /usr/include/c++/11/bits/unique_lock.h \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/QMetaObject \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/qobjectdefs.h \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/QDebug \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/qdebug.h \
+ /home/firefly/VehicleTerminal/assistant/../conversation/ConversationManager.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QJsonArray \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qjsonarray.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qjsonvalue.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qshareddata.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qhash.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qcborvalue.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qdatetime.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qcborcommon.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qdebug.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qmap.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qtextstream.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qiodevice.h \
@@ -257,7 +262,6 @@ CMakeFiles/VehicleTerminal.dir/assistant/VehicleAssistant.cpp.o: \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qlocale.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qvariant.h \
  /usr/include/c++/11/variant \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/qshareddata.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qset.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qcontiguouscache.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qsharedpointer.h \
@@ -269,4 +273,17 @@ CMakeFiles/VehicleTerminal.dir/assistant/VehicleAssistant.cpp.o: \
  /usr/include/c++/11/ext/concurrence.h \
  /usr/include/c++/11/bits/shared_ptr_atomic.h \
  /usr/include/c++/11/backward/auto_ptr.h \
- /usr/include/c++/11/pstl/glue_memory_defs.h
+ /usr/include/c++/11/pstl/glue_memory_defs.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qregularexpression.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qurl.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/quuid.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QJsonObject \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qjsonobject.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QVariantList \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qvariant.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QDebug \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qdebug.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QMetaObject \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qobjectdefs.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QUuid \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/quuid.h
