@@ -1121,6 +1121,9 @@ ApplicationWindow {
                         verticalAlignment:
                             TextInput.AlignVCenter
 
+                        cursorVisible:
+                            activeFocus
+
                         selectByMouse: true
 
                         background: Rectangle {
@@ -1134,13 +1137,56 @@ ApplicationWindow {
                         * 防止 Onboard 隐藏后因焦点恢复而再次弹出。
                         */
                         TapHandler {
-                            onTapped: {
-                                console.log(
-                                    "[Main.qml] questionInput 被点击"
-                                )
+                            onTapped: function(eventPoint, button) {
 
+                                /*
+                                * 记录用户实际点击的位置。
+                                */
+                                var clickX =
+                                    eventPoint.position.x
+
+                                var clickY =
+                                    eventPoint.position.y
+
+
+                                /*
+                                * 先让输入框获得焦点。
+                                */
                                 questionInput.forceActiveFocus()
 
+
+                                /*
+                                * 根据触摸位置计算对应的字符位置。
+                                *
+                                * 例如：
+                                *
+                                * 我的摄像头|IMX415
+                                *
+                                * 点击这里以后，
+                                * cursorPosition 就会移动到这里。
+                                */
+                                var pos =
+                                    questionInput.positionAt(
+                                        clickX,
+                                        clickY
+                                    )
+
+
+                                if (pos >= 0) {
+                                    questionInput.cursorPosition =
+                                        pos
+                                }
+
+
+                                console.log(
+                                    "[Main.qml] cursorPosition =",
+                                    questionInput.cursorPosition
+                                )
+
+
+                                /*
+                                * 最后显示 Onboard。
+                                */
                                 onboardController.showKeyboard()
                             }
                         }
