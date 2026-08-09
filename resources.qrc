@@ -12,7 +12,7 @@
     <file>qml/Cloud.qml</file>
     <file>qml/Setting.qml</file>
     <file>qml/Gallery.qml</file>
-
+    <file>qml/Weather.qml</file>
 </qresource>
 
 </RCC>

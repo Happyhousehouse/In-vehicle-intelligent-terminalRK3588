@@ -25,6 +25,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/firefly/VehicleTerminal/rag/PromptBuilder.cpp" "CMakeFiles/VehicleTerminal.dir/rag/PromptBuilder.cpp.o" "gcc" "CMakeFiles/VehicleTerminal.dir/rag/PromptBuilder.cpp.o.d"
   "/home/firefly/VehicleTerminal/rag/RAGService.cpp" "CMakeFiles/VehicleTerminal.dir/rag/RAGService.cpp.o" "gcc" "CMakeFiles/VehicleTerminal.dir/rag/RAGService.cpp.o.d"
   "/home/firefly/VehicleTerminal/rag/Retriever.cpp" "CMakeFiles/VehicleTerminal.dir/rag/Retriever.cpp.o" "gcc" "CMakeFiles/VehicleTerminal.dir/rag/Retriever.cpp.o.d"
+  "/home/firefly/VehicleTerminal/weather/WeatherService.cpp" "CMakeFiles/VehicleTerminal.dir/weather/WeatherService.cpp.o" "gcc" "CMakeFiles/VehicleTerminal.dir/weather/WeatherService.cpp.o.d"
   )
 
 # Targets to which this target links.

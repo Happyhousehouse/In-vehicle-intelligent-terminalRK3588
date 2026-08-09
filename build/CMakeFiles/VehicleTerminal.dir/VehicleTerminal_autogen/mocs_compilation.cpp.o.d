@@ -508,4 +508,33 @@ CMakeFiles/VehicleTerminal.dir/VehicleTerminal_autogen/mocs_compilation.cpp.o: \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qstringlist.h \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/NPUKSKGWT2/moc_OnboardController.cpp \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/NPUKSKGWT2/../../../controller/OnboardController.h \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/QVariantMap
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QVariantMap \
+ /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/6YT3GII5UT/moc_WeatherService.cpp \
+ /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/6YT3GII5UT/../../../weather/WeatherService.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtNetwork/QNetworkAccessManager \
+ /usr/include/aarch64-linux-gnu/qt5/QtNetwork/qnetworkaccessmanager.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtNetwork/qnetworkrequest.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QSharedDataPointer \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qshareddata.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QString \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QUrl \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qurl.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QVariant \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QVector \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qvector.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QObject \
+ /usr/include/aarch64-linux-gnu/qt5/QtNetwork/QSslConfiguration \
+ /usr/include/aarch64-linux-gnu/qt5/QtNetwork/qsslconfiguration.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtNetwork/qsslsocket.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtNetwork/qtcpsocket.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtNetwork/qabstractsocket.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtNetwork/qsslerror.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtNetwork/qsslcertificate.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qcryptographichash.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtNetwork/qssl.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QFlags \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qflags.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtNetwork/QSslPreSharedKeyAuthenticator \
+ /usr/include/aarch64-linux-gnu/qt5/QtNetwork/qsslpresharedkeyauthenticator.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QMetaType \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qmetatype.h

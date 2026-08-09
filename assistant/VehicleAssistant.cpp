@@ -3,7 +3,10 @@
 #include <QDebug>
 #include <QMetaObject>
 #include <QUuid>
+#include <QRegularExpression>
+#include <QVariantMap>
 
+#include "../weather/WeatherService.h"
 
 VehicleAssistant::VehicleAssistant(
     QObject *parent
@@ -34,6 +37,347 @@ VehicleAssistant::VehicleAssistant(
         << "[VehicleAssistant]"
         << "initial conversation:"
         << currentConversationId_;
+}
+
+void VehicleAssistant::setWeatherService(
+    WeatherService *service
+)
+{
+    /*
+     * 同一个对象不重复绑定。
+     */
+    if (
+        weatherService_
+        ==
+        service
+    )
+    {
+        return;
+    }
+
+
+    /*
+     * 如果以前绑定过天气服务，
+     * 清掉旧信号。
+     */
+    if (weatherService_)
+    {
+        QObject::disconnect(
+            weatherService_,
+            nullptr,
+            this,
+            nullptr
+        );
+    }
+
+
+    weatherService_ =
+        service;
+
+
+    if (!weatherService_)
+    {
+        return;
+    }
+
+
+    /*
+     * ========================================================
+     * 城市定位成功
+     *
+     * 注意：
+     *
+     * 这里还不能马上回答。
+     *
+     * 因为 citySearchSucceeded
+     * 只是意味着经纬度找到了，
+     * 新城市天气还没有回来。
+     * ========================================================
+     */
+    connect(
+        weatherService_,
+        &WeatherService::citySearchSucceeded,
+
+        this,
+
+        [this](const QString &city)
+        {
+            if (
+                weatherPendingMode_
+                !=
+                WeatherPendingMode::CityLocating
+            )
+            {
+                return;
+            }
+
+
+            qDebug()
+                << "[VehicleAssistant]"
+                << "weather city located:"
+                << city;
+
+
+            /*
+             * WeatherService 接下来会自动 refresh()。
+             *
+             * 等 weatherChanged() 再真正回答。
+             */
+            weatherPendingMode_ =
+                WeatherPendingMode::CityWeather;
+        }
+    );
+
+
+    /*
+     * ========================================================
+     * 城市搜索失败
+     * ========================================================
+     */
+    connect(
+        weatherService_,
+        &WeatherService::citySearchFailed,
+
+        this,
+
+        [this](const QString &error)
+        {
+            if (
+                weatherPendingMode_
+                !=
+                WeatherPendingMode::CityLocating
+            )
+            {
+                return;
+            }
+
+
+            const QString requestedCity =
+                pendingWeatherCity_;
+
+
+            weatherPendingMode_ =
+                WeatherPendingMode::None;
+
+
+            pendingWeatherCity_
+                .clear();
+
+
+            qWarning()
+                << "[VehicleAssistant]"
+                << "weather city search failed:"
+                << requestedCity
+                << error;
+
+
+            finishLocalAnswer(
+                QStringLiteral(
+                    "没有找到“%1”的天气信息，请检查地区名称是否正确。"
+                )
+                .arg(
+                    requestedCity
+                )
+            );
+        }
+    );
+
+
+    /*
+     * ========================================================
+     * 天气真正更新成功
+     * ========================================================
+     */
+    connect(
+        weatherService_,
+        &WeatherService::weatherChanged,
+
+        this,
+
+        [this]()
+        {
+            /*
+             * ------------------------------------------------
+             * 情况1：
+             * 用户问当前城市天气。
+             * ------------------------------------------------
+             */
+            if (
+                weatherPendingMode_
+                ==
+                WeatherPendingMode::CurrentCity
+            )
+            {
+                weatherPendingMode_ =
+                    WeatherPendingMode::None;
+
+
+                pendingWeatherCity_
+                    .clear();
+
+
+                finishLocalAnswer(
+                    buildWeatherAnswer()
+                );
+
+
+                return;
+            }
+
+
+            /*
+             * ------------------------------------------------
+             * 情况2：
+             *
+             * 原来的天气请求结束了，
+             * 现在开始用户排队等待的新城市。
+             * ------------------------------------------------
+             */
+            if (
+                weatherPendingMode_
+                ==
+                WeatherPendingMode::CityQueued
+            )
+            {
+                const QString city =
+                    pendingWeatherCity_;
+
+
+                weatherPendingMode_ =
+                    WeatherPendingMode::CityLocating;
+
+
+                weatherService_
+                    ->searchCity(
+                        city
+                    );
+
+
+                return;
+            }
+
+
+            /*
+             * ------------------------------------------------
+             * 情况3：
+             *
+             * 新城市天气真正返回。
+             * ------------------------------------------------
+             */
+            if (
+                weatherPendingMode_
+                ==
+                WeatherPendingMode::CityWeather
+            )
+            {
+                weatherPendingMode_ =
+                    WeatherPendingMode::None;
+
+
+                pendingWeatherCity_
+                    .clear();
+
+
+                /*
+                 * 此时 WeatherService 内部已经完全是
+                 * 新城市的数据。
+                 */
+                finishLocalAnswer(
+                    buildWeatherAnswer()
+                );
+
+
+                return;
+            }
+        }
+    );
+
+
+    /*
+     * ========================================================
+     * 天气 HTTPS 请求失败
+     * ========================================================
+     */
+    connect(
+        weatherService_,
+        &WeatherService::updateFailed,
+
+        this,
+
+        [this](const QString &error)
+        {
+            /*
+             * 如果只是 Weather.qml 自己刷新失败，
+             * 不要往 AI 聊天框输出。
+             */
+            if (
+                weatherPendingMode_
+                ==
+                WeatherPendingMode::None
+            )
+            {
+                return;
+            }
+
+
+            /*
+             * 特殊情况：
+             *
+             * 用户想查另外一个城市，
+             * 但是此前的旧天气请求失败。
+             *
+             * 旧请求结束以后仍然继续查新城市。
+             */
+            if (
+                weatherPendingMode_
+                ==
+                WeatherPendingMode::CityQueued
+            )
+            {
+                const QString city =
+                    pendingWeatherCity_;
+
+
+                weatherPendingMode_ =
+                    WeatherPendingMode::CityLocating;
+
+
+                weatherService_
+                    ->searchCity(
+                        city
+                    );
+
+
+                return;
+            }
+
+
+            weatherPendingMode_ =
+                WeatherPendingMode::None;
+
+
+            pendingWeatherCity_
+                .clear();
+
+
+            qWarning()
+                << "[VehicleAssistant]"
+                << "weather request failed:"
+                << error;
+
+
+            finishLocalAnswer(
+                QStringLiteral(
+                    "天气数据获取失败，请检查网络连接后重新尝试。"
+                )
+            );
+        }
+    );
+
+
+    qDebug()
+        << "[VehicleAssistant]"
+        << "WeatherService connected";
 }
 
 QString VehicleAssistant::currentConversationId() const
@@ -270,11 +614,120 @@ void VehicleAssistant::chat(
 
 
     /*
-     * ========================================================
-     * 本地命令
-     * ========================================================
-     */
+    * ========================================================
+    * Weather
+    * ========================================================
+    */
+    if (
+        isWeatherQuestion(
+            cmd
+        )
+    )
+    {
+        /*
+        * 天气服务没绑定。
+        */
+        if (!weatherService_)
+        {
+            finishLocalAnswer(
+                QStringLiteral(
+                    "天气服务当前不可用。"
+                )
+            );
 
+            return;
+        }
+
+
+        /*
+        * 防止同时发起两个天气查询。
+        */
+        if (
+            weatherPendingMode_
+            !=
+            WeatherPendingMode::None
+        )
+        {
+            finishLocalAnswer(
+                QStringLiteral(
+                    "天气正在查询中，请稍候再试。"
+                )
+            );
+
+            return;
+        }
+
+
+        /*
+        * 看用户有没有指定城市。
+        */
+        const QString city =
+            extractWeatherCity(
+                cmd
+            );
+
+
+        /*
+        * ====================================================
+        * 指定城市
+        *
+        * 我要查询广州地区的天气
+        * 广州天气怎么样
+        * ====================================================
+        */
+        if (!city.isEmpty())
+        {
+            qDebug()
+                << "[VehicleAssistant]"
+                << "specific weather city:"
+                << city;
+
+
+            startWeatherCitySearch(
+                city
+            );
+
+
+            return;
+        }
+
+
+        /*
+        * ====================================================
+        * 没有指定城市
+        *
+        * 今天天气怎么样
+        * 当前天气如何
+        * 今天会下雨吗
+        *
+        * 查询 WeatherService 当前城市。
+        * ====================================================
+        */
+
+        qDebug()
+            << "[VehicleAssistant]"
+            << "current city weather:"
+            << weatherService_->city();
+
+
+        weatherPendingMode_ =
+            WeatherPendingMode::CurrentCity;
+
+
+        /*
+        * 主动联网刷新，
+        * 确保不是旧缓存。
+        *
+        * 如果 WeatherService 本身正在刷新，
+        * refresh() 会忽略重复请求，
+        * 我们继续等现有 weatherChanged 即可。
+        */
+        weatherService_
+            ->refresh();
+
+
+        return;
+    }
 
     /*
      * 相册。
@@ -1654,4 +2107,456 @@ void VehicleAssistant::deleteConversation(
         << id
         << "new conversation:"
         << currentConversationId_;
+}
+
+bool VehicleAssistant::isWeatherQuestion(
+    const QString &text
+) const
+{
+    const QString cmd =
+        text.trimmed();
+
+
+    if (
+        cmd.contains(
+            QStringLiteral("天气")
+        )
+    )
+    {
+        return true;
+    }
+
+
+    /*
+     * 顺便支持一些正常表达。
+     */
+    if (
+        cmd.contains(
+            QStringLiteral("会下雨")
+        )
+        ||
+        cmd.contains(
+            QStringLiteral("有雨吗")
+        )
+        ||
+        cmd.contains(
+            QStringLiteral("降雨情况")
+        )
+    )
+    {
+        return true;
+    }
+
+
+    return false;
+}
+
+QString VehicleAssistant::extractWeatherCity(
+    const QString &text
+) const
+{
+    const QString cmd =
+        text.trimmed();
+
+
+    /*
+     * ========================================================
+     * 模式1
+     *
+     * 我要查询广州地区的天气
+     * 查询广州天气
+     * 查一下深圳的天气
+     * 帮我看看上海天气
+     * ========================================================
+     */
+    {
+        const QRegularExpression regex(
+            QStringLiteral(
+                "(?:我要|我想|请|请帮我|帮我)?"
+                "\\s*"
+                "(?:查询|查一下|查查|查|看看|看一下)"
+                "\\s*"
+                "([\\p{Han}A-Za-z·\\-\\s]{2,30}?)"
+                "(?:地区)?"
+                "(?:的)?"
+                "(?:今天天气|天气)"
+            )
+        );
+
+
+        const QRegularExpressionMatch match =
+            regex.match(
+                cmd
+            );
+
+
+        if (match.hasMatch())
+        {
+            QString city =
+                match
+                    .captured(1)
+                    .trimmed();
+
+
+            if (!city.isEmpty())
+            {
+                return city;
+            }
+        }
+    }
+
+
+    /*
+     * ========================================================
+     * 模式2
+     *
+     * 广州天气怎么样
+     * 深圳今天天气怎么样
+     * 北京地区的天气
+     * ========================================================
+     */
+    {
+        const QRegularExpression regex(
+            QStringLiteral(
+                "^\\s*"
+                "([\\p{Han}A-Za-z·\\-\\s]{2,30}?)"
+                "(?:地区)?"
+                "(?:的)?"
+                "(?:今天天气|天气)"
+                "(?:怎么样|如何|情况)?"
+                "[？?。！!]*"
+                "\\s*$"
+            )
+        );
+
+
+        const QRegularExpressionMatch match =
+            regex.match(
+                cmd
+            );
+
+
+        if (match.hasMatch())
+        {
+            QString city =
+                match
+                    .captured(1)
+                    .trimmed();
+
+
+            /*
+             * 防止：
+             *
+             * 今天天气怎么样
+             *
+             * 被错误解析成：
+             *
+             * city = 今天
+             */
+            const QStringList currentWords = {
+                QStringLiteral("今天"),
+                QStringLiteral("今日"),
+                QStringLiteral("现在"),
+                QStringLiteral("当前"),
+                QStringLiteral("本地"),
+                QStringLiteral("这里"),
+                QStringLiteral("这边")
+            };
+
+
+            if (
+                !city.isEmpty()
+                &&
+                !currentWords.contains(
+                    city
+                )
+            )
+            {
+                return city;
+            }
+        }
+    }
+
+
+    /*
+     * ========================================================
+     * 模式3
+     *
+     * 我想知道广州的天气
+     * 请问上海天气怎么样
+     * ========================================================
+     */
+    {
+        const QRegularExpression regex(
+            QStringLiteral(
+                "(?:我想知道|请问)"
+                "\\s*"
+                "([\\p{Han}A-Za-z·\\-\\s]{2,30}?)"
+                "(?:地区)?"
+                "(?:的)?"
+                "(?:今天天气|天气)"
+            )
+        );
+
+
+        const QRegularExpressionMatch match =
+            regex.match(
+                cmd
+            );
+
+
+        if (match.hasMatch())
+        {
+            QString city =
+                match
+                    .captured(1)
+                    .trimmed();
+
+
+            if (!city.isEmpty())
+            {
+                return city;
+            }
+        }
+    }
+
+
+    /*
+     * 没有指定城市。
+     *
+     * 那么就是 WeatherService 当前城市。
+     */
+    return QString();
+}
+
+QString VehicleAssistant::buildWeatherAnswer() const
+{
+    if (!weatherService_)
+    {
+        return QStringLiteral(
+            "天气服务当前不可用。"
+        );
+    }
+
+
+    const QString city =
+        weatherService_->city();
+
+
+    const double temperature =
+        weatherService_->temperature();
+
+
+    const double apparent =
+        weatherService_->apparentTemperature();
+
+
+    const int humidity =
+        weatherService_->humidity();
+
+
+    const double windSpeed =
+        weatherService_->windSpeed();
+
+
+    const QString weather =
+        weatherService_->weatherText();
+
+
+    /*
+     * 今日最高 / 最低 / 降雨概率。
+     */
+    QString maxTemperature =
+        QStringLiteral("--");
+
+
+    QString minTemperature =
+        QStringLiteral("--");
+
+
+    QString rainProbability =
+        QStringLiteral("--");
+
+
+    const QVariantList forecast =
+        weatherService_->dailyForecast();
+
+
+    if (!forecast.isEmpty())
+    {
+        const QVariantMap today =
+            forecast
+                .first()
+                .toMap();
+
+
+        maxTemperature =
+            QString::number(
+                today.value(
+                    QStringLiteral(
+                        "maxTemperature"
+                    )
+                ).toDouble(),
+                'f',
+                1
+            );
+
+
+        minTemperature =
+            QString::number(
+                today.value(
+                    QStringLiteral(
+                        "minTemperature"
+                    )
+                ).toDouble(),
+                'f',
+                1
+            );
+
+
+        rainProbability =
+            QString::number(
+                today.value(
+                    QStringLiteral(
+                        "rainProbability"
+                    )
+                ).toInt()
+            );
+    }
+
+
+    return QStringLiteral(
+        "%1今天天气为%2，"
+        "当前温度%3℃，"
+        "体感温度%4℃；"
+        "今天最高%5℃，最低%6℃；"
+        "湿度%7％，"
+        "风速%8 km/h，"
+        "降雨概率%9％。"
+    )
+    .arg(
+        city,
+        weather,
+        QString::number(
+            temperature,
+            'f',
+            1
+        ),
+        QString::number(
+            apparent,
+            'f',
+            1
+        ),
+        maxTemperature,
+        minTemperature,
+        QString::number(
+            humidity
+        ),
+        QString::number(
+            windSpeed,
+            'f',
+            1
+        ),
+        rainProbability
+    );
+}
+
+void VehicleAssistant::finishLocalAnswer(
+    const QString &answer
+)
+{
+    /*
+     * 保存 AI 回答。
+     */
+    conversationManager_
+        .appendAssistantMessage(
+            answer
+        );
+
+
+    /*
+     * 写入会话 JSON。
+     */
+    conversationManager_
+        .saveCurrent();
+
+
+    /*
+     * QML已经创建了一个 AI 空消息，
+     * answerToken 会把天气答案填进去。
+     */
+    emit answerToken(
+        answer
+    );
+
+
+    emit answerFinished();
+}
+
+void VehicleAssistant::startWeatherCitySearch(
+    const QString &city
+)
+{
+    if (!weatherService_)
+    {
+        finishLocalAnswer(
+            QStringLiteral(
+                "天气服务当前不可用。"
+            )
+        );
+
+        return;
+    }
+
+
+    pendingWeatherCity_ =
+        city;
+
+
+    /*
+     * WeatherService 如果此时还在执行
+     * 上一次天气请求，
+     * 不要马上切城市。
+     *
+     * 否则可能发生：
+     *
+     * 深圳请求还没回来
+     * ↓
+     * city_ 被改成广州
+     * ↓
+     * 深圳数据回来却被标成广州
+     */
+    if (
+        weatherService_->loading()
+    )
+    {
+        qDebug()
+            << "[VehicleAssistant]"
+            << "weather request busy,"
+            << "queue city:"
+            << city;
+
+
+        weatherPendingMode_ =
+            WeatherPendingMode::CityQueued;
+
+
+        return;
+    }
+
+
+    weatherPendingMode_ =
+        WeatherPendingMode::CityLocating;
+
+
+    qDebug()
+        << "[VehicleAssistant]"
+        << "search weather city:"
+        << city;
+
+
+    weatherService_
+        ->searchCity(
+            city
+        );
 }

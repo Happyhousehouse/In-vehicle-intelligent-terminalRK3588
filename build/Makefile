@@ -550,6 +550,30 @@ rag/Retriever.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/rag/Retriever.cpp.s
 .PHONY : rag/Retriever.cpp.s
 
+weather/WeatherService.o: weather/WeatherService.cpp.o
+.PHONY : weather/WeatherService.o
+
+# target to build an object file
+weather/WeatherService.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/weather/WeatherService.cpp.o
+.PHONY : weather/WeatherService.cpp.o
+
+weather/WeatherService.i: weather/WeatherService.cpp.i
+.PHONY : weather/WeatherService.i
+
+# target to preprocess a source file
+weather/WeatherService.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/weather/WeatherService.cpp.i
+.PHONY : weather/WeatherService.cpp.i
+
+weather/WeatherService.s: weather/WeatherService.cpp.s
+.PHONY : weather/WeatherService.s
+
+# target to generate assembly for a file
+weather/WeatherService.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/weather/WeatherService.cpp.s
+.PHONY : weather/WeatherService.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -611,6 +635,9 @@ help:
 	@echo "... rag/Retriever.o"
 	@echo "... rag/Retriever.i"
 	@echo "... rag/Retriever.s"
+	@echo "... weather/WeatherService.o"
+	@echo "... weather/WeatherService.i"
+	@echo "... weather/WeatherService.s"
 .PHONY : help
 
 

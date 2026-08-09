@@ -18,7 +18,7 @@
 
 #include "assistant/VehicleAssistant.h"
 
-
+#include "weather/WeatherService.h"
 
 
 
@@ -44,10 +44,21 @@ int main(int argc, char *argv[])
 
     VehicleAssistant assistant;
 
-
-
-
-
+    /*
+        天气服务
+    */
+    WeatherService weatherService;
+    /*
+    * VehicleAssistant 使用天气服务。
+    */
+    assistant.setWeatherService(
+        &weatherService
+    );
+    weatherService.setLocation(
+        22.5431,
+        114.0579,
+        QStringLiteral("深圳")
+    );
 
 
     /*
@@ -222,17 +233,21 @@ int main(int argc, char *argv[])
 
     engine.rootContext()
 
-    ->setContextProperty(
+        ->setContextProperty(
 
-        "cameraController",
+            "cameraController",
 
-        &cameraController
+            &cameraController
 
-    );
-
-
+        );
 
 
+
+    engine.rootContext()
+        ->setContextProperty(
+            "weatherService",
+            &weatherService
+        );
 
 
 
@@ -245,13 +260,13 @@ int main(int argc, char *argv[])
 
     engine.rootContext()
 
-    ->setContextProperty(
+        ->setContextProperty(
 
-        "galleryController",
+            "galleryController",
 
-        &galleryController
+            &galleryController
 
-    );
+        );
 
 
 
@@ -343,7 +358,10 @@ int main(int argc, char *argv[])
     engine.load(url);
 
 
-
+    /*
+        首次获取天气。
+    */
+    weatherService.refresh();
 
 
 

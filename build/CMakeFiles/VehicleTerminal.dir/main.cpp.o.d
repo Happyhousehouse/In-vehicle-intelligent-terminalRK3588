@@ -514,4 +514,32 @@ CMakeFiles/VehicleTerminal.dir/main.cpp.o: \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/quuid.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QJsonObject \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qjsonobject.h \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/QVariantList
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QVariantList \
+ /home/firefly/VehicleTerminal/weather/WeatherService.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtNetwork/QNetworkAccessManager \
+ /usr/include/aarch64-linux-gnu/qt5/QtNetwork/qnetworkaccessmanager.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtNetwork/qnetworkrequest.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QSharedDataPointer \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qshareddata.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QString \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QUrl \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qurl.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QVariant \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QVector \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qvector.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QObject \
+ /usr/include/aarch64-linux-gnu/qt5/QtNetwork/QSslConfiguration \
+ /usr/include/aarch64-linux-gnu/qt5/QtNetwork/qsslconfiguration.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtNetwork/qsslsocket.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtNetwork/qtcpsocket.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtNetwork/qabstractsocket.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtNetwork/qsslerror.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtNetwork/qsslcertificate.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qcryptographichash.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtNetwork/qssl.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QFlags \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qflags.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtNetwork/QSslPreSharedKeyAuthenticator \
+ /usr/include/aarch64-linux-gnu/qt5/QtNetwork/qsslpresharedkeyauthenticator.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QMetaType \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qmetatype.h

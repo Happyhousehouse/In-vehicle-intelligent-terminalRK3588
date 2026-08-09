@@ -213,6 +213,8 @@
 		"/usr/lib/aarch64-linux-gnu/cmake/Qt5DBus/Qt5DBusMacros.cmake",
 		"/usr/share/cmake-3.22/Modules/MacroAddFileDependencies.cmake",
 		"/usr/share/cmake-3.22/Modules/CMakeParseArguments.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Network/Qt5NetworkConfigVersion.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Network/Qt5NetworkConfig.cmake",
 		"/usr/lib/aarch64-linux-gnu/cmake/opencv4/OpenCVConfig-version.cmake",
 		"/usr/lib/aarch64-linux-gnu/cmake/opencv4/OpenCVConfig.cmake",
 		"/usr/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake",
@@ -309,6 +311,12 @@
 			"MU",
 			"SPBSFPIG4T/moc_Retriever.cpp",
 			null
+		],
+		[
+			"/home/firefly/VehicleTerminal/weather/WeatherService.h",
+			"MU",
+			"6YT3GII5UT/moc_WeatherService.cpp",
+			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
@@ -342,6 +350,7 @@
 		"/home/firefly/VehicleTerminal/rag",
 		"/home/firefly/VehicleTerminal/camera",
 		"/home/firefly/VehicleTerminal/photo",
+		"/home/firefly/VehicleTerminal/weather",
 		"/home/firefly/VehicleTerminal/controller",
 		"/usr/include/aarch64-linux-gnu/qt5",
 		"/usr/include/aarch64-linux-gnu/qt5/QtCore",
@@ -423,7 +432,12 @@
 		[ "/home/firefly/VehicleTerminal/rag/KnowledgeBase.cpp", "MU", null ],
 		[ "/home/firefly/VehicleTerminal/rag/PromptBuilder.cpp", "MU", null ],
 		[ "/home/firefly/VehicleTerminal/rag/RAGService.cpp", "MU", null ],
-		[ "/home/firefly/VehicleTerminal/rag/Retriever.cpp", "MU", null ]
+		[ "/home/firefly/VehicleTerminal/rag/Retriever.cpp", "MU", null ],
+		[
+			"/home/firefly/VehicleTerminal/weather/WeatherService.cpp",
+			"MU",
+			null
+		]
 	],
 	"UIC_OPTIONS" : [],
 	"UIC_SEARCH_PATHS" : [],

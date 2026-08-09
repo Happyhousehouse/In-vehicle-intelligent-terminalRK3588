@@ -3,3 +3,4 @@
 #include "NPUKSKGWT2/moc_CameraController.cpp"
 #include "NPUKSKGWT2/moc_GalleryController.cpp"
 #include "NPUKSKGWT2/moc_OnboardController.cpp"
+#include "6YT3GII5UT/moc_WeatherService.cpp"

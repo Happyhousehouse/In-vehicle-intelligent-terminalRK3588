@@ -36,6 +36,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/VehicleTerminal.dir/rag/RAGService.cpp.o.d"
   "CMakeFiles/VehicleTerminal.dir/rag/Retriever.cpp.o"
   "CMakeFiles/VehicleTerminal.dir/rag/Retriever.cpp.o.d"
+  "CMakeFiles/VehicleTerminal.dir/weather/WeatherService.cpp.o"
+  "CMakeFiles/VehicleTerminal.dir/weather/WeatherService.cpp.o.d"
   "VehicleTerminal"
   "VehicleTerminal.pdb"
   "qrc_resources.cpp"

@@ -15,14 +15,37 @@ ApplicationWindow {
     
     Loader {
 
-        id:pageLoader
+        id: pageLoader
+
+        anchors.fill: parent
+
+        z: 100
 
 
-        anchors.fill:parent
+        onLoaded: {
 
+            /*
+            * Weather.qml 如果有 backRequested 信号，
+            * 就连接返回操作。
+            */
+            if (
+                item
+                &&
+                item.backRequested
+            )
+            {
+                item.backRequested.connect(
+                    function()
+                    {
+                        console.log(
+                            "[Main.qml] Weather back"
+                        )
 
-        z:100
-
+                        pageLoader.source = ""
+                    }
+                )
+            }
+        }
     }
 
     title:"Vehicle AI Assistant"
@@ -80,6 +103,38 @@ ApplicationWindow {
     */
     property string selectedHistoryConversationId: ""
 
+
+    function weatherSymbol(code)
+    {
+        if (code === 0)
+            return "☀"
+
+        if (code === 1 || code === 2)
+            return "⛅"
+
+        if (code === 3)
+            return "☁"
+
+        if (code === 45 || code === 48)
+            return "≋"
+
+        if (code >= 51 && code <= 67)
+            return "☂"
+
+        if (code >= 71 && code <= 77)
+            return "❄"
+
+        if (code >= 80 && code <= 82)
+            return "☂"
+
+        if (code >= 85 && code <= 86)
+            return "❄"
+
+        if (code >= 95)
+            return "⚡"
+
+        return "☁"
+    }
 
     //========================
     // C++信号连接
@@ -673,7 +728,7 @@ ApplicationWindow {
 
 
     Rectangle {
-
+        id: aiCorePanel
 
         width:1300
 
@@ -1406,7 +1461,336 @@ ApplicationWindow {
 
     }
 
+    /*
+    * ============================================================
+    * 主界面当天实时天气
+    * ============================================================
+    */
 
+    Rectangle {
+
+        id: homeWeatherCard
+
+
+        /*
+        * 放在AI主窗口右侧。
+        */
+        width: 340
+        height: 390
+
+
+        anchors.left:
+            aiCorePanel.right
+
+        anchors.leftMargin:
+            35
+
+
+        anchors.verticalCenter:
+            aiCorePanel.verticalCenter
+
+
+        radius:
+            28
+
+
+        color:
+            "#66101828"
+
+
+        border.width:
+            1
+
+        border.color:
+            "#008CFF"
+
+
+        /*
+        * 只有主界面显示。
+        *
+        * 如果 Weather.qml / Camera.qml 等页面
+        * 被 Loader 打开，本卡片本身会被 Loader 覆盖。
+        */
+        visible:
+            pageLoader.source.toString() === ""
+
+
+        /*
+        * ========================================
+        * 城市
+        * ========================================
+        */
+        Text {
+
+            anchors.top:
+                parent.top
+
+            anchors.topMargin:
+                25
+
+
+            anchors.left:
+                parent.left
+
+            anchors.leftMargin:
+                28
+
+
+            text:
+                weatherService.city
+
+
+            color:
+                "white"
+
+
+            font.pixelSize:
+                29
+
+            font.bold:
+                true
+        }
+
+
+        /*
+        * ========================================
+        * 天气图标
+        * ========================================
+        */
+        Text {
+
+            anchors.top:
+                parent.top
+
+            anchors.topMargin:
+                75
+
+
+            anchors.horizontalCenter:
+                parent.horizontalCenter
+
+
+            text:
+                mainWindow.weatherSymbol(
+                    weatherService.weatherCode
+                )
+
+
+            color:
+                "white"
+
+
+            font.pixelSize:
+                65
+        }
+
+
+        /*
+        * ========================================
+        * 当前温度
+        * ========================================
+        */
+        Text {
+
+            anchors.top:
+                parent.top
+
+            anchors.topMargin:
+                145
+
+
+            anchors.horizontalCenter:
+                parent.horizontalCenter
+
+
+            text:
+                weatherService.temperature.toFixed(0)
+                +
+                "℃"
+
+
+            color:
+                "#00BFFF"
+
+
+            font.pixelSize:
+                72
+        }
+
+
+        /*
+        * ========================================
+        * 天气状态
+        * ========================================
+        */
+        Text {
+
+            anchors.top:
+                parent.top
+
+            anchors.topMargin:
+                225
+
+
+            anchors.horizontalCenter:
+                parent.horizontalCenter
+
+
+            text:
+                weatherService.weatherText
+
+
+            color:
+                "white"
+
+
+            font.pixelSize:
+                27
+        }
+
+
+        /*
+        * ========================================
+        * 今日最高 / 最低
+        * ========================================
+        */
+        Text {
+
+            anchors.top:
+                parent.top
+
+            anchors.topMargin:
+                270
+
+
+            anchors.horizontalCenter:
+                parent.horizontalCenter
+
+
+            text:
+                weatherService.dailyForecast.length > 0
+                ?
+                "最高 "
+                +
+                Number(
+                    weatherService.dailyForecast[0].maxTemperature
+                ).toFixed(0)
+                +
+                "°  最低 "
+                +
+                Number(
+                    weatherService.dailyForecast[0].minTemperature
+                ).toFixed(0)
+                +
+                "°"
+                :
+                "最高 --°  最低 --°"
+
+
+            color:
+                "#C6D5E2"
+
+
+            font.pixelSize:
+                21
+        }
+
+
+        /*
+        * ========================================
+        * 湿度
+        * ========================================
+        */
+        Text {
+
+            anchors.top:
+                parent.top
+
+            anchors.topMargin:
+                310
+
+
+            anchors.horizontalCenter:
+                parent.horizontalCenter
+
+
+            text:
+                "湿度 "
+                +
+                weatherService.humidity
+                +
+                "%"
+
+
+            color:
+                "#AFC4D5"
+
+
+            font.pixelSize:
+                20
+        }
+
+
+        /*
+        * ========================================
+        * 查看详细天气
+        * ========================================
+        */
+        Text {
+
+            anchors.bottom:
+                parent.bottom
+
+            anchors.bottomMargin:
+                18
+
+
+            anchors.horizontalCenter:
+                parent.horizontalCenter
+
+
+            text:
+                "查看未来7天天气  ›"
+
+
+            color:
+                "#00BFFF"
+
+
+            font.pixelSize:
+                18
+        }
+
+
+        /*
+        * 整张天气卡片可点击。
+        */
+        MouseArea {
+
+            anchors.fill:
+                parent
+
+
+            cursorShape:
+                Qt.PointingHandCursor
+
+
+            onClicked: {
+
+                onboardController
+                    .hideKeyboard()
+
+
+                mainWindow
+                    .contentItem
+                    .forceActiveFocus()
+
+
+                pageLoader.source =
+                    "qrc:/qml/Weather.qml"
+            }
+        }
+    }
 
 
 
@@ -1558,7 +1942,26 @@ ApplicationWindow {
 
             }
 
+            NavItem {
 
+                icon: "☀"
+
+                title: "天气"
+
+
+                onClicked: {
+
+                    onboardController.hideKeyboard()
+
+                    mainWindow
+                        .contentItem
+                        .forceActiveFocus()
+
+
+                    pageLoader.source =
+                        "qrc:/qml/Weather.qml"
+                }
+            }
 
 
 

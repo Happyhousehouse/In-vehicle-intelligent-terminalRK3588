@@ -40,7 +40,7 @@ find_package(Qt5 REQUIRED COMPONENTS
     Qml
     Quick
     DBus
-
+    Network
 )
 
 
@@ -143,7 +143,12 @@ set(SOURCES
     photo/GalleryService.h
 
 
+    # =====================
+    # Weather
+    # =====================
 
+    weather/WeatherService.cpp
+    weather/WeatherService.h
 
 
     # =====================
@@ -315,7 +320,9 @@ target_include_directories(
 
     ${CMAKE_CURRENT_SOURCE_DIR}/photo
 
+    # Weather
 
+    ${CMAKE_CURRENT_SOURCE_DIR}/weather
 
     # Controller
 
@@ -353,7 +360,7 @@ target_link_libraries(
 
     Qt5::DBus
 
-
+    Qt5::Network
 
     # OpenCV
 

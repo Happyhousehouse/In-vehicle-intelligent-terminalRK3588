@@ -15,7 +15,7 @@
 #include <QVariantList>
 
 class CameraController;
-
+class WeatherService;
 
 class VehicleAssistant : public QObject
 {
@@ -124,6 +124,13 @@ public:
         const QString &conversationId
     );
 
+    /*
+    * 绑定天气服务。
+    */
+    void setWeatherService(
+        WeatherService *service
+    );
+
 signals:
 
     /*
@@ -219,7 +226,69 @@ private:
      */
     void joinFinishedThread();
 
+    /*
+    * ============================================================
+    * Weather
+    * ============================================================
+    */
 
+    /*
+    * 判断是否属于天气问题。
+    */
+    bool isWeatherQuestion(
+        const QString &text
+    ) const;
+
+
+    /*
+    * 从问题中提取城市。
+    *
+    * 例如：
+    *
+    * 我要查询广州地区的天气
+    *       ↓
+    *      广州
+    *
+    * 深圳天气怎么样
+    *       ↓
+    *      深圳
+    *
+    * 今天天气怎么样
+    *       ↓
+    *      空
+    *
+    * 空表示查询当前已经选择的城市。
+    */
+    QString extractWeatherCity(
+        const QString &text
+    ) const;
+
+
+    /*
+    * 根据 WeatherService 当前数据
+    * 生成天气回答。
+    */
+    QString buildWeatherAnswer() const;
+
+
+    /*
+    * 完成本地直接回答。
+    *
+    * 同时：
+    * 保存 ConversationManager
+    * 发给 QML
+    */
+    void finishLocalAnswer(
+        const QString &answer
+    );
+
+
+    /*
+    * 启动指定城市查询。
+    */
+    void startWeatherCitySearch(
+        const QString &city
+    );
 private:
 
     LLMService llm_;
@@ -275,4 +344,54 @@ private:
     * 下一次发送成功后清空。
     */
     QString restoredHistoryContext_;
+
+    /*
+    * ============================================================
+    * Weather
+    * ============================================================
+    */
+
+    WeatherService *weatherService_ =
+        nullptr;
+
+
+    /*
+    * 天气异步查询状态。
+    */
+    enum class WeatherPendingMode
+    {
+        None,
+
+        /*
+        * 当前城市刷新。
+        */
+        CurrentCity,
+
+        /*
+        * 当前 WeatherService 还有旧请求，
+        * 等旧请求结束以后再查新城市。
+        */
+        CityQueued,
+
+        /*
+        * 正在查城市经纬度。
+        */
+        CityLocating,
+
+        /*
+        * 已找到新城市，
+        * 正在等待该城市天气。
+        */
+        CityWeather
+    };
+
+
+    WeatherPendingMode weatherPendingMode_ =
+        WeatherPendingMode::None;
+
+
+    /*
+    * 用户要求查询的城市。
+    */
+    QString pendingWeatherCity_;
 };
