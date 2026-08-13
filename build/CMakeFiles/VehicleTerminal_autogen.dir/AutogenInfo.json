@@ -271,6 +271,36 @@
 			null
 		],
 		[
+			"/home/firefly/VehicleTerminal/fatigue/FatigueBaselineManager.h",
+			"MU",
+			"GKUHBQZPF4/moc_FatigueBaselineManager.cpp",
+			null
+		],
+		[
+			"/home/firefly/VehicleTerminal/fatigue/FatigueEventTracker.h",
+			"MU",
+			"GKUHBQZPF4/moc_FatigueEventTracker.cpp",
+			null
+		],
+		[
+			"/home/firefly/VehicleTerminal/fatigue/FatigueService.h",
+			"MU",
+			"GKUHBQZPF4/moc_FatigueService.cpp",
+			null
+		],
+		[
+			"/home/firefly/VehicleTerminal/fatigue/FatigueTypes.h",
+			"MU",
+			"GKUHBQZPF4/moc_FatigueTypes.cpp",
+			null
+		],
+		[
+			"/home/firefly/VehicleTerminal/fatigue/FatigueVision.h",
+			"MU",
+			"GKUHBQZPF4/moc_FatigueVision.cpp",
+			null
+		],
+		[
 			"/home/firefly/VehicleTerminal/llm/LLMService.h",
 			"MU",
 			"WCGREUQGIN/moc_LLMService.cpp",
@@ -347,6 +377,7 @@
 		"/home/firefly/VehicleTerminal/assistant",
 		"/home/firefly/VehicleTerminal/conversation",
 		"/home/firefly/VehicleTerminal/llm",
+		"/home/firefly/VehicleTerminal/fatigue",
 		"/home/firefly/VehicleTerminal/rag",
 		"/home/firefly/VehicleTerminal/camera",
 		"/home/firefly/VehicleTerminal/photo",
@@ -425,6 +456,22 @@
 			"MU",
 			null
 		],
+		[
+			"/home/firefly/VehicleTerminal/fatigue/FatigueBaselineManager.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/firefly/VehicleTerminal/fatigue/FatigueEventTracker.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/firefly/VehicleTerminal/fatigue/FatigueService.cpp",
+			"MU",
+			null
+		],
+		[ "/home/firefly/VehicleTerminal/fatigue/FatigueVision.cpp", "MU", null ],
 		[ "/home/firefly/VehicleTerminal/llm/LLMService.cpp", "MU", null ],
 		[ "/home/firefly/VehicleTerminal/llm/RKLLMWrapper.cpp", "MU", null ],
 		[ "/home/firefly/VehicleTerminal/main.cpp", "MU", null ],

@@ -15,7 +15,7 @@
 #include "CameraImageProvider.h"
 
 
-
+#include "../fatigue/FatigueService.h"
 
 
 class CameraController : public QObject
@@ -94,6 +94,7 @@ private:
 
     CameraService camera_;
 
+    FatigueService fatigue_;
 
     GalleryService gallery_;
 

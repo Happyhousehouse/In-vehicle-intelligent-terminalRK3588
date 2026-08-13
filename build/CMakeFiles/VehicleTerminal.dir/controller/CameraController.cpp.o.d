@@ -479,5 +479,9 @@ CMakeFiles/VehicleTerminal.dir/controller/CameraController.cpp.o: \
  /usr/include/aarch64-linux-gnu/qt5/QtQml/qqmlerror.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QMutex \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qmutex.h \
+ /home/firefly/VehicleTerminal/controller/../fatigue/FatigueService.h \
+ /home/firefly/VehicleTerminal/controller/../fatigue/FatigueVision.h \
+ /home/firefly/VehicleTerminal/include/rknn_api.h \
+ /home/firefly/VehicleTerminal/controller/../fatigue/FatigueBaselineManager.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QDebug \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qdebug.h

@@ -31,12 +31,16 @@ CameraService::CameraService()
 
 CameraService::~CameraService()
 {
+    std::cout
+        << "[CameraService] destructor begin"
+        << std::endl;
 
     stop();
 
+    std::cout
+        << "[CameraService] destructor end"
+        << std::endl;
 }
-
-
 
 
 
@@ -564,30 +568,45 @@ cv::Mat CameraService::capture()
 
 void CameraService::stop()
 {
+    std::cout
+        << "[CameraService] stop begin"
+        << std::endl;
 
 
-    running_=false;
+    running_ = false;
 
 
+    // ========================================================
+    // 1. 等采集线程退出
+    // ========================================================
 
     if(captureThread_.joinable())
     {
+        std::cout
+            << "[CameraService] joining capture thread"
+            << std::endl;
 
         captureThread_.join();
 
+        std::cout
+            << "[CameraService] capture thread joined"
+            << std::endl;
     }
 
 
+    // ========================================================
+    // 2. 关闭 V4L2
+    // ========================================================
 
-
-
-    if(fd_>=0)
+    if(fd_ >= 0)
     {
+        std::cout
+            << "[CameraService] streamoff"
+            << std::endl;
 
 
         v4l2_buf_type type =
             V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
-
 
 
         ioctl(
@@ -597,33 +616,55 @@ void CameraService::stop()
         );
 
 
+        // ====================================================
+        // 3. munmap
+        // ====================================================
+
+        std::cout
+            << "[CameraService] munmap buffers"
+            << std::endl;
 
 
-
-        for(auto& b:buffers_)
+        for(auto& b : buffers_)
         {
-
-            if(b.start)
+            if(
+                b.start != nullptr &&
+                b.start != MAP_FAILED
+            )
             {
-
                 munmap(
                     b.start,
                     b.length
                 );
 
-            }
 
+                // 防止以后重复 munmap
+                b.start = nullptr;
+
+                b.length = 0;
+            }
         }
 
+
+        buffers_.clear();
+
+
+        // ====================================================
+        // 4. close fd
+        // ====================================================
+
+        std::cout
+            << "[CameraService] close fd"
+            << std::endl;
 
 
         ::close(fd_);
 
-
-        fd_=-1;
-
-
+        fd_ = -1;
     }
 
 
+    std::cout
+        << "[CameraService] stop end"
+        << std::endl;
 }

@@ -334,6 +334,102 @@ conversation/ConversationManager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/conversation/ConversationManager.cpp.s
 .PHONY : conversation/ConversationManager.cpp.s
 
+fatigue/FatigueBaselineManager.o: fatigue/FatigueBaselineManager.cpp.o
+.PHONY : fatigue/FatigueBaselineManager.o
+
+# target to build an object file
+fatigue/FatigueBaselineManager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/fatigue/FatigueBaselineManager.cpp.o
+.PHONY : fatigue/FatigueBaselineManager.cpp.o
+
+fatigue/FatigueBaselineManager.i: fatigue/FatigueBaselineManager.cpp.i
+.PHONY : fatigue/FatigueBaselineManager.i
+
+# target to preprocess a source file
+fatigue/FatigueBaselineManager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/fatigue/FatigueBaselineManager.cpp.i
+.PHONY : fatigue/FatigueBaselineManager.cpp.i
+
+fatigue/FatigueBaselineManager.s: fatigue/FatigueBaselineManager.cpp.s
+.PHONY : fatigue/FatigueBaselineManager.s
+
+# target to generate assembly for a file
+fatigue/FatigueBaselineManager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/fatigue/FatigueBaselineManager.cpp.s
+.PHONY : fatigue/FatigueBaselineManager.cpp.s
+
+fatigue/FatigueEventTracker.o: fatigue/FatigueEventTracker.cpp.o
+.PHONY : fatigue/FatigueEventTracker.o
+
+# target to build an object file
+fatigue/FatigueEventTracker.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/fatigue/FatigueEventTracker.cpp.o
+.PHONY : fatigue/FatigueEventTracker.cpp.o
+
+fatigue/FatigueEventTracker.i: fatigue/FatigueEventTracker.cpp.i
+.PHONY : fatigue/FatigueEventTracker.i
+
+# target to preprocess a source file
+fatigue/FatigueEventTracker.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/fatigue/FatigueEventTracker.cpp.i
+.PHONY : fatigue/FatigueEventTracker.cpp.i
+
+fatigue/FatigueEventTracker.s: fatigue/FatigueEventTracker.cpp.s
+.PHONY : fatigue/FatigueEventTracker.s
+
+# target to generate assembly for a file
+fatigue/FatigueEventTracker.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/fatigue/FatigueEventTracker.cpp.s
+.PHONY : fatigue/FatigueEventTracker.cpp.s
+
+fatigue/FatigueService.o: fatigue/FatigueService.cpp.o
+.PHONY : fatigue/FatigueService.o
+
+# target to build an object file
+fatigue/FatigueService.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/fatigue/FatigueService.cpp.o
+.PHONY : fatigue/FatigueService.cpp.o
+
+fatigue/FatigueService.i: fatigue/FatigueService.cpp.i
+.PHONY : fatigue/FatigueService.i
+
+# target to preprocess a source file
+fatigue/FatigueService.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/fatigue/FatigueService.cpp.i
+.PHONY : fatigue/FatigueService.cpp.i
+
+fatigue/FatigueService.s: fatigue/FatigueService.cpp.s
+.PHONY : fatigue/FatigueService.s
+
+# target to generate assembly for a file
+fatigue/FatigueService.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/fatigue/FatigueService.cpp.s
+.PHONY : fatigue/FatigueService.cpp.s
+
+fatigue/FatigueVision.o: fatigue/FatigueVision.cpp.o
+.PHONY : fatigue/FatigueVision.o
+
+# target to build an object file
+fatigue/FatigueVision.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/fatigue/FatigueVision.cpp.o
+.PHONY : fatigue/FatigueVision.cpp.o
+
+fatigue/FatigueVision.i: fatigue/FatigueVision.cpp.i
+.PHONY : fatigue/FatigueVision.i
+
+# target to preprocess a source file
+fatigue/FatigueVision.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/fatigue/FatigueVision.cpp.i
+.PHONY : fatigue/FatigueVision.cpp.i
+
+fatigue/FatigueVision.s: fatigue/FatigueVision.cpp.s
+.PHONY : fatigue/FatigueVision.s
+
+# target to generate assembly for a file
+fatigue/FatigueVision.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/fatigue/FatigueVision.cpp.s
+.PHONY : fatigue/FatigueVision.cpp.s
+
 llm/LLMService.o: llm/LLMService.cpp.o
 .PHONY : llm/LLMService.o
 
@@ -608,6 +704,18 @@ help:
 	@echo "... conversation/ConversationManager.o"
 	@echo "... conversation/ConversationManager.i"
 	@echo "... conversation/ConversationManager.s"
+	@echo "... fatigue/FatigueBaselineManager.o"
+	@echo "... fatigue/FatigueBaselineManager.i"
+	@echo "... fatigue/FatigueBaselineManager.s"
+	@echo "... fatigue/FatigueEventTracker.o"
+	@echo "... fatigue/FatigueEventTracker.i"
+	@echo "... fatigue/FatigueEventTracker.s"
+	@echo "... fatigue/FatigueService.o"
+	@echo "... fatigue/FatigueService.i"
+	@echo "... fatigue/FatigueService.s"
+	@echo "... fatigue/FatigueVision.o"
+	@echo "... fatigue/FatigueVision.i"
+	@echo "... fatigue/FatigueVision.s"
 	@echo "... llm/LLMService.o"
 	@echo "... llm/LLMService.i"
 	@echo "... llm/LLMService.s"

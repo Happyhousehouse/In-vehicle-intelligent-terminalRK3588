@@ -18,7 +18,8 @@ CameraController::CameraController(
 
     :
 
-      QObject(parent)
+      QObject(parent),
+      fatigue_(&camera_)
 
 {
 
@@ -60,11 +61,14 @@ CameraController::CameraController(
 
 
 CameraController::~CameraController()
-
 {
+    qDebug()
+        << "[CameraController] destructor begin";
 
     stopCamera();
 
+    qDebug()
+        << "[CameraController] destructor end";
 }
 
 
@@ -97,7 +101,19 @@ void CameraController::startCamera()
 
         timer_.start(33);
 
+        // ========================================================
+        // 启动疲劳检测
+        // ========================================================
+
+        if (!fatigue_.start())
+        {
+            qWarning()
+                << "[CameraController] FatigueService start failed";
+        }
+
     }
+
+    
 
 
 }
@@ -110,14 +126,37 @@ void CameraController::startCamera()
 
 
 void CameraController::stopCamera()
-
 {
+    qDebug()
+        << "[CameraController] stopCamera begin";
+
 
     timer_.stop();
 
 
+    qDebug()
+        << "[CameraController] stopping FatigueService";
+
+    // 必须先停疲劳线程
+    fatigue_.stop();
+
+
+    qDebug()
+        << "[CameraController] FatigueService stopped";
+
+
+    qDebug()
+        << "[CameraController] stopping CameraService";
+
+    // 再停摄像头
     camera_.stop();
 
+
+    qDebug()
+        << "[CameraController] CameraService stopped";
+
+    qDebug()
+        << "[CameraController] stopCamera end";
 }
 
 
@@ -183,7 +222,12 @@ void CameraController::updateFrame()
     );
 
 
-
+    // 重要：
+    // image 默认引用 frame.data，
+    // 但 frame 是局部变量。
+    // copy() 后让 QImage 自己拥有图像数据。
+    QImage safeImage =
+        image.copy();
 
 
     if(provider_)

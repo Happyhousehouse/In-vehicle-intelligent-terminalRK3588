@@ -490,6 +490,10 @@ CMakeFiles/VehicleTerminal.dir/main.cpp.o: \
  /usr/include/aarch64-linux-gnu/qt5/QtGui/qpixmap.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QMutex \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qmutex.h \
+ /home/firefly/VehicleTerminal/controller/../fatigue/FatigueService.h \
+ /home/firefly/VehicleTerminal/controller/../fatigue/FatigueVision.h \
+ /home/firefly/VehicleTerminal/include/rknn_api.h \
+ /home/firefly/VehicleTerminal/controller/../fatigue/FatigueBaselineManager.h \
  /home/firefly/VehicleTerminal/controller/GalleryController.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QStringList \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qstringlist.h \

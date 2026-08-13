@@ -130,9 +130,20 @@ set(SOURCES
     camera/CameraService.h
 
 
+    # =====================
+    # Fatigue Detection
+    # =====================
 
+    fatigue/FatigueEventTracker.cpp
+    fatigue/FatigueEventTracker.h
+    fatigue/FatigueTypes.h
+    fatigue/FatigueVision.cpp
+    fatigue/FatigueVision.h
+    fatigue/FatigueService.cpp
+    fatigue/FatigueService.h
 
-
+    fatigue/FatigueBaselineManager.cpp
+    fatigue/FatigueBaselineManager.h
     # =====================
     # Photo模块
     # =====================
@@ -302,7 +313,9 @@ target_include_directories(
 
     ${CMAKE_CURRENT_SOURCE_DIR}/llm
 
+    # Fatigue
 
+    ${CMAKE_CURRENT_SOURCE_DIR}/fatigue
 
     # RAG
 
@@ -374,7 +387,8 @@ target_link_libraries(
 
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/librkllmrt.so
 
-
+    # RKNN
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib/librknnrt.so
 )
 
 

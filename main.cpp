@@ -20,7 +20,7 @@
 
 #include "weather/WeatherService.h"
 
-
+#include "FatigueVision.h"
 
 
 
@@ -32,9 +32,6 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     OnboardController onboardController;
-
-
-
 
 
     /*
@@ -76,7 +73,8 @@ int main(int argc, char *argv[])
 
     */
 
-    CameraImageProvider cameraProvider;
+    CameraImageProvider *cameraProvider =
+    new CameraImageProvider();
 
 
 
@@ -92,7 +90,7 @@ int main(int argc, char *argv[])
 
     cameraController.setProvider(
 
-        &cameraProvider
+        cameraProvider
 
     );
 
@@ -289,7 +287,7 @@ int main(int argc, char *argv[])
 
         "camera",
 
-        &cameraProvider
+        cameraProvider
 
     );
 

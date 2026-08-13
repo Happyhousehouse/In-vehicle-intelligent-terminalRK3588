@@ -1,3 +1,26 @@
-天气模块版本1.0：实现了天气模块的功能，能够查看未来7天的天气情况，并能够切换城市。并实现了主界面天气窗口的显示。以及AI助手自动调用天气助手，并查询不同地区的天气状况。
+疲劳检测模块1.0：目前已经完成：
 
-下一步：做天气预警、AI助手的未来天气查询，网络断开情况下的界面、查询情况。
+CameraService 实时采集正常，FatigueService 用独立线程读取现有相机帧，没有重复打开摄像头。
+version-slim-320_rk3588.rknn 人脸检测已经跑通，能输出 faceRect + faceScore。
+PFLD_GhostOne_112_1_opt_sim_rk3588.rknn 已经跑通，能输出 98 个关键点，而且你已经用调试图肉眼确认关键点位置正确。
+已经根据 98 点计算出：
+rightEyeRatio
+leftEyeRatio
+mouthRatio
+已经通过真实动作验证：
+睁眼时 Eye Ratio 较高
+闭眼时 Eye Ratio 明显下降
+张嘴时 Mouth Ratio 明显升高
+FatigueBaselineManager 已经建立起来：
+收集有效人脸/眼睛样本
+No Face 不作为有效样本
+只累计有效观测时间
+用个人样本分布建立左右眼正常睁眼基线
+当前已经实际得到过类似：
+leftBase ≈ 0.304
+rightBase ≈ 0.290
+已经能把原始 Eye Ratio 转换成归一化状态：
+正常睁眼约 1.0
+眼睛逐渐变窄时会降到 0.8 / 0.6 / 更低
+No Face 会被区分成 INVALID，不会错误当成“眼睛完全闭合”
+CameraImageProvider 的退出 free(): invalid pointer 生命周期问题也已经修掉，程序可以正常退出。
