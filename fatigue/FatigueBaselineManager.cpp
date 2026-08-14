@@ -165,23 +165,21 @@ void FatigueBaselineManager::updateEyeCalibration(
     int64_t timestampMs
 )
 {
-    // 基线已经完成，不再继续修改。
+    // ========================================================
+    // 1. Baseline 已经完成
     //
-    // 防止驾驶员后面疲劳后，
-    // 基线慢慢漂移成“疲劳状态”。
+    // 完成后不再继续学习，防止 fatigue drift。
+    // ========================================================
+
     if (eyeBaseline_.ready)
     {
         return;
     }
 
 
-    // --------------------------------------------------------
-    // 基础有效性检查
-    //
-    // 注意：
-    // 这里只检查数据是否合理，
-    // 不使用固定 OPEN/CLOSED 阈值。
-    // --------------------------------------------------------
+    // ========================================================
+    // 2. 基础有效性检查
+    // ========================================================
 
     if (!std::isfinite(leftEyeRatio) ||
         !std::isfinite(rightEyeRatio))
@@ -189,7 +187,6 @@ void FatigueBaselineManager::updateEyeCalibration(
         return;
     }
 
-    
 
     if (leftEyeRatio <= 0.0f ||
         rightEyeRatio <= 0.0f)
@@ -204,9 +201,9 @@ void FatigueBaselineManager::updateEyeCalibration(
     }
 
 
-    // --------------------------------------------------------
-    // 时间倒退，重新开始当前 calibration
-    // --------------------------------------------------------
+    // ========================================================
+    // 3. 时间倒退
+    // ========================================================
 
     if (lastTimestampMs_ > 0 &&
         timestampMs < lastTimestampMs_)
@@ -219,94 +216,26 @@ void FatigueBaselineManager::updateEyeCalibration(
         timestampMs;
 
 
-    // --------------------------------------------------------
-    // 第一帧有效观测开始计时
-    // --------------------------------------------------------
-
-    if (!eyeCalibrationStarted_)
-    {
-        eyeCalibrationStarted_ = true;
-
-        eyeCalibrationStartMs_ =
-            timestampMs;
-    }
-
-
-    // --------------------------------------------------------
-    // 保存连续观测
+    // ========================================================
+    // 4. 样本质量检查
     //
-    // 使用中位数而不是均值，
-    // 普通短暂眨眼不会严重拉低正常睁眼基线。
-    // --------------------------------------------------------
-
-    leftEyeSamples_.push_back(
-        leftEyeRatio
-    );
-
-    rightEyeSamples_.push_back(
-        rightEyeRatio
-    );
-
-
-    if (!eyeCalibrationStarted_)
-    {
-        eyeCalibrationStarted_ = true;
-
-        eyeCalibrationStartMs_ =
-            timestampMs;
-
-        previousValidTimestampMs_ =
-            timestampMs;
-    }
-    else
-    {
-        const int64_t delta =
-            timestampMs -
-            previousValidTimestampMs_;
-
-
-        // 只有连续有效观测才累计时间。
-        //
-        // 如果中间很久没有 Face，
-        // 那段时间不进入 calibration。
-        if (delta > 0 &&
-            delta <= config_.maxValidGapMs)
-        {
-            eyeValidAccumulatedMs_ +=
-                delta;
-        }
-
-
-        previousValidTimestampMs_ =
-            timestampMs;
-    }
-
-
-    // --------------------------------------------------------
-    // 同时满足：
+    // 注意：
+    // 必须在 push_back() 之前。
     //
-    // 时间达到
-    // +
-    // 样本数量足够
+    // 两眼差距过大可能来自：
+    // - 侧脸
+    // - 单眼遮挡
+    // - PFLD 抖动
+    // - 关键点异常
     //
-    // 才完成 calibration。
-    // --------------------------------------------------------
-
-    if (eyeValidAccumulatedMs_ >=
-            config_.eyeCalibrationDurationMs &&
-        leftEyeSamples_.size() >=
-            config_.minEyeSamples &&
-        rightEyeSamples_.size() >=
-            config_.minEyeSamples)
-    {
-        finalizeEyeBaseline();
-    }
+    // 这种帧不进入 Open Baseline。
+    // ========================================================
 
     const float eyeMean =
-    (
-        leftEyeRatio +
-        rightEyeRatio
-    ) * 0.5f;
+        (
+            leftEyeRatio +
+            rightEyeRatio
+        ) * 0.5f;
 
 
     if (eyeMean <= 1e-6f)
@@ -327,11 +256,81 @@ void FatigueBaselineManager::updateEyeCalibration(
     if (eyeAsymmetry >
         config_.maxEyeAsymmetry)
     {
-        // 两只眼当前差距过大，
-        // 可能是侧脸、关键点异常、遮挡等。
-        //
-        // 当前帧不用于个人 Open Baseline。
         return;
+    }
+
+
+    // ========================================================
+    // 5. 第一帧有效 calibration observation
+    // ========================================================
+
+    if (!eyeCalibrationStarted_)
+    {
+        eyeCalibrationStarted_ = true;
+
+        eyeCalibrationStartMs_ =
+            timestampMs;
+
+        previousValidTimestampMs_ =
+            timestampMs;
+    }
+    else
+    {
+        // ====================================================
+        // 6. 有效观测时间累计
+        //
+        // 只有相邻有效 calibration frame
+        // 间隔没有超过 maxValidGapMs 才累计。
+        // ====================================================
+
+        const int64_t delta =
+            timestampMs -
+            previousValidTimestampMs_;
+
+
+        if (delta > 0 &&
+            delta <= config_.maxValidGapMs)
+        {
+            eyeValidAccumulatedMs_ +=
+                delta;
+        }
+
+
+        previousValidTimestampMs_ =
+            timestampMs;
+    }
+
+
+    // ========================================================
+    // 7. 保存有效 Eye Ratio 样本
+    // ========================================================
+
+    leftEyeSamples_.push_back(
+        leftEyeRatio
+    );
+
+
+    rightEyeSamples_.push_back(
+        rightEyeRatio
+    );
+
+
+    // ========================================================
+    // 8. 完成条件
+    //
+    // 有效观测时间
+    // +
+    // 有效样本数量
+    // ========================================================
+
+    if (eyeValidAccumulatedMs_ >=
+            config_.eyeCalibrationDurationMs &&
+        leftEyeSamples_.size() >=
+            config_.minEyeSamples &&
+        rightEyeSamples_.size() >=
+            config_.minEyeSamples)
+    {
+        finalizeEyeBaseline();
     }
 }
 

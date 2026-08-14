@@ -7,6 +7,7 @@
 
 #include "FatigueVision.h"
 #include "FatigueBaselineManager.h"
+#include "FatigueEventTracker.h"
 
 // ============================================================
 // FatigueService
@@ -71,6 +72,8 @@ private:
 
     FatigueBaselineManager baseline_;
     
+    FatigueEventTracker eventTracker_;
+
     std::thread workerThread_;
 
 

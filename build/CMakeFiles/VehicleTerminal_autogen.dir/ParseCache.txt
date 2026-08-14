@@ -719,7 +719,9 @@
  mdp:/home/firefly/VehicleTerminal/camera/CameraService.h
  mdp:/home/firefly/VehicleTerminal/controller/CameraImageProvider.h
  mdp:/home/firefly/VehicleTerminal/fatigue/FatigueBaselineManager.h
+ mdp:/home/firefly/VehicleTerminal/fatigue/FatigueEventTracker.h
  mdp:/home/firefly/VehicleTerminal/fatigue/FatigueService.h
+ mdp:/home/firefly/VehicleTerminal/fatigue/FatigueTypes.h
  mdp:/home/firefly/VehicleTerminal/fatigue/FatigueVision.h
  mdp:/home/firefly/VehicleTerminal/include/rknn_api.h
  mdp:/home/firefly/VehicleTerminal/photo/GalleryService.h

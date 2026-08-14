@@ -363,4 +363,6 @@ CMakeFiles/VehicleTerminal.dir/fatigue/FatigueService.cpp.o: \
  /usr/include/opencv4/opencv2/video/background_segm.hpp \
  /home/firefly/VehicleTerminal/fatigue/FatigueVision.h \
  /home/firefly/VehicleTerminal/include/rknn_api.h \
- /home/firefly/VehicleTerminal/fatigue/FatigueBaselineManager.h
+ /home/firefly/VehicleTerminal/fatigue/FatigueBaselineManager.h \
+ /home/firefly/VehicleTerminal/fatigue/FatigueEventTracker.h \
+ /home/firefly/VehicleTerminal/fatigue/FatigueTypes.h

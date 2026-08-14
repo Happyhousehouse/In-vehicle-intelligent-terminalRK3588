@@ -483,5 +483,7 @@ CMakeFiles/VehicleTerminal.dir/controller/CameraController.cpp.o: \
  /home/firefly/VehicleTerminal/controller/../fatigue/FatigueVision.h \
  /home/firefly/VehicleTerminal/include/rknn_api.h \
  /home/firefly/VehicleTerminal/controller/../fatigue/FatigueBaselineManager.h \
+ /home/firefly/VehicleTerminal/controller/../fatigue/FatigueEventTracker.h \
+ /home/firefly/VehicleTerminal/controller/../fatigue/FatigueTypes.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QDebug \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qdebug.h

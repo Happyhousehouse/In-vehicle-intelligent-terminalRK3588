@@ -4,6 +4,62 @@
 #include <iostream>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/imgcodecs.hpp>
+#include <algorithm>
+namespace
+{
+
+const char* eyeStateName(
+    EyeState state
+)
+{
+    switch (state)
+    {
+        case EyeState::UNKNOWN:
+            return "UNKNOWN";
+
+        case EyeState::OPEN:
+            return "OPEN";
+
+        case EyeState::CLOSING:
+            return "CLOSING";
+
+        case EyeState::CLOSED:
+            return "CLOSED";
+
+        case EyeState::OPENING:
+            return "OPENING";
+    }
+
+    return "UNKNOWN";
+}
+
+
+const char* eyeClosureTypeName(
+    EyeClosureType type
+)
+{
+    switch (type)
+    {
+        case EyeClosureType::NONE:
+            return "NONE";
+
+        case EyeClosureType::BLINK:
+            return "BLINK";
+
+        case EyeClosureType::SLOW_CLOSURE:
+            return "SLOW_CLOSURE";
+
+        case EyeClosureType::LONG_CLOSE:
+            return "LONG_CLOSE";
+
+        case EyeClosureType::STRONG_LONG_CLOSE:
+            return "STRONG_LONG_CLOSE";
+    }
+
+    return "NONE";
+}
+
+}
 
 // ============================================================
 // Constructor
@@ -100,7 +156,7 @@ bool FatigueService::start()
     }
 
     baseline_.resetSession();
-
+    eventTracker_.reset();
     running_ = true;
 
 
@@ -163,13 +219,36 @@ void FatigueService::processLoop()
     using namespace std::chrono;
 
 
+    // ========================================================
+    // 疲劳检测目标采样率
+    //
+    // 20 FPS
+    // ≈ 每 50ms 处理一次
+    //
+    // 注意：
+    // 不是“处理完以后再睡 50ms”，
+    // 而是一整个循环目标为 50ms。
+    // ========================================================
+
+    constexpr int64_t targetFramePeriodMs = 33;
+
+
     int printCounter = 0;
+
+
+    // 用于打印 EyeState 状态变化
+    EyeState lastLoggedEyeState =
+        EyeState::UNKNOWN;
+
 
     // 临时调试：只保存一张关键点图
     bool landmarkDebugSaved = false;
 
+
     while (running_)
     {
+        const auto loopStart =
+            steady_clock::now();
         // ====================================================
         // 1. 从现有 CameraService 获取最新帧
         // ====================================================
@@ -180,8 +259,11 @@ void FatigueService::processLoop()
 
         if (frame.empty())
         {
-            std::this_thread::sleep_for(
-                milliseconds(50)
+            std::this_thread::sleep_until(
+                loopStart +
+                milliseconds(
+                    targetFramePeriodMs
+                )
             );
 
             continue;
@@ -192,13 +274,28 @@ void FatigueService::processLoop()
         // 2. FatigueVision
         // ====================================================
 
+        const auto visionStart =
+            steady_clock::now();
+
+
         FatigueVisionResult result =
             vision_.process(frame);
 
+
+        const auto visionEnd =
+            steady_clock::now();
+
+
+        const int64_t visionCostMs =
+            duration_cast<milliseconds>(
+                visionEnd -
+                visionStart
+            ).count();
+
+
         const int64_t timestampMs =
             duration_cast<milliseconds>(
-                steady_clock::now()
-                    .time_since_epoch()
+                loopStart.time_since_epoch()
             ).count();
 
         if (result.valid)
@@ -213,7 +310,324 @@ void FatigueService::processLoop()
                 timestampMs
             );
         }
+
         // ============================================================
+        // FatigueEventTracker
+        //
+        // 只有 Eye Baseline READY 以后，
+        // 才允许进入归一化 Eye State Space。
+        // ============================================================
+
+        FatigueEventResult eventResult;
+
+        bool eventTrackerUpdated = false;
+
+        NormalizedEyeObservation normalized;
+
+
+        // ------------------------------------------------------------
+        // Baseline 已完成
+        // ------------------------------------------------------------
+
+        if (baseline_.eyeBaselineReady())
+        {
+            FatigueObservation observation;
+
+            observation.timestampMs =
+                timestampMs;
+
+            observation.mouthRatio =
+                result.mouthRatio;
+
+
+            // --------------------------------------------------------
+            // 当前视觉帧有效
+            // --------------------------------------------------------
+
+            if (result.valid)
+            {
+                normalized =
+                    baseline_.normalizeEyes(
+                        result.leftEyeRatio,
+                        result.rightEyeRatio
+                    );
+
+
+                if (normalized.valid)
+                {
+                    observation.valid = true;
+
+                    observation.leftEyeOpenness =
+                        normalized.leftOpenness;
+
+                    observation.rightEyeOpenness =
+                        normalized.rightOpenness;
+                }
+                else
+                {
+                    observation.valid = false;
+                }
+            }
+
+            // --------------------------------------------------------
+            // No Face / PFLD Failed
+            //
+            // 仍然必须调用 tracker.update()。
+            //
+            // 因为 EventTracker 需要知道：
+            //
+            // invalid 持续了多少 ms。
+            // --------------------------------------------------------
+
+            else
+            {
+                observation.valid = false;
+            }
+
+
+            eventResult =
+                eventTracker_.update(
+                    observation
+                );
+
+
+            eventTrackerUpdated = true;
+
+            // ============================================================
+            // Eye per-frame diagnostic
+            //
+            // 临时用于普通眨眼调试。
+            // Baseline READY 后每一帧都打印：
+            //
+            // raw:
+            //     Baseline 归一化之后、EMA 之前
+            //
+            // ema:
+            //     EventTracker EMA 平滑之后
+            //
+            // combined:
+            //     max(left, right)
+            //
+            // 调试完成后可以删除或降低打印频率。
+            // ============================================================
+
+            if (eventTrackerUpdated)
+            {
+                if (eventResult.observationValid &&
+                    normalized.valid)
+                {
+                    const float rawCombined =
+                        std::max(
+                            normalized.leftOpenness,
+                            normalized.rightOpenness
+                        );
+
+
+                    std::cout
+                        << "[EyeDebug]"
+                        << " t=" << timestampMs
+
+                        << " state="
+                        << eyeStateName(
+                            eventResult.eyeState
+                        )
+
+                        // --------------------------------------------
+                        // Baseline normalized，EMA 之前
+                        // --------------------------------------------
+                        << " rawL="
+                        << normalized.leftOpenness
+
+                        << " rawR="
+                        << normalized.rightOpenness
+
+                        << " rawC="
+                        << rawCombined
+
+                        // --------------------------------------------
+                        // EMA 之后
+                        // --------------------------------------------
+                        << " emaL="
+                        << eventResult.smoothedLeftOpenness
+
+                        << " emaR="
+                        << eventResult.smoothedRightOpenness
+
+                        << " emaC="
+                        << eventResult.combinedOpenness
+
+                        // --------------------------------------------
+                        // 当前变化速度
+                        // --------------------------------------------
+                        << " slope="
+                        << eventResult.opennessSlopePerSecond
+
+                        // --------------------------------------------
+                        // 当前状态持续时间
+                        // --------------------------------------------
+                        << " stateMs="
+                        << eventResult.stateDurationMs
+
+                        // --------------------------------------------
+                        // 真正 CLOSED 后持续时间
+                        // --------------------------------------------
+                        << " closedMs="
+                        << eventResult.currentClosedDurationMs
+
+                        << " episodeMs="
+                        << eventResult.currentEyeEpisodeDurationMs
+
+                        << " lowMs="
+                        << eventResult.currentLowOpennessDurationMs
+
+                        << std::endl;
+
+                }
+                else
+                {
+                    std::cout
+                        << "[EyeDebug]"
+                        << " t=" << timestampMs
+                        << " observation=INVALID"
+                        << " state="
+                        << eyeStateName(
+                            eventResult.eyeState
+                        )
+                        << std::endl;
+                }
+            }
+        }
+
+        // ============================================================
+        // Eye state transition debug
+        //
+        // 只在状态发生变化时打印。
+        // ============================================================
+
+        if (eventTrackerUpdated &&
+            eventResult.eyeState !=
+                lastLoggedEyeState)
+        {
+            std::cout
+                << "[EyeState] "
+                << eyeStateName(
+                    lastLoggedEyeState
+                )
+                << " -> "
+                << eyeStateName(
+                    eventResult.eyeState
+                )
+                << " left="
+                << eventResult.smoothedLeftOpenness
+                << " right="
+                << eventResult.smoothedRightOpenness
+                << " combined="
+                << eventResult.combinedOpenness
+                << " slope="
+                << eventResult.opennessSlopePerSecond
+                << std::endl;
+
+
+            lastLoggedEyeState =
+                eventResult.eyeState;
+        }
+
+        // ============================================================
+        // Completed Eye Closure Event
+        // ============================================================
+
+        if (eventTrackerUpdated &&
+            eventResult.eyeClosure.completed)
+        {
+            const EyeClosureEvent& event =
+                eventResult.eyeClosure;
+
+
+            std::cout
+                << "[EyeEvent] type="
+                << eyeClosureTypeName(
+                    event.type
+                )
+                << " closed="
+                << event.closedDurationMs
+                << "ms"
+                << " total="
+                << event.totalDurationMs
+                << "ms"
+                << " minLeft="
+                << event.minLeftOpenness
+                << " minRight="
+                << event.minRightOpenness
+                << std::endl;
+        }
+
+                // ============================================================
+        // Mouth diagnostic
+        //
+        // 用于测试基础哈欠检测：
+        // mouthRatio >= 0.80 持续 >= 4000ms
+        // ============================================================
+
+        if (eventTrackerUpdated &&
+            eventResult.observationValid)
+        {
+            std::cout
+                << "[MouthDebug]"
+                << " ratio="
+                << result.mouthRatio
+                << " openMs="
+                << eventResult.currentMouthOpenMs
+                << std::endl;
+        }
+
+        // ============================================================
+        // Yawn event
+        // ============================================================
+
+        if (eventTrackerUpdated &&
+            eventResult.yawn.detected)
+        {
+            std::cout
+                << "[Yawn]"
+                << " duration="
+                << eventResult.yawn.durationMs
+                << "ms"
+                << " peak="
+                << eventResult.yawn.peakMouthRatio
+                << std::endl;
+        }
+        // ============================================================
+        // Fatigue warning
+        //
+        // 新规则：
+        //
+        // 只有 CLOSING：
+        //     episode >= 4000ms
+        //
+        // 当前 episode 曾进入 CLOSED：
+        //     episode >= 2000ms
+        //
+        // emergencyTriggered 这个字段名暂时保留，
+        // 后续统一重构时再改名。
+        // ============================================================
+
+        if (eventTrackerUpdated &&
+            eventResult.emergencyTriggered)
+        {
+            std::cout
+                << "[Warning]"
+                << " episodeMs="
+                << eventResult.currentEyeEpisodeDurationMs
+                << "ms"
+                << " state="
+                << eyeStateName(
+                    eventResult.eyeState
+                )
+                << " combined="
+                << eventResult.combinedOpenness
+                << std::endl;
+        }
+                // ============================================================
         // 临时：保存一张 PFLD 98 点调试图
         // ============================================================
 
@@ -361,28 +775,16 @@ void FatigueService::processLoop()
                 // 才允许进入 normalized state space。
                 // ========================================================
 
-                if (result.valid)
+                if (eventTrackerUpdated &&
+                    eventResult.observationValid)
                 {
-                    const NormalizedEyeObservation normalized =
-                        baseline_.normalizeEyes(
-                            result.leftEyeRatio,
-                            result.rightEyeRatio
-                        );
-
-
-                    if (normalized.valid)
-                    {
-                        std::cout
-                            << " leftState="
-                            << normalized.leftOpenness
-                            << " rightState="
-                            << normalized.rightOpenness;
-                    }
-                    else
-                    {
-                        std::cout
-                            << " observation=INVALID";
-                    }
+                    std::cout
+                        << " leftState="
+                        << eventResult.smoothedLeftOpenness
+                        << " rightState="
+                        << eventResult.smoothedRightOpenness
+                        << " combined="
+                        << eventResult.combinedOpenness;
                 }
                 else
                 {
@@ -449,18 +851,66 @@ void FatigueService::processLoop()
                     << "[FatigueService] No face"
                     << std::endl;
             }
+
+            if (eventTrackerUpdated)
+            {
+                std::cout
+                    << "[Tracker]"
+                    << " state="
+                    << eyeStateName(
+                        eventResult.eyeState
+                    )
+                    << " left="
+                    << eventResult.smoothedLeftOpenness
+                    << " right="
+                    << eventResult.smoothedRightOpenness
+                    << " combined="
+                    << eventResult.combinedOpenness
+                    << " slope="
+                    << eventResult.opennessSlopePerSecond
+                    << " stateMs="
+                    << eventResult.stateDurationMs
+
+                    << " closedMs="
+                    << eventResult.currentClosedDurationMs
+
+                    << " episodeMs="
+                    << eventResult.currentEyeEpisodeDurationMs
+
+                    << std::endl;
+            }
+
+            std::cout
+                << "[FatiguePerf]"
+                << " vision="
+                << visionCostMs
+                << "ms"
+                << " targetPeriod="
+                << targetFramePeriodMs
+                << "ms"
+                << std::endl;
         }
 
 
         // ====================================================
-        // 4. 当前疲劳检测先跑约 10 FPS
+        // ============================================================
+        // Target 20 FPS
         //
-        // 没必要跟 QML 的 30 FPS 完全同步。
-        // 后面根据 Face + PFLD 实际性能再调整。
-        // ====================================================
+        // 一个完整循环目标：50ms。
+        //
+        // 如果本帧工作只用了 30ms：
+        // 再等待约 20ms。
+        //
+        // 如果本帧已经用了 60ms：
+        // sleep_until 会立即返回，
+        // 不再额外等待。
+        // ============================================================
 
-        std::this_thread::sleep_for(
-            milliseconds(100)
+        std::this_thread::sleep_until(
+            loopStart +
+            milliseconds(
+                targetFramePeriodMs
+            )
         );
     }
 
