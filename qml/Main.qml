@@ -48,6 +48,165 @@ ApplicationWindow {
         }
     }
 
+    /*
+    * ============================================================
+    * 全局驾驶安全警告
+    *
+    * 优先级：
+    *
+    * 1. 即时长时间闭眼
+    * 2. DEEP_FATIGUE
+    * 3. FATIGUE
+    *
+    * NORMAL / UNKNOWN 不显示。
+    * ============================================================
+    */
+
+    Rectangle {
+
+        id: fatigueWarningBanner
+
+        z: 200
+
+
+        width: 1100
+        height: 135
+
+
+        anchors.top:
+            parent.top
+
+        anchors.topMargin:
+            80
+
+
+        anchors.horizontalCenter:
+            parent.horizontalCenter
+
+
+        radius:
+            24
+
+
+        visible:
+            fatigueService.monitoringEnabled
+            &&
+            (
+                fatigueService.eyeWarningActive
+                ||
+                fatigueService.fatigueLevel === "FATIGUE"
+                ||
+                fatigueService.fatigueLevel === "DEEP_FATIGUE"
+            )
+
+
+        color:
+            fatigueService.eyeWarningActive
+            ? "#D92D20"
+            : fatigueService.fatigueLevel === "DEEP_FATIGUE"
+            ? "#C62828"
+            : "#E58A18"
+
+
+        border.width:
+            3
+
+
+        border.color:
+            fatigueService.eyeWarningActive
+            ? "#FFB4AB"
+            : fatigueService.fatigueLevel === "DEEP_FATIGUE"
+            ? "#FF8A80"
+            : "#FFD180"
+
+
+        Row {
+
+            anchors.centerIn:
+                parent
+
+            spacing:
+                35
+
+
+            /*
+            * 警告图标
+            */
+            Text {
+
+                text:
+                    "⚠"
+
+                color:
+                    "white"
+
+                font.pixelSize:
+                    62
+
+                font.bold:
+                    true
+            }
+
+
+            /*
+            * 警告文字
+            */
+            Column {
+
+                anchors.verticalCenter:
+                    parent.verticalCenter
+
+                spacing:
+                    8
+
+
+                Text {
+
+                    text:
+                        fatigueService.eyeWarningActive
+                        ? "危险：检测到长时间闭眼"
+                        : fatigueService.fatigueLevel === "DEEP_FATIGUE"
+                        ? "深度疲劳警告"
+                        : "疲劳提醒"
+
+
+                    color:
+                        "white"
+
+
+                    font.pixelSize:
+                        34
+
+                    font.bold:
+                        true
+                }
+
+
+                Text {
+
+                    text:
+                        fatigueService.eyeWarningActive
+                        ?
+                        "请保持清醒，并在确保安全的前提下尽快停车休息"
+                        :
+                        fatigueService.fatigueLevel === "DEEP_FATIGUE"
+                        ?
+                        "检测到明显疲劳状态，建议在确保安全的前提下尽快停车休息"
+                        :
+                        "检测到疲劳趋势，请提高警惕并合理安排休息"
+
+
+                    color:
+                        "#FFF4F0"
+
+
+                    font.pixelSize:
+                        22
+                }
+            }
+        }
+    }
+
     title:"Vehicle AI Assistant"
 
 
@@ -1459,6 +1618,276 @@ ApplicationWindow {
         }
 
 
+    }
+
+    /*
+    * ============================================================
+    * 驾驶员疲劳状态
+    * ============================================================
+    */
+
+    Rectangle {
+
+        id: fatigueStatusCard
+
+
+        // 与右侧天气卡保持对称
+        width: 340
+        height: 390
+
+
+        anchors.right:
+            aiCorePanel.left
+
+        anchors.rightMargin:
+            35
+
+
+        anchors.verticalCenter:
+            aiCorePanel.verticalCenter
+
+
+        radius:
+            28
+
+
+        color:
+            "#66101828"
+
+
+        border.width:
+            2
+
+
+        border.color:
+            !fatigueService.monitoringEnabled
+            ? "#607080"
+            : fatigueService.fatigueLevel === "NORMAL"
+            ? "#35D07F"
+            : fatigueService.fatigueLevel === "FATIGUE"
+                ? "#FFB020"
+                : fatigueService.fatigueLevel === "DEEP_FATIGUE"
+                ? "#FF4D4F"
+                : "#708090"
+
+
+        // 只有主界面显示
+        visible:
+            pageLoader.source.toString() === ""
+
+
+        /*
+        * ========================================
+        * 标题
+        * ========================================
+        */
+
+        Text {
+
+            anchors.top:
+                parent.top
+
+            anchors.topMargin:
+                28
+
+
+            anchors.horizontalCenter:
+                parent.horizontalCenter
+
+
+            text:
+                "驾驶员状态"
+
+
+            color:
+                "white"
+
+
+            font.pixelSize:
+                29
+
+            font.bold:
+                true
+        }
+
+
+        /*
+        * ========================================
+        * 状态灯
+        * ========================================
+        */
+
+        Rectangle {
+
+            anchors.top:
+                parent.top
+
+            anchors.topMargin:
+                92
+
+
+            anchors.horizontalCenter:
+                parent.horizontalCenter
+
+
+            width:
+                44
+
+            height:
+                44
+
+            radius:
+                22
+
+
+            color:
+                !fatigueService.monitoringEnabled
+                ? "#607080"
+                : fatigueService.fatigueLevel === "NORMAL"
+                ? "#35D07F"
+                : fatigueService.fatigueLevel === "FATIGUE"
+                    ? "#FFB020"
+                    : fatigueService.fatigueLevel === "DEEP_FATIGUE"
+                    ? "#FF4D4F"
+                    : "#8090A0"
+        }
+
+
+        /*
+        * ========================================
+        * 最终疲劳等级
+        * ========================================
+        */
+
+        Text {
+
+            anchors.top:
+                parent.top
+
+            anchors.topMargin:
+                155
+
+
+            anchors.horizontalCenter:
+                parent.horizontalCenter
+
+
+            text:
+                !fatigueService.monitoringEnabled
+                ? "已关闭"
+                : fatigueService.fatigueLevel === "NORMAL"
+                ? "正常"
+                : fatigueService.fatigueLevel === "FATIGUE"
+                    ? "疲劳"
+                    : fatigueService.fatigueLevel === "DEEP_FATIGUE"
+                    ? "深度疲劳"
+                    : "学习中"
+
+
+            color:
+                !fatigueService.monitoringEnabled
+                ? "#A0A8B0"
+                : fatigueService.fatigueLevel === "NORMAL"
+                ? "#35D07F"
+                : fatigueService.fatigueLevel === "FATIGUE"
+                    ? "#FFB020"
+                    : fatigueService.fatigueLevel === "DEEP_FATIGUE"
+                    ? "#FF4D4F"
+                    : "#C0CBD5"
+
+
+            font.pixelSize:
+                46
+
+            font.bold:
+                true
+        }
+
+
+        /*
+        * ========================================
+        * 运行状态
+        * ========================================
+        */
+
+        Text {
+
+            anchors.top:
+                parent.top
+
+            anchors.topMargin:
+                235
+
+
+            anchors.horizontalCenter:
+                parent.horizontalCenter
+
+
+            text:
+                fatigueService.monitoringEnabled
+                ?
+                (
+                    fatigueService.fatigueLevel === "UNKNOWN"
+                    ? "正在建立驾驶员基准"
+                    : "疲劳监测运行中"
+                )
+                :
+                "疲劳监测未运行"
+
+
+            color:
+                "#AFC4D5"
+
+
+            font.pixelSize:
+                20
+        }
+
+
+        /*
+        * ========================================
+        * 开启 / 关闭
+        * ========================================
+        */
+
+        Button {
+
+            width:
+                220
+
+            height:
+                62
+
+
+            anchors.bottom:
+                parent.bottom
+
+            anchors.bottomMargin:
+                30
+
+
+            anchors.horizontalCenter:
+                parent.horizontalCenter
+
+
+            text:
+                fatigueService.monitoringEnabled
+                ? "关闭疲劳检测"
+                : "开启疲劳检测"
+
+
+            font.pixelSize:
+                22
+
+
+            onClicked: {
+
+                fatigueService
+                    .setMonitoringEnabled(
+                        !fatigueService.monitoringEnabled
+                    )
+            }
+        }
     }
 
     /*

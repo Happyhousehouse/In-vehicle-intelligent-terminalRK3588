@@ -141,9 +141,12 @@ set(SOURCES
     fatigue/FatigueVision.h
     fatigue/FatigueService.cpp
     fatigue/FatigueService.h
-
+    fatigue/FatigueWindowAnalyzer.cpp
+    fatigue/FatigueWindowAnalyzer.h
     fatigue/FatigueBaselineManager.cpp
     fatigue/FatigueBaselineManager.h
+    fatigue/FatigueDecision.cpp
+    fatigue/FatigueDecision.h
     # =====================
     # Photo模块
     # =====================

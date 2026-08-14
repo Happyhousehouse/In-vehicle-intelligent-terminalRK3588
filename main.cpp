@@ -20,7 +20,8 @@
 
 #include "weather/WeatherService.h"
 
-#include "FatigueVision.h"
+#include "camera/CameraService.h"
+#include "fatigue/FatigueService.h"
 
 
 
@@ -63,7 +64,50 @@ int main(int argc, char *argv[])
 
     */
 
-    CameraController cameraController;
+    /*
+    * ============================================================
+    * 共享摄像头图像源
+    *
+    * CameraService 不属于 Camera.qml。
+    *
+    * 它作为车辆终端底层视觉输入，
+    * 程序启动后常驻运行。
+    * ============================================================
+    */
+
+    CameraService cameraService;
+
+
+    /*
+    * ============================================================
+    * 独立疲劳检测服务
+    *
+    * 开机自动运行。
+    * 不属于 CameraController。
+    * ============================================================
+    */
+
+    FatigueService fatigueService(
+        &cameraService
+    );
+
+    /*
+    * VehicleAssistant 使用独立疲劳检测服务。
+    */
+    assistant.setFatigueService(
+        &fatigueService
+    );
+    /*
+    * ============================================================
+    * 摄像头页面控制器
+    *
+    * 只负责 Camera.qml 的预览和拍照。
+    * ============================================================
+    */
+
+    CameraController cameraController(
+        &cameraService
+    );
 
 
 
@@ -95,7 +139,39 @@ int main(int argc, char *argv[])
     );
 
 
+    /*
+    * ============================================================
+    * 开机启动共享摄像头
+    * ============================================================
+    */
 
+    const bool cameraStarted =
+        cameraService.start(
+            "/dev/video11",
+            1920,
+            1080
+        );
+
+
+    if (!cameraStarted)
+    {
+        qWarning()
+            << "[Main] CameraService start failed";
+    }
+    else
+    {
+        /*
+        * ========================================================
+        * 开机自动启动疲劳检测
+        * ========================================================
+        */
+
+        if (!fatigueService.start())
+        {
+            qWarning()
+                << "[Main] FatigueService start failed";
+        }
+    }
 
 
 
@@ -238,7 +314,16 @@ int main(int argc, char *argv[])
             &cameraController
 
         );
+    
+    /*
+    * 注册独立疲劳检测服务
+    */
 
+    engine.rootContext()
+        ->setContextProperty(
+            "fatigueService",
+            &fatigueService
+        );
 
 
     engine.rootContext()
@@ -348,7 +433,28 @@ int main(int argc, char *argv[])
         &OnboardController::quitKeyboard
     );
     
+    QObject::connect(
+        &app,
+        &QCoreApplication::aboutToQuit,
 
+        &app,
+
+        [&fatigueService, &cameraService]()
+        {
+            qDebug()
+                << "[Main] stopping FatigueService";
+
+
+            fatigueService.stop();
+
+
+            qDebug()
+                << "[Main] stopping CameraService";
+
+
+            cameraService.stop();
+        }
+    );
 
 
 

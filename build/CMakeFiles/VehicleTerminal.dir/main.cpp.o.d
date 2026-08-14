@@ -490,12 +490,6 @@ CMakeFiles/VehicleTerminal.dir/main.cpp.o: \
  /usr/include/aarch64-linux-gnu/qt5/QtGui/qpixmap.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QMutex \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qmutex.h \
- /home/firefly/VehicleTerminal/controller/../fatigue/FatigueService.h \
- /home/firefly/VehicleTerminal/controller/../fatigue/FatigueVision.h \
- /home/firefly/VehicleTerminal/include/rknn_api.h \
- /home/firefly/VehicleTerminal/controller/../fatigue/FatigueBaselineManager.h \
- /home/firefly/VehicleTerminal/controller/../fatigue/FatigueEventTracker.h \
- /home/firefly/VehicleTerminal/controller/../fatigue/FatigueTypes.h \
  /home/firefly/VehicleTerminal/controller/GalleryController.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QStringList \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qstringlist.h \
@@ -548,4 +542,12 @@ CMakeFiles/VehicleTerminal.dir/main.cpp.o: \
  /usr/include/aarch64-linux-gnu/qt5/QtNetwork/QSslPreSharedKeyAuthenticator \
  /usr/include/aarch64-linux-gnu/qt5/QtNetwork/qsslpresharedkeyauthenticator.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QMetaType \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/qmetatype.h
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qmetatype.h \
+ /home/firefly/VehicleTerminal/fatigue/FatigueService.h \
+ /home/firefly/VehicleTerminal/fatigue/FatigueVision.h \
+ /home/firefly/VehicleTerminal/include/rknn_api.h \
+ /home/firefly/VehicleTerminal/fatigue/FatigueBaselineManager.h \
+ /home/firefly/VehicleTerminal/fatigue/FatigueEventTracker.h \
+ /home/firefly/VehicleTerminal/fatigue/FatigueTypes.h \
+ /home/firefly/VehicleTerminal/fatigue/FatigueDecision.h \
+ /home/firefly/VehicleTerminal/fatigue/FatigueWindowAnalyzer.h

@@ -4,7 +4,11 @@
 #include <iostream>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/imgcodecs.hpp>
+#include "FatigueWindowAnalyzer.h"
 #include <algorithm>
+#include <QMetaObject>
+
+
 namespace
 {
 
@@ -66,9 +70,12 @@ const char* eyeClosureTypeName(
 // ============================================================
 
 FatigueService::FatigueService(
-    CameraService* camera
+    CameraService* camera,
+    QObject* parent
 )
-    : camera_(camera)
+    :
+      QObject(parent),
+      camera_(camera)
 {
 }
 
@@ -155,9 +162,32 @@ bool FatigueService::start()
         }
     }
 
+
+    // ========================================================
+    // 每次重新开启疲劳检测，
+    // 都重新建立当前驾驶员的眼睛 Baseline。
+    // ========================================================
+
     baseline_.resetSession();
+
     eventTracker_.reset();
+
+
+    // Decision / WindowAnalyzer 在 processLoop()
+    // 中重新创建，因此重新启动就是一个新的检测 session。
+
+
+    setFatigueLevel(
+        FatigueLevel::UNKNOWN
+    );
+
+    setEyeWarningActive(
+        false
+    );
     running_ = true;
+
+
+    emit monitoringEnabledChanged();
 
 
     workerThread_ =
@@ -182,7 +212,8 @@ bool FatigueService::start()
 
 void FatigueService::stop()
 {
-    running_ = false;
+    const bool wasRunning =
+        running_.exchange(false);
 
 
     if (workerThread_.joinable())
@@ -191,14 +222,30 @@ void FatigueService::stop()
             << "[FatigueService] joining worker thread"
             << std::endl;
 
+
         workerThread_.join();
+
 
         std::cout
             << "[FatigueService] worker thread joined"
             << std::endl;
     }
-}
 
+
+    // 用户关闭疲劳检测以后，
+    // UI不应该继续显示上一次 NORMAL / FATIGUE。
+    setFatigueLevel(
+        FatigueLevel::UNKNOWN
+    );
+    setEyeWarningActive(
+        false
+    );
+
+    if (wasRunning)
+    {
+        emit monitoringEnabledChanged();
+    }
+}
 
 // ============================================================
 // State
@@ -209,7 +256,130 @@ bool FatigueService::isRunning() const
     return running_;
 }
 
+QString FatigueService::fatigueLevel() const
+{
+    const FatigueLevel level =
+        static_cast<FatigueLevel>(
+            fatigueLevelCode_.load()
+        );
 
+
+    switch (level)
+    {
+        case FatigueLevel::NORMAL:
+            return QStringLiteral(
+                "NORMAL"
+            );
+
+
+        case FatigueLevel::FATIGUE:
+            return QStringLiteral(
+                "FATIGUE"
+            );
+
+
+        case FatigueLevel::DEEP_FATIGUE:
+            return QStringLiteral(
+                "DEEP_FATIGUE"
+            );
+
+
+        case FatigueLevel::UNKNOWN:
+        default:
+            return QStringLiteral(
+                "UNKNOWN"
+            );
+    }
+}
+
+bool FatigueService::eyeWarningActive() const
+{
+    return eyeWarningActive_.load();
+}
+
+void FatigueService::setEyeWarningActive(
+    bool active
+)
+{
+    const bool oldValue =
+        eyeWarningActive_.exchange(
+            active
+        );
+
+
+    if (oldValue == active)
+    {
+        return;
+    }
+
+
+    QMetaObject::invokeMethod(
+        this,
+
+        [this]()
+        {
+            emit eyeWarningActiveChanged();
+        },
+
+        Qt::QueuedConnection
+    );
+}
+
+
+bool FatigueService::setMonitoringEnabled(
+    bool enabled
+)
+{
+    if (enabled)
+    {
+        return start();
+    }
+
+
+    stop();
+
+    return true;
+}
+
+
+void FatigueService::setFatigueLevel(
+    FatigueLevel level
+)
+{
+    const int newCode =
+        static_cast<int>(
+            level
+        );
+
+
+    const int oldCode =
+        fatigueLevelCode_.exchange(
+            newCode
+        );
+
+
+    // 等级没变就不通知UI。
+    if (oldCode == newCode)
+    {
+        return;
+    }
+
+
+    // processLoop运行在std::thread中。
+    // 不直接操作QML。
+    //
+    // 把通知投递到FatigueService所属的Qt主线程。
+    QMetaObject::invokeMethod(
+        this,
+
+        [this]()
+        {
+            emit fatigueLevelChanged();
+        },
+
+        Qt::QueuedConnection
+    );
+}
 // ============================================================
 // Processing thread
 // ============================================================
@@ -232,7 +402,8 @@ void FatigueService::processLoop()
 
     constexpr int64_t targetFramePeriodMs = 33;
 
-
+    FatigueWindowAnalyzer windowAnalyzer;
+    FatigueDecision fatigueDecision;
     int printCounter = 0;
 
 
@@ -392,6 +563,380 @@ void FatigueService::processLoop()
 
 
             eventTrackerUpdated = true;
+
+
+            // ========================================================
+            // FatigueWindowAnalyzer
+            //
+            // EventTracker 每更新一帧，
+            // WindowAnalyzer 也同步更新一帧。
+            //
+            // 输入：
+            //
+            // observationValid
+            // eyeState
+            // eyeClosure event
+            // yawn event
+            //
+            // 每 10 秒返回一次 WindowStats。
+            // ========================================================
+
+            FatigueWindowStats windowStats;
+
+
+            const bool windowReportReady =
+                windowAnalyzer.update(
+                    eventResult,
+                    timestampMs,
+                    windowStats
+                );
+
+
+            if (windowReportReady)
+            {
+                std::cout
+                    << "[WindowDebug]"
+
+                    << " duration="
+                    << windowStats.durationMs
+                    << "ms"
+
+                    << " full="
+                    << (
+                        windowStats.fullWindow
+                            ? 1
+                            : 0
+                    )
+
+                    << " valid="
+                    << windowStats.validObservationRatio
+                    << " (" 
+                    << windowStats.validObservationMs
+                    << "ms)"
+
+                    << " blink="
+                    << windowStats.blinkCount
+
+                    << " blinkRate="
+                    << windowStats.blinkRatePerMinute
+                    << "/min"
+
+                    << " medianBlink="
+                    << windowStats.medianBlinkDurationMs
+                    << "ms"
+
+                    << " blinkSamples="
+                    << windowStats.blinkDurationSampleCount
+
+                    << " medianECD="
+                    << windowStats.medianEcdMs
+                    << "ms"
+
+                    << " maxECD="
+                    << windowStats.maxEcdMs
+                    << "ms"
+
+                    << " perclos="
+                    << windowStats.perclos
+
+                    << " closed="
+                    << windowStats.closedObservationMs
+                    << "ms"
+
+                    << " longClose="
+                    << windowStats.longCloseCount
+
+                    << " strongLongClose="
+                    << windowStats.strongLongCloseCount
+
+                    << " yawn="
+                    << windowStats.yawnCount
+
+                    << std::endl;
+                    const FatigueDecisionResult decisionResult =
+                        fatigueDecision.evaluate(
+                            windowStats
+                        );
+
+                    // ========================================================
+                    // 发布最终稳定疲劳等级给UI
+                    //
+                    // 注意：
+                    // 用 level，不使用 candidateLevel。
+                    // ========================================================
+
+                    setFatigueLevel(
+                        decisionResult.level
+                    );
+                    // ========================================================
+                    // Fatigue Decision 状态
+                    // ========================================================
+
+                    std::cout
+                        << "[FatigueDecision]"
+
+                        << " phase="
+                        << fatigueDecisionPhaseName(
+                            decisionResult.phase
+                        )
+
+                        << " ready="
+                        << (
+                            decisionResult.ready
+                                ? 1
+                                : 0
+                        )
+
+                        << " baselineReady="
+                        << (
+                            decisionResult.baselineReady
+                                ? 1
+                                : 0
+                        )
+
+                        << " baselineSamples="
+                        << decisionResult.baselineSamplesCollected
+                        << "/"
+                        << fatigueDecision.config().baselineWindowCount
+
+                        << " history="
+                        << decisionResult.historySize
+                        << "/"
+                        << fatigueDecision.config().historyWindowCount
+
+                        << " candidate="
+                        << fatigueLevelName(
+                            decisionResult.candidateLevel
+                        )
+
+                        << " level="
+                        << fatigueLevelName(
+                            decisionResult.level
+                        )
+
+                        << " worsening="
+                        << decisionResult.worseningStreak
+
+                        << " recovering="
+                        << decisionResult.recoveringStreak
+
+                        << " reasons="
+                        << decisionResult.reasonFlags
+
+                        << std::endl;
+
+
+                    // ========================================================
+                    // Behavioral Baseline
+                    // ========================================================
+
+                    if (decisionResult.baselineReady)
+                    {
+                        const FatigueBehaviorBaseline& baseline =
+                            decisionResult.baseline;
+
+                        std::cout
+                            << "[DecisionBaseline]"
+
+                            << " samples="
+                            << baseline.sampleCount
+
+                            << " perclos="
+                            << baseline.perclos
+
+                            << " medianECD="
+                            << baseline.medianEcdMs
+                            << "ms"
+
+                            << " typicalMaxECD="
+                            << baseline.typicalMaxEcdMs
+                            << "ms"
+
+                            << " blinkRate="
+                            << baseline.blinkRatePerMinute
+                            << "/min"
+
+                            << " blinkDuration="
+                            << baseline.blinkDurationMs
+                            << "ms"
+
+                            << " longClose="
+                            << baseline.longCloseCount
+
+                            << " strongLongClose="
+                            << baseline.strongLongCloseCount
+
+                            << " yawn="
+                            << baseline.yawnCount
+
+                            << std::endl;
+                    }
+
+
+                    // ========================================================
+                    // Trend
+                    // ========================================================
+
+                    if (
+                        decisionResult.baselineReady &&
+                        decisionResult.historySize > 0
+                    )
+                    {
+                        const FatigueTrendMetrics& trend =
+                            decisionResult.trend;
+
+                        std::cout
+                            << "[DecisionTrend]"
+
+                            << " enough="
+                            << (
+                                trend.enoughHistory
+                                    ? 1
+                                    : 0
+                            )
+
+                            // ------------------------------------------------
+                            // 当前窗口 VS 初始基准
+                            // ------------------------------------------------
+
+                            << " perclosBaseDelta="
+                            << trend.perclosDeltaFromBaseline
+
+                            << " medianEcdBaseDelta="
+                            << trend.medianEcdDeltaFromBaselineMs
+                            << "ms"
+
+                            << " maxEcdBaseDelta="
+                            << trend.maxEcdDeltaFromBaselineMs
+                            << "ms"
+
+                            << " blinkRateBaseDelta="
+                            << trend.blinkRateDeltaFromBaseline
+
+                            << " blinkDurationBaseDelta="
+                            << trend.blinkDurationDeltaFromBaselineMs
+                            << "ms"
+
+                            << " longCloseBaseDelta="
+                            << trend.longCloseDeltaFromBaseline
+
+                            << " strongCloseBaseDelta="
+                            << trend.strongLongCloseDeltaFromBaseline
+
+                            << " yawnBaseDelta="
+                            << trend.yawnDeltaFromBaseline
+
+                            << std::endl;
+
+
+                        if (trend.enoughHistory)
+                        {
+                            std::cout
+                                << "[DecisionTrendCompare]"
+
+                                // --------------------------------------------
+                                // PERCLOS
+                                // --------------------------------------------
+
+                                << " perclos="
+                                << trend.previousPerclosMean
+                                << "->"
+                                << trend.recentPerclosMean
+
+                                << " delta="
+                                << trend.perclosRecentDelta
+
+
+                                // --------------------------------------------
+                                // Median ECD
+                                // --------------------------------------------
+
+                                << " medianECD="
+                                << trend.previousMedianEcdMean
+                                << "->"
+                                << trend.recentMedianEcdMean
+
+                                << " delta="
+                                << trend.medianEcdRecentDeltaMs
+                                << "ms"
+
+
+                                // --------------------------------------------
+                                // Max ECD
+                                // --------------------------------------------
+
+                                << " maxECD="
+                                << trend.previousMaxEcdMean
+                                << "->"
+                                << trend.recentMaxEcdMean
+
+                                << " delta="
+                                << trend.maxEcdRecentDeltaMs
+                                << "ms"
+
+
+                                // --------------------------------------------
+                                // Blink Rate
+                                // --------------------------------------------
+
+                                << " blinkRate="
+                                << trend.previousBlinkRateMean
+                                << "->"
+                                << trend.recentBlinkRateMean
+
+                                << " delta="
+                                << trend.blinkRateRecentDelta
+
+                                << " blinkDuration="
+                                << trend.previousBlinkDurationMean
+                                << "->"
+                                << trend.recentBlinkDurationMean
+
+                                << " delta="
+                                << trend.blinkDurationRecentDeltaMs
+                                << "ms"
+                                // --------------------------------------------
+                                // Long Close
+                                // --------------------------------------------
+
+                                << " longClose="
+                                << trend.previousLongCloseMean
+                                << "->"
+                                << trend.recentLongCloseMean
+
+                                << " delta="
+                                << trend.longCloseRecentDelta
+
+
+                                // --------------------------------------------
+                                // Strong Long Close
+                                // --------------------------------------------
+
+                                << " strongClose="
+                                << trend.previousStrongLongCloseMean
+                                << "->"
+                                << trend.recentStrongLongCloseMean
+
+                                << " delta="
+                                << trend.strongLongCloseRecentDelta
+
+
+                                // --------------------------------------------
+                                // Yawn
+                                // --------------------------------------------
+
+                                << " yawn="
+                                << trend.previousYawnMean
+                                << "->"
+                                << trend.recentYawnMean
+
+                                << " delta="
+                                << trend.yawnRecentDelta
+
+                                << std::endl;
+                        }
+                    }
+            }
 
             // ============================================================
             // Eye per-frame diagnostic
@@ -611,9 +1156,25 @@ void FatigueService::processLoop()
         // 后续统一重构时再改名。
         // ============================================================
 
-        if (eventTrackerUpdated &&
-            eventResult.emergencyTriggered)
+        // ============================================================
+        // 即时驾驶安全警告
+        //
+        // 当 EventTracker 判断当前眼睛闭合 episode
+        // 已经达到警告条件时立即显示。
+        //
+        // 这个警告不等待 60 秒 Window / FatigueDecision。
+        // ============================================================
+
+        if (
+            eventTrackerUpdated &&
+            eventResult.emergencyTriggered
+        )
         {
+            setEyeWarningActive(
+                true
+            );
+
+
             std::cout
                 << "[Warning]"
                 << " episodeMs="
@@ -626,6 +1187,31 @@ void FatigueService::processLoop()
                 << " combined="
                 << eventResult.combinedOpenness
                 << std::endl;
+        }
+
+
+        // ============================================================
+        // 驾驶员重新明确睁眼后解除即时警告。
+        //
+        // OPENING阶段仍保持警告，
+        // 直到真正回到OPEN。
+        // ============================================================
+
+        if (
+            eventTrackerUpdated &&
+            eyeWarningActive_.load() &&
+            (
+                eventResult.eyeState ==
+                    EyeState::OPEN
+                ||
+                eventResult.eyeState ==
+                    EyeState::UNKNOWN
+            )
+        )
+        {
+            setEyeWarningActive(
+                false
+            );
         }
                 // ============================================================
         // 临时：保存一张 PFLD 98 点调试图

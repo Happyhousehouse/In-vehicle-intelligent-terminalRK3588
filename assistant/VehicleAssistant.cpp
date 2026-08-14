@@ -7,7 +7,7 @@
 #include <QVariantMap>
 
 #include "../weather/WeatherService.h"
-
+#include "../fatigue/FatigueService.h"
 VehicleAssistant::VehicleAssistant(
     QObject *parent
 )
@@ -380,6 +380,26 @@ void VehicleAssistant::setWeatherService(
         << "WeatherService connected";
 }
 
+// ============================================================
+// FatigueService
+// ============================================================
+
+void VehicleAssistant::setFatigueService(
+    FatigueService *service
+)
+{
+    fatigueService_ =
+        service;
+
+
+    qDebug()
+        << "[VehicleAssistant]"
+        << "FatigueService connected:"
+        << (fatigueService_ != nullptr);
+}
+
+
+
 QString VehicleAssistant::currentConversationId() const
 {
     return currentConversationId_;
@@ -612,7 +632,252 @@ void VehicleAssistant::chat(
     conversationManager_
         .saveCurrent();
 
+    /*
+    * ========================================================
+    * Fatigue Detection
+    *
+    * 疲劳检测属于本地车辆功能，
+    * 不进入 RKLLM。
+    *
+    * 支持：
+    *
+    * 打开疲劳检测
+    * 开启疲劳检测
+    * 启动疲劳监测
+    *
+    * 关闭疲劳检测
+    * 停止疲劳检测
+    * 停用疲劳监测
+    *
+    * 疲劳检测状态
+    * 疲劳检测开着吗
+    * 疲劳检测是否开启
+    * ========================================================
+    */
 
+    const bool isFatigueTarget =
+        cmd.contains(
+            QStringLiteral("疲劳检测")
+        )
+        ||
+        cmd.contains(
+            QStringLiteral("疲劳监测")
+        );
+
+
+    if (isFatigueTarget)
+    {
+        // ====================================================
+        // 服务没有绑定
+        // ====================================================
+
+        if (!fatigueService_)
+        {
+            finishLocalAnswer(
+                QStringLiteral(
+                    "疲劳检测服务当前不可用。"
+                )
+            );
+
+            return;
+        }
+
+
+        // ====================================================
+        // 1. 查询疲劳检测状态
+        //
+        // 这一项必须放在“开启”判断前面。
+        //
+        // 因为：
+        //
+        // “疲劳检测是否开启”
+        //
+        // 里面也包含“开启”两个字，
+        // 不能误认为是开启命令。
+        // ====================================================
+
+        const bool statusQuery =
+            cmd.contains(
+                QStringLiteral("状态")
+            )
+            ||
+            cmd.contains(
+                QStringLiteral("开着吗")
+            )
+            ||
+            cmd.contains(
+                QStringLiteral("开启了吗")
+            )
+            ||
+            cmd.contains(
+                QStringLiteral("打开了吗")
+            )
+            ||
+            cmd.contains(
+                QStringLiteral("是否开启")
+            )
+            ||
+            cmd.contains(
+                QStringLiteral("有没有开启")
+            )
+            ||
+            cmd.contains(
+                QStringLiteral("运行吗")
+            );
+
+
+        if (statusQuery)
+        {
+            if (
+                fatigueService_
+                    ->isRunning()
+            )
+            {
+                finishLocalAnswer(
+                    QStringLiteral(
+                        "疲劳检测当前已开启。"
+                    )
+                );
+            }
+            else
+            {
+                finishLocalAnswer(
+                    QStringLiteral(
+                        "疲劳检测当前已关闭。"
+                    )
+                );
+            }
+
+
+            return;
+        }
+
+
+        // ====================================================
+        // 2. 关闭疲劳检测
+        // ====================================================
+
+        const bool disableCommand =
+            cmd.contains(
+                QStringLiteral("关闭")
+            )
+            ||
+            cmd.contains(
+                QStringLiteral("停止")
+            )
+            ||
+            cmd.contains(
+                QStringLiteral("停用")
+            )
+            ||
+            cmd.contains(
+                QStringLiteral("禁用")
+            );
+
+
+        if (disableCommand)
+        {
+            // 已经关闭
+            if (
+                !fatigueService_
+                    ->isRunning()
+            )
+            {
+                finishLocalAnswer(
+                    QStringLiteral(
+                        "疲劳检测已经处于关闭状态。"
+                    )
+                );
+
+                return;
+            }
+
+
+            fatigueService_
+                ->setMonitoringEnabled(
+                    false
+                );
+
+
+            finishLocalAnswer(
+                QStringLiteral(
+                    "疲劳检测已关闭。"
+                )
+            );
+
+
+            return;
+        }
+
+
+        // ====================================================
+        // 3. 开启疲劳检测
+        // ====================================================
+
+        const bool enableCommand =
+            cmd.contains(
+                QStringLiteral("打开")
+            )
+            ||
+            cmd.contains(
+                QStringLiteral("开启")
+            )
+            ||
+            cmd.contains(
+                QStringLiteral("启动")
+            )
+            ||
+            cmd.contains(
+                QStringLiteral("恢复")
+            );
+
+
+        if (enableCommand)
+        {
+            // 已经打开
+            if (
+                fatigueService_
+                    ->isRunning()
+            )
+            {
+                finishLocalAnswer(
+                    QStringLiteral(
+                        "疲劳检测已经处于开启状态。"
+                    )
+                );
+
+                return;
+            }
+
+
+            const bool started =
+                fatigueService_
+                    ->setMonitoringEnabled(
+                        true
+                    );
+
+
+            if (started)
+            {
+                finishLocalAnswer(
+                    QStringLiteral(
+                        "疲劳检测已开启，正在重新建立驾驶员检测基准。"
+                    )
+                );
+            }
+            else
+            {
+                finishLocalAnswer(
+                    QStringLiteral(
+                        "疲劳检测启动失败，请检查摄像头和疲劳检测模型状态。"
+                    )
+                );
+            }
+
+
+            return;
+        }
+    }
     /*
     * ========================================================
     * Weather

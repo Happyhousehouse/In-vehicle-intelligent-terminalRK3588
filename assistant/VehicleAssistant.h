@@ -16,7 +16,7 @@
 
 class CameraController;
 class WeatherService;
-
+class FatigueService;
 class VehicleAssistant : public QObject
 {
     Q_OBJECT
@@ -131,6 +131,9 @@ public:
         WeatherService *service
     );
 
+    void setFatigueService(
+        FatigueService *service
+    );
 signals:
 
     /*
@@ -354,7 +357,14 @@ private:
     WeatherService *weatherService_ =
         nullptr;
 
+    /*
+    * ============================================================
+    * Fatigue
+    * ============================================================
+    */
 
+    FatigueService *fatigueService_ =
+        nullptr;
     /*
     * 天气异步查询状态。
     */

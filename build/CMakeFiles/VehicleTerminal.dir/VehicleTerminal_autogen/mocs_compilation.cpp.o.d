@@ -502,12 +502,6 @@ CMakeFiles/VehicleTerminal.dir/VehicleTerminal_autogen/mocs_compilation.cpp.o: \
  /usr/include/aarch64-linux-gnu/qt5/QtQml/qqmlerror.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QMutex \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qmutex.h \
- /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/NPUKSKGWT2/../../../controller/../fatigue/FatigueService.h \
- /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/NPUKSKGWT2/../../../controller/../fatigue/FatigueVision.h \
- /home/firefly/VehicleTerminal/include/rknn_api.h \
- /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/NPUKSKGWT2/../../../controller/../fatigue/FatigueBaselineManager.h \
- /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/NPUKSKGWT2/../../../controller/../fatigue/FatigueEventTracker.h \
- /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/NPUKSKGWT2/../../../controller/../fatigue/FatigueTypes.h \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/NPUKSKGWT2/moc_GalleryController.cpp \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/NPUKSKGWT2/../../../controller/GalleryController.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QStringList \
@@ -515,6 +509,15 @@ CMakeFiles/VehicleTerminal.dir/VehicleTerminal_autogen/mocs_compilation.cpp.o: \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/NPUKSKGWT2/moc_OnboardController.cpp \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/NPUKSKGWT2/../../../controller/OnboardController.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QVariantMap \
+ /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/GKUHBQZPF4/moc_FatigueService.cpp \
+ /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/GKUHBQZPF4/../../../fatigue/FatigueService.h \
+ /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/GKUHBQZPF4/../../../fatigue/FatigueVision.h \
+ /home/firefly/VehicleTerminal/include/rknn_api.h \
+ /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/GKUHBQZPF4/../../../fatigue/FatigueBaselineManager.h \
+ /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/GKUHBQZPF4/../../../fatigue/FatigueEventTracker.h \
+ /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/GKUHBQZPF4/../../../fatigue/FatigueTypes.h \
+ /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/GKUHBQZPF4/../../../fatigue/FatigueDecision.h \
+ /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/GKUHBQZPF4/../../../fatigue/FatigueWindowAnalyzer.h \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/6YT3GII5UT/moc_WeatherService.cpp \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/6YT3GII5UT/../../../weather/WeatherService.h \
  /usr/include/aarch64-linux-gnu/qt5/QtNetwork/QNetworkAccessManager \

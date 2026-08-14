@@ -2,12 +2,6 @@
   /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/moc_predefs.h \
   /home/firefly/VehicleTerminal/camera/CameraService.h \
   /home/firefly/VehicleTerminal/controller/CameraImageProvider.h \
-  /home/firefly/VehicleTerminal/fatigue/FatigueBaselineManager.h \
-  /home/firefly/VehicleTerminal/fatigue/FatigueEventTracker.h \
-  /home/firefly/VehicleTerminal/fatigue/FatigueService.h \
-  /home/firefly/VehicleTerminal/fatigue/FatigueTypes.h \
-  /home/firefly/VehicleTerminal/fatigue/FatigueVision.h \
-  /home/firefly/VehicleTerminal/include/rknn_api.h \
   /home/firefly/VehicleTerminal/photo/GalleryService.h \
   /usr/include/aarch64-linux-gnu/asm/bitsperlong.h \
   /usr/include/aarch64-linux-gnu/asm/errno.h \

@@ -277,6 +277,12 @@
 			null
 		],
 		[
+			"/home/firefly/VehicleTerminal/fatigue/FatigueDecision.h",
+			"MU",
+			"GKUHBQZPF4/moc_FatigueDecision.cpp",
+			null
+		],
+		[
 			"/home/firefly/VehicleTerminal/fatigue/FatigueEventTracker.h",
 			"MU",
 			"GKUHBQZPF4/moc_FatigueEventTracker.cpp",
@@ -298,6 +304,12 @@
 			"/home/firefly/VehicleTerminal/fatigue/FatigueVision.h",
 			"MU",
 			"GKUHBQZPF4/moc_FatigueVision.cpp",
+			null
+		],
+		[
+			"/home/firefly/VehicleTerminal/fatigue/FatigueWindowAnalyzer.h",
+			"MU",
+			"GKUHBQZPF4/moc_FatigueWindowAnalyzer.cpp",
 			null
 		],
 		[
@@ -462,6 +474,11 @@
 			null
 		],
 		[
+			"/home/firefly/VehicleTerminal/fatigue/FatigueDecision.cpp",
+			"MU",
+			null
+		],
+		[
 			"/home/firefly/VehicleTerminal/fatigue/FatigueEventTracker.cpp",
 			"MU",
 			null
@@ -472,6 +489,11 @@
 			null
 		],
 		[ "/home/firefly/VehicleTerminal/fatigue/FatigueVision.cpp", "MU", null ],
+		[
+			"/home/firefly/VehicleTerminal/fatigue/FatigueWindowAnalyzer.cpp",
+			"MU",
+			null
+		],
 		[ "/home/firefly/VehicleTerminal/llm/LLMService.cpp", "MU", null ],
 		[ "/home/firefly/VehicleTerminal/llm/RKLLMWrapper.cpp", "MU", null ],
 		[ "/home/firefly/VehicleTerminal/main.cpp", "MU", null ],
