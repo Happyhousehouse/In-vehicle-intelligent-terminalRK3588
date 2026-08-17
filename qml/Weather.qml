@@ -20,7 +20,68 @@ Rectangle {
     property string citySearchMessage: ""
 
     property bool citySearchError: false
+    /*
+     * ============================================================
+     * 语音查询城市天气
+     * ============================================================
+     *
+     * city:
+     *     "广州"
+     *     "深圳"
+     *     "北京"
+     *
+     * 如果 city 为空：
+     *     刷新当前城市天气。
+     * ============================================================
+     */
+    function queryCityFromVoice(city)
+    {
+        var cityName =
+            city.trim()
 
+
+        console.log(
+            "[Weather.qml] voice weather query:",
+            cityName
+        )
+
+
+        /*
+         * 用户明确说出了城市。
+         */
+        if (cityName.length > 0)
+        {
+            /*
+             * 先显示到原来的城市输入框。
+             */
+            cityInput.text =
+                cityName
+
+
+            /*
+             * 直接调用页面原来的查询逻辑。
+             *
+             * 不重新实现 WeatherService 查询。
+             */
+            searchButton
+                .searchCity()
+
+
+            return
+        }
+
+
+        /*
+         * 没说具体城市：
+         *
+         * “今天天气怎么样”
+         * “刷新天气”
+         *
+         * 就刷新 Weather.qml 当前城市。
+         */
+        weatherService
+            .refresh()
+    }
 
     /*
      * C++的7天天气。

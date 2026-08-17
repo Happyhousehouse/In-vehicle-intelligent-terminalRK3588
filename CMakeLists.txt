@@ -25,7 +25,14 @@ set(CMAKE_AUTOUIC ON)
 
 set(CMAKE_AUTORCC ON)
 
+# =========================
+# sherpa-onnx
+# =========================
 
+set(
+    SHERPA_ONNX_ROOT
+    "${CMAKE_CURRENT_SOURCE_DIR}/model/third_party/sherpa-onnx-v1.13.4-linux-aarch64-shared-cpu"
+)
 
 
 
@@ -55,8 +62,7 @@ find_package(Qt5 REQUIRED COMPONENTS
 find_package(OpenCV REQUIRED)
 
 
-
-
+find_package(ALSA REQUIRED)
 
 
 # =========================
@@ -117,9 +123,23 @@ set(SOURCES
     main.cpp
 
 
+    # =====================
+    # Audio
+    # =====================
 
+    audio/AudioInputService.cpp
+    audio/AudioInputService.h
 
-
+    audio/WakeWordService.cpp
+    audio/WakeWordService.h
+    audio/VADService.cpp
+    audio/VADService.h
+    audio/ASRService.cpp
+    audio/ASRService.h
+    audio/VoiceController.cpp
+    audio/VoiceController.h
+    audio/VoiceCommandNormalizer.cpp
+    audio/VoiceCommandNormalizer.h
     # =====================
     # Camera模块
     # =====================
@@ -128,8 +148,11 @@ set(SOURCES
     camera/CameraService.cpp
 
     camera/CameraService.h
-
-
+    # =====================
+    # Vision模块
+    # =====================
+    vision/VisionServiceManager.cpp
+    vision/VisionServiceManager.h
     # =====================
     # Fatigue Detection
     # =====================
@@ -156,6 +179,12 @@ set(SOURCES
 
     photo/GalleryService.h
 
+    # =====================
+    # Audio
+    # =====================
+
+    audio/AudioInputService.cpp
+    audio/AudioInputService.h
 
     # =====================
     # Weather
@@ -294,11 +323,14 @@ target_include_directories(
 
     PRIVATE
 
-
+    # Audio
+    ${CMAKE_CURRENT_SOURCE_DIR}/audio
 
     ${CMAKE_CURRENT_SOURCE_DIR}
 
 
+    # sherpa-onnx C API
+    ${SHERPA_ONNX_ROOT}/include
 
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 
@@ -366,6 +398,7 @@ target_link_libraries(
 
 
 
+
     Qt5::Core
 
     Qt5::Gui
@@ -382,9 +415,12 @@ target_link_libraries(
 
     ${OpenCV_LIBS}
 
+    # ALSA
+    asound
 
-
-
+    # sherpa-onnx KWS
+    ${SHERPA_ONNX_ROOT}/lib/libsherpa-onnx-c-api.so
+    ${SHERPA_ONNX_ROOT}/lib/libonnxruntime.so
 
     # RKLLM
 
@@ -417,7 +453,7 @@ set_target_properties(
 
     BUILD_RPATH
 
-    "${CMAKE_CURRENT_SOURCE_DIR}/lib"
+    "${CMAKE_CURRENT_SOURCE_DIR}/lib;${SHERPA_ONNX_ROOT}/lib"
 
 
 )

@@ -5,8 +5,8 @@
 #include <QQmlContext>
 
 #include <QDebug>
-
-
+#include "audio/AudioInputService.h"
+#include "audio/WakeWordService.h"
 
 #include "controller/CameraController.h"
 
@@ -22,9 +22,10 @@
 
 #include "camera/CameraService.h"
 #include "fatigue/FatigueService.h"
-
-
-
+#include "audio/VADService.h"
+#include "audio/ASRService.h"
+#include "vision/VisionServiceManager.h"
+#include "audio/VoiceController.h"
 
 int main(int argc, char *argv[])
 {
@@ -41,7 +42,143 @@ int main(int argc, char *argv[])
     */
 
     VehicleAssistant assistant;
+    /*
+    * ============================================================
+    * 麦克风输入服务
+    *
+    * 程序启动后持续采集。
+    *
+    * 后面 WakeWordService 会持续监听这里输出的 PCM。
+    * ============================================================
+    */
+    WakeWordService wakeWordService;
+    VADService vadService;
+    ASRService asrService;
+    AudioInputService audioInputService;
 
+    const std::string asrModelPath =
+        "/home/firefly/VehicleTerminal/model/asr/"
+        "sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2024-07-17";
+
+
+    if (!asrService.init(asrModelPath))
+    {
+        qWarning()
+            << "[Main] ASRService init failed";
+    }
+
+    const std::string vadModelPath =
+        "/home/firefly/VehicleTerminal/model/vad/"
+        "silero_vad.int8.onnx";
+
+
+    if (!vadService.init(vadModelPath))
+    {
+        qWarning()
+            << "[Main] VADService init failed";
+    }
+
+    const std::string kwsModelPath =
+    "/home/firefly/VehicleTerminal/model/kws/"
+    "sherpa-onnx-kws-zipformer-wenetspeech-3.3M-2024-01-01";
+
+
+    const bool wakeWordReady =
+        wakeWordService.init(
+            kwsModelPath
+        );
+
+    if (!wakeWordReady)
+    {
+        qWarning()
+            << "[Main] WakeWordService init failed";
+    }
+    else
+    {
+        qDebug()
+            << "[Main] WakeWordService ready";
+    }
+
+    QObject::connect(
+        &audioInputService,
+        &AudioInputService::pcmDataReady,
+
+        &wakeWordService,
+        &WakeWordService::processPcm,
+
+        Qt::DirectConnection
+    );
+    QObject::connect(
+        &audioInputService,
+        &AudioInputService::pcmDataReady,
+
+        &vadService,
+        &VADService::processPcm,
+
+        Qt::DirectConnection
+    );
+
+
+
+    QObject::connect(
+        &vadService,
+        &VADService::speechSegmentReady,
+
+        &app,
+
+        [](const QByteArray &pcm)
+        {
+            const int samples =
+                pcm.size() / 2;
+
+
+            const double duration =
+                static_cast<double>(
+                    samples
+                )
+                /
+                16000.0;
+
+
+            qDebug()
+                << "====================================";
+
+            qDebug()
+                << "[Main] VOICE COMMAND CAPTURED";
+
+            qDebug()
+                << "[Main] duration ="
+                << duration
+                << "seconds";
+
+            qDebug()
+                << "[Main] bytes ="
+                << pcm.size();
+
+            qDebug()
+                << "====================================";
+        }
+    );
+
+    if (
+        !audioInputService.open(
+            "hw:CARD=Camera,DEV=0",
+            16000,
+            1
+        )
+    )
+    {
+        qWarning()
+            << "[Main] AudioInputService open failed";
+    }
+    else
+    {
+        if (!audioInputService.start())
+        {
+            qWarning()
+                << "[Main] AudioInputService start failed";
+        }
+    }
     /*
         天气服务
     */
@@ -59,98 +196,89 @@ int main(int argc, char *argv[])
     );
 
 
-    /*
-        摄像头控制
-
-    */
-
-    /*
+   /*
     * ============================================================
-    * 共享摄像头图像源
-    *
-    * CameraService 不属于 Camera.qml。
-    *
-    * 它作为车辆终端底层视觉输入，
-    * 程序启动后常驻运行。
+    * 底层共享摄像头
     * ============================================================
     */
-
     CameraService cameraService;
 
 
     /*
     * ============================================================
-    * 独立疲劳检测服务
+    * 疲劳检测业务
     *
-    * 开机自动运行。
-    * 不属于 CameraController。
+    * 注意：
+    * 对象仍然必须存在。
+    * 只是 VehicleAssistant 不再直接持有它。
     * ============================================================
     */
-
     FatigueService fatigueService(
         &cameraService
     );
 
-    /*
-    * VehicleAssistant 使用独立疲劳检测服务。
-    */
-    assistant.setFatigueService(
-        &fatigueService
-    );
-    /*
-    * ============================================================
-    * 摄像头页面控制器
-    *
-    * 只负责 Camera.qml 的预览和拍照。
-    * ============================================================
-    */
 
+    /*
+    * ============================================================
+    * 相机业务 Controller
+    *
+    * 对象仍然必须存在。
+    * Camera.qml 还需要它。
+    * ============================================================
+    */
     CameraController cameraController(
         &cameraService
     );
 
 
-
-
     /*
-        摄像头图片提供器
-
+    * ============================================================
+    * 摄像头图片 Provider
+    * ============================================================
     */
-
     CameraImageProvider *cameraProvider =
-    new CameraImageProvider();
+        new CameraImageProvider();
 
-
-
-
-
-
-
-
-    /*
-        连接Camera和Provider
-
-    */
 
     cameraController.setProvider(
-
         cameraProvider
-
     );
 
 
     /*
     * ============================================================
-    * 开机启动共享摄像头
+    * 视觉业务统一管理器
     * ============================================================
     */
+    VisionServiceManager visionManager(
+        &cameraService,
+        &cameraController,
+        &fatigueService
+    );
 
+
+    visionManager.configureCamera(
+        "/dev/video11",
+        1920,
+        1080
+    );
+
+
+    /*
+    * VehicleAssistant 只绑定 VisionServiceManager。
+    */
+    assistant.setVisionServiceManager(
+        &visionManager
+    );
+
+
+    /*
+    * ============================================================
+    * 开机启动摄像头
+    * ============================================================
+    */
     const bool cameraStarted =
-        cameraService.start(
-            "/dev/video11",
-            1920,
-            1080
-        );
+        visionManager.openCameraDevice();
 
 
     if (!cameraStarted)
@@ -161,18 +289,14 @@ int main(int argc, char *argv[])
     else
     {
         /*
-        * ========================================================
-        * 开机自动启动疲劳检测
-        * ========================================================
+        * 开机自动开启疲劳检测。
         */
-
-        if (!fatigueService.start())
+        if (!visionManager.enableFatigue())
         {
             qWarning()
                 << "[Main] FatigueService start failed";
         }
     }
-
 
 
 
@@ -255,7 +379,28 @@ int main(int argc, char *argv[])
 
     }
 
+    /*
+    * ============================================================
+    * Voice Controller
+    *
+    * 统一管理：
+    *
+    * WakeWord
+    * VAD
+    * ASR
+    * VehicleAssistant
+    *
+    * 首次唤醒等待：5秒
+    * 正式交流等待：30秒
+    * ============================================================
+    */
 
+    VoiceController voiceController(
+        &wakeWordService,
+        &vadService,
+        &asrService,
+        &assistant
+    );
 
 
 
@@ -403,56 +548,91 @@ int main(int argc, char *argv[])
 
 
     QObject::connect(
-
         &engine,
-
         &QQmlApplicationEngine::objectCreated,
 
         &app,
 
-        [url](QObject *obj,const QUrl &objUrl)
-
+        [url](QObject *obj, const QUrl &objUrl)
         {
-
-            if(!obj && url==objUrl)
-
+            if (!obj && url == objUrl)
+            {
                 QCoreApplication::exit(-1);
-
-
+            }
         },
 
         Qt::QueuedConnection
-
     );
 
-    
+
+    /*
+    * ============================================================
+    * 程序退出：
+    * 关闭软键盘
+    * ============================================================
+    */
+
     QObject::connect(
         &app,
         &QCoreApplication::aboutToQuit,
+
         &onboardController,
         &OnboardController::quitKeyboard
     );
-    
+
+
+    /*
+    * ============================================================
+    * 程序退出：
+    * 停止麦克风采集
+    * ============================================================
+    */
+
     QObject::connect(
         &app,
         &QCoreApplication::aboutToQuit,
 
         &app,
 
-        [&fatigueService, &cameraService]()
+        [&audioInputService]()
         {
             qDebug()
-                << "[Main] stopping FatigueService";
+                << "[Main] stopping AudioInputService";
+
+            audioInputService.stop();
+        }
+    );
 
 
-            fatigueService.stop();
+    /*
+    * ============================================================
+    * 程序退出：
+    * 停止疲劳检测和摄像头
+    * ============================================================
+    */
 
+    QObject::connect(
+        &app,
+        &QCoreApplication::aboutToQuit,
 
+        &app,
+
+        [&visionManager]()
+        {
             qDebug()
-                << "[Main] stopping CameraService";
+                << "[Main] stopping vision services";
 
 
-            cameraService.stop();
+            /*
+            * 先关闭上层疲劳检测依赖。
+            */
+            visionManager.disableFatigue();
+
+
+            /*
+            * 再关闭底层摄像头。
+            */
+            visionManager.closeCameraDevice();
         }
     );
 

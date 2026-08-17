@@ -13,10 +13,8 @@
 #include "../rag/RAGService.h"
 #include "../conversation/ConversationManager.h"
 #include <QVariantList>
-
-class CameraController;
+class VisionServiceManager;
 class WeatherService;
-class FatigueService;
 class VehicleAssistant : public QObject
 {
     Q_OBJECT
@@ -131,11 +129,43 @@ public:
         WeatherService *service
     );
 
-    void setFatigueService(
-        FatigueService *service
+    /*
+    * 绑定统一视觉业务管理器。
+    */
+    void setVisionServiceManager(
+        VisionServiceManager *manager
     );
-signals:
 
+    /*
+    * ============================================================
+    * Weather 页面状态
+    * ============================================================
+    *
+    * Main.qml 在 Weather.qml 打开 / 关闭时调用。
+    */
+    Q_INVOKABLE void setWeatherPageActive(
+        bool active
+    );
+
+    bool isWeatherPageActive() const;
+signals:
+    /*
+    * ============================================================
+    * 用户消息已经被 VehicleAssistant 正式接受
+    * ============================================================
+    *
+    * 不管问题来自：
+    *
+    * QML键盘
+    * ASR语音
+    * 以后其他输入方式
+    *
+    * 只要真正进入 chat()，
+    * 都统一通过这个信号通知UI。
+    */
+    void userMessageAccepted(
+        QString message
+    );
     /*
      * 流式输出。
      */
@@ -143,7 +173,13 @@ signals:
         QString token
     );
 
-
+    /*
+    * Weather.qml 已经打开时，
+    * 将语音识别出来的城市交给 Weather.qml。
+    */
+    void weatherPageQueryRequested(
+        const QString &city
+    );
     /*
      * 无论正常结束还是停止，
      * 最后都会发出。
@@ -176,9 +212,26 @@ signals:
     /*
      * 页面控制。
      */
-    void openCameraPage();
+    /*
+    * ============================================================
+    * 页面 / 业务导航
+    * ============================================================
+    */
 
+    // 相机业务
+    void openCameraPage();
+    void closeCameraPage();
+
+    // 相册业务
     void openGalleryPage();
+    void closeGalleryPage();
+
+    // 通用返回主页
+    void returnToMainPage();
+    /*
+    * 语音 / AI 指令打开天气页面。
+    */
+    void openWeatherPage();
 
     void currentConversationIdChanged();
 
@@ -363,8 +416,6 @@ private:
     * ============================================================
     */
 
-    FatigueService *fatigueService_ =
-        nullptr;
     /*
     * 天气异步查询状态。
     */
@@ -404,4 +455,27 @@ private:
     * 用户要求查询的城市。
     */
     QString pendingWeatherCity_;
+
+
+    /*
+    * ============================================================
+    * Vision
+    * ============================================================
+    *
+    * 不拥有对象。
+    * main.cpp 负责生命周期。
+    */
+    VisionServiceManager *visionManager_ =
+        nullptr;
+
+    /*
+    * 当前 Weather.qml 是否正在显示。
+    *
+    * false:
+    *     天气问题 → AI助手回答
+    *
+    * true:
+    *     天气问题 → Weather.qml 自己处理
+    */
+    bool weatherPageActive_ = false;
 };

@@ -113,10 +113,94 @@ CMakeFiles/VehicleTerminal.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/VehicleTerminal.dir/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/firefly/VehicleTerminal/main.cpp -o CMakeFiles/VehicleTerminal.dir/main.cpp.s
 
+CMakeFiles/VehicleTerminal.dir/audio/AudioInputService.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
+CMakeFiles/VehicleTerminal.dir/audio/AudioInputService.cpp.o: ../audio/AudioInputService.cpp
+CMakeFiles/VehicleTerminal.dir/audio/AudioInputService.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/VehicleTerminal.dir/audio/AudioInputService.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/audio/AudioInputService.cpp.o -MF CMakeFiles/VehicleTerminal.dir/audio/AudioInputService.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/audio/AudioInputService.cpp.o -c /home/firefly/VehicleTerminal/audio/AudioInputService.cpp
+
+CMakeFiles/VehicleTerminal.dir/audio/AudioInputService.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/VehicleTerminal.dir/audio/AudioInputService.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/firefly/VehicleTerminal/audio/AudioInputService.cpp > CMakeFiles/VehicleTerminal.dir/audio/AudioInputService.cpp.i
+
+CMakeFiles/VehicleTerminal.dir/audio/AudioInputService.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/VehicleTerminal.dir/audio/AudioInputService.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/firefly/VehicleTerminal/audio/AudioInputService.cpp -o CMakeFiles/VehicleTerminal.dir/audio/AudioInputService.cpp.s
+
+CMakeFiles/VehicleTerminal.dir/audio/WakeWordService.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
+CMakeFiles/VehicleTerminal.dir/audio/WakeWordService.cpp.o: ../audio/WakeWordService.cpp
+CMakeFiles/VehicleTerminal.dir/audio/WakeWordService.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/VehicleTerminal.dir/audio/WakeWordService.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/audio/WakeWordService.cpp.o -MF CMakeFiles/VehicleTerminal.dir/audio/WakeWordService.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/audio/WakeWordService.cpp.o -c /home/firefly/VehicleTerminal/audio/WakeWordService.cpp
+
+CMakeFiles/VehicleTerminal.dir/audio/WakeWordService.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/VehicleTerminal.dir/audio/WakeWordService.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/firefly/VehicleTerminal/audio/WakeWordService.cpp > CMakeFiles/VehicleTerminal.dir/audio/WakeWordService.cpp.i
+
+CMakeFiles/VehicleTerminal.dir/audio/WakeWordService.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/VehicleTerminal.dir/audio/WakeWordService.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/firefly/VehicleTerminal/audio/WakeWordService.cpp -o CMakeFiles/VehicleTerminal.dir/audio/WakeWordService.cpp.s
+
+CMakeFiles/VehicleTerminal.dir/audio/VADService.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
+CMakeFiles/VehicleTerminal.dir/audio/VADService.cpp.o: ../audio/VADService.cpp
+CMakeFiles/VehicleTerminal.dir/audio/VADService.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/VehicleTerminal.dir/audio/VADService.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/audio/VADService.cpp.o -MF CMakeFiles/VehicleTerminal.dir/audio/VADService.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/audio/VADService.cpp.o -c /home/firefly/VehicleTerminal/audio/VADService.cpp
+
+CMakeFiles/VehicleTerminal.dir/audio/VADService.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/VehicleTerminal.dir/audio/VADService.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/firefly/VehicleTerminal/audio/VADService.cpp > CMakeFiles/VehicleTerminal.dir/audio/VADService.cpp.i
+
+CMakeFiles/VehicleTerminal.dir/audio/VADService.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/VehicleTerminal.dir/audio/VADService.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/firefly/VehicleTerminal/audio/VADService.cpp -o CMakeFiles/VehicleTerminal.dir/audio/VADService.cpp.s
+
+CMakeFiles/VehicleTerminal.dir/audio/ASRService.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
+CMakeFiles/VehicleTerminal.dir/audio/ASRService.cpp.o: ../audio/ASRService.cpp
+CMakeFiles/VehicleTerminal.dir/audio/ASRService.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/VehicleTerminal.dir/audio/ASRService.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/audio/ASRService.cpp.o -MF CMakeFiles/VehicleTerminal.dir/audio/ASRService.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/audio/ASRService.cpp.o -c /home/firefly/VehicleTerminal/audio/ASRService.cpp
+
+CMakeFiles/VehicleTerminal.dir/audio/ASRService.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/VehicleTerminal.dir/audio/ASRService.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/firefly/VehicleTerminal/audio/ASRService.cpp > CMakeFiles/VehicleTerminal.dir/audio/ASRService.cpp.i
+
+CMakeFiles/VehicleTerminal.dir/audio/ASRService.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/VehicleTerminal.dir/audio/ASRService.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/firefly/VehicleTerminal/audio/ASRService.cpp -o CMakeFiles/VehicleTerminal.dir/audio/ASRService.cpp.s
+
+CMakeFiles/VehicleTerminal.dir/audio/VoiceController.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
+CMakeFiles/VehicleTerminal.dir/audio/VoiceController.cpp.o: ../audio/VoiceController.cpp
+CMakeFiles/VehicleTerminal.dir/audio/VoiceController.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/VehicleTerminal.dir/audio/VoiceController.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/audio/VoiceController.cpp.o -MF CMakeFiles/VehicleTerminal.dir/audio/VoiceController.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/audio/VoiceController.cpp.o -c /home/firefly/VehicleTerminal/audio/VoiceController.cpp
+
+CMakeFiles/VehicleTerminal.dir/audio/VoiceController.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/VehicleTerminal.dir/audio/VoiceController.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/firefly/VehicleTerminal/audio/VoiceController.cpp > CMakeFiles/VehicleTerminal.dir/audio/VoiceController.cpp.i
+
+CMakeFiles/VehicleTerminal.dir/audio/VoiceController.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/VehicleTerminal.dir/audio/VoiceController.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/firefly/VehicleTerminal/audio/VoiceController.cpp -o CMakeFiles/VehicleTerminal.dir/audio/VoiceController.cpp.s
+
+CMakeFiles/VehicleTerminal.dir/audio/VoiceCommandNormalizer.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
+CMakeFiles/VehicleTerminal.dir/audio/VoiceCommandNormalizer.cpp.o: ../audio/VoiceCommandNormalizer.cpp
+CMakeFiles/VehicleTerminal.dir/audio/VoiceCommandNormalizer.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/VehicleTerminal.dir/audio/VoiceCommandNormalizer.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/audio/VoiceCommandNormalizer.cpp.o -MF CMakeFiles/VehicleTerminal.dir/audio/VoiceCommandNormalizer.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/audio/VoiceCommandNormalizer.cpp.o -c /home/firefly/VehicleTerminal/audio/VoiceCommandNormalizer.cpp
+
+CMakeFiles/VehicleTerminal.dir/audio/VoiceCommandNormalizer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/VehicleTerminal.dir/audio/VoiceCommandNormalizer.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/firefly/VehicleTerminal/audio/VoiceCommandNormalizer.cpp > CMakeFiles/VehicleTerminal.dir/audio/VoiceCommandNormalizer.cpp.i
+
+CMakeFiles/VehicleTerminal.dir/audio/VoiceCommandNormalizer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/VehicleTerminal.dir/audio/VoiceCommandNormalizer.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/firefly/VehicleTerminal/audio/VoiceCommandNormalizer.cpp -o CMakeFiles/VehicleTerminal.dir/audio/VoiceCommandNormalizer.cpp.s
+
 CMakeFiles/VehicleTerminal.dir/camera/CameraService.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
 CMakeFiles/VehicleTerminal.dir/camera/CameraService.cpp.o: ../camera/CameraService.cpp
 CMakeFiles/VehicleTerminal.dir/camera/CameraService.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/VehicleTerminal.dir/camera/CameraService.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/VehicleTerminal.dir/camera/CameraService.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/camera/CameraService.cpp.o -MF CMakeFiles/VehicleTerminal.dir/camera/CameraService.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/camera/CameraService.cpp.o -c /home/firefly/VehicleTerminal/camera/CameraService.cpp
 
 CMakeFiles/VehicleTerminal.dir/camera/CameraService.cpp.i: cmake_force
@@ -127,10 +211,24 @@ CMakeFiles/VehicleTerminal.dir/camera/CameraService.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/VehicleTerminal.dir/camera/CameraService.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/firefly/VehicleTerminal/camera/CameraService.cpp -o CMakeFiles/VehicleTerminal.dir/camera/CameraService.cpp.s
 
+CMakeFiles/VehicleTerminal.dir/vision/VisionServiceManager.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
+CMakeFiles/VehicleTerminal.dir/vision/VisionServiceManager.cpp.o: ../vision/VisionServiceManager.cpp
+CMakeFiles/VehicleTerminal.dir/vision/VisionServiceManager.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/VehicleTerminal.dir/vision/VisionServiceManager.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/vision/VisionServiceManager.cpp.o -MF CMakeFiles/VehicleTerminal.dir/vision/VisionServiceManager.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/vision/VisionServiceManager.cpp.o -c /home/firefly/VehicleTerminal/vision/VisionServiceManager.cpp
+
+CMakeFiles/VehicleTerminal.dir/vision/VisionServiceManager.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/VehicleTerminal.dir/vision/VisionServiceManager.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/firefly/VehicleTerminal/vision/VisionServiceManager.cpp > CMakeFiles/VehicleTerminal.dir/vision/VisionServiceManager.cpp.i
+
+CMakeFiles/VehicleTerminal.dir/vision/VisionServiceManager.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/VehicleTerminal.dir/vision/VisionServiceManager.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/firefly/VehicleTerminal/vision/VisionServiceManager.cpp -o CMakeFiles/VehicleTerminal.dir/vision/VisionServiceManager.cpp.s
+
 CMakeFiles/VehicleTerminal.dir/fatigue/FatigueEventTracker.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
 CMakeFiles/VehicleTerminal.dir/fatigue/FatigueEventTracker.cpp.o: ../fatigue/FatigueEventTracker.cpp
 CMakeFiles/VehicleTerminal.dir/fatigue/FatigueEventTracker.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/VehicleTerminal.dir/fatigue/FatigueEventTracker.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/VehicleTerminal.dir/fatigue/FatigueEventTracker.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/fatigue/FatigueEventTracker.cpp.o -MF CMakeFiles/VehicleTerminal.dir/fatigue/FatigueEventTracker.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/fatigue/FatigueEventTracker.cpp.o -c /home/firefly/VehicleTerminal/fatigue/FatigueEventTracker.cpp
 
 CMakeFiles/VehicleTerminal.dir/fatigue/FatigueEventTracker.cpp.i: cmake_force
@@ -144,7 +242,7 @@ CMakeFiles/VehicleTerminal.dir/fatigue/FatigueEventTracker.cpp.s: cmake_force
 CMakeFiles/VehicleTerminal.dir/fatigue/FatigueVision.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
 CMakeFiles/VehicleTerminal.dir/fatigue/FatigueVision.cpp.o: ../fatigue/FatigueVision.cpp
 CMakeFiles/VehicleTerminal.dir/fatigue/FatigueVision.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/VehicleTerminal.dir/fatigue/FatigueVision.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/VehicleTerminal.dir/fatigue/FatigueVision.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/fatigue/FatigueVision.cpp.o -MF CMakeFiles/VehicleTerminal.dir/fatigue/FatigueVision.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/fatigue/FatigueVision.cpp.o -c /home/firefly/VehicleTerminal/fatigue/FatigueVision.cpp
 
 CMakeFiles/VehicleTerminal.dir/fatigue/FatigueVision.cpp.i: cmake_force
@@ -158,7 +256,7 @@ CMakeFiles/VehicleTerminal.dir/fatigue/FatigueVision.cpp.s: cmake_force
 CMakeFiles/VehicleTerminal.dir/fatigue/FatigueService.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
 CMakeFiles/VehicleTerminal.dir/fatigue/FatigueService.cpp.o: ../fatigue/FatigueService.cpp
 CMakeFiles/VehicleTerminal.dir/fatigue/FatigueService.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/VehicleTerminal.dir/fatigue/FatigueService.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/VehicleTerminal.dir/fatigue/FatigueService.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/fatigue/FatigueService.cpp.o -MF CMakeFiles/VehicleTerminal.dir/fatigue/FatigueService.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/fatigue/FatigueService.cpp.o -c /home/firefly/VehicleTerminal/fatigue/FatigueService.cpp
 
 CMakeFiles/VehicleTerminal.dir/fatigue/FatigueService.cpp.i: cmake_force
@@ -172,7 +270,7 @@ CMakeFiles/VehicleTerminal.dir/fatigue/FatigueService.cpp.s: cmake_force
 CMakeFiles/VehicleTerminal.dir/fatigue/FatigueWindowAnalyzer.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
 CMakeFiles/VehicleTerminal.dir/fatigue/FatigueWindowAnalyzer.cpp.o: ../fatigue/FatigueWindowAnalyzer.cpp
 CMakeFiles/VehicleTerminal.dir/fatigue/FatigueWindowAnalyzer.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/VehicleTerminal.dir/fatigue/FatigueWindowAnalyzer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/VehicleTerminal.dir/fatigue/FatigueWindowAnalyzer.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/fatigue/FatigueWindowAnalyzer.cpp.o -MF CMakeFiles/VehicleTerminal.dir/fatigue/FatigueWindowAnalyzer.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/fatigue/FatigueWindowAnalyzer.cpp.o -c /home/firefly/VehicleTerminal/fatigue/FatigueWindowAnalyzer.cpp
 
 CMakeFiles/VehicleTerminal.dir/fatigue/FatigueWindowAnalyzer.cpp.i: cmake_force
@@ -186,7 +284,7 @@ CMakeFiles/VehicleTerminal.dir/fatigue/FatigueWindowAnalyzer.cpp.s: cmake_force
 CMakeFiles/VehicleTerminal.dir/fatigue/FatigueBaselineManager.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
 CMakeFiles/VehicleTerminal.dir/fatigue/FatigueBaselineManager.cpp.o: ../fatigue/FatigueBaselineManager.cpp
 CMakeFiles/VehicleTerminal.dir/fatigue/FatigueBaselineManager.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/VehicleTerminal.dir/fatigue/FatigueBaselineManager.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/VehicleTerminal.dir/fatigue/FatigueBaselineManager.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/fatigue/FatigueBaselineManager.cpp.o -MF CMakeFiles/VehicleTerminal.dir/fatigue/FatigueBaselineManager.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/fatigue/FatigueBaselineManager.cpp.o -c /home/firefly/VehicleTerminal/fatigue/FatigueBaselineManager.cpp
 
 CMakeFiles/VehicleTerminal.dir/fatigue/FatigueBaselineManager.cpp.i: cmake_force
@@ -200,7 +298,7 @@ CMakeFiles/VehicleTerminal.dir/fatigue/FatigueBaselineManager.cpp.s: cmake_force
 CMakeFiles/VehicleTerminal.dir/fatigue/FatigueDecision.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
 CMakeFiles/VehicleTerminal.dir/fatigue/FatigueDecision.cpp.o: ../fatigue/FatigueDecision.cpp
 CMakeFiles/VehicleTerminal.dir/fatigue/FatigueDecision.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/VehicleTerminal.dir/fatigue/FatigueDecision.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/VehicleTerminal.dir/fatigue/FatigueDecision.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/fatigue/FatigueDecision.cpp.o -MF CMakeFiles/VehicleTerminal.dir/fatigue/FatigueDecision.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/fatigue/FatigueDecision.cpp.o -c /home/firefly/VehicleTerminal/fatigue/FatigueDecision.cpp
 
 CMakeFiles/VehicleTerminal.dir/fatigue/FatigueDecision.cpp.i: cmake_force
@@ -214,7 +312,7 @@ CMakeFiles/VehicleTerminal.dir/fatigue/FatigueDecision.cpp.s: cmake_force
 CMakeFiles/VehicleTerminal.dir/photo/GalleryService.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
 CMakeFiles/VehicleTerminal.dir/photo/GalleryService.cpp.o: ../photo/GalleryService.cpp
 CMakeFiles/VehicleTerminal.dir/photo/GalleryService.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/VehicleTerminal.dir/photo/GalleryService.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/VehicleTerminal.dir/photo/GalleryService.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/photo/GalleryService.cpp.o -MF CMakeFiles/VehicleTerminal.dir/photo/GalleryService.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/photo/GalleryService.cpp.o -c /home/firefly/VehicleTerminal/photo/GalleryService.cpp
 
 CMakeFiles/VehicleTerminal.dir/photo/GalleryService.cpp.i: cmake_force
@@ -228,7 +326,7 @@ CMakeFiles/VehicleTerminal.dir/photo/GalleryService.cpp.s: cmake_force
 CMakeFiles/VehicleTerminal.dir/weather/WeatherService.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
 CMakeFiles/VehicleTerminal.dir/weather/WeatherService.cpp.o: ../weather/WeatherService.cpp
 CMakeFiles/VehicleTerminal.dir/weather/WeatherService.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/VehicleTerminal.dir/weather/WeatherService.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/VehicleTerminal.dir/weather/WeatherService.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/weather/WeatherService.cpp.o -MF CMakeFiles/VehicleTerminal.dir/weather/WeatherService.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/weather/WeatherService.cpp.o -c /home/firefly/VehicleTerminal/weather/WeatherService.cpp
 
 CMakeFiles/VehicleTerminal.dir/weather/WeatherService.cpp.i: cmake_force
@@ -242,7 +340,7 @@ CMakeFiles/VehicleTerminal.dir/weather/WeatherService.cpp.s: cmake_force
 CMakeFiles/VehicleTerminal.dir/controller/CameraController.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
 CMakeFiles/VehicleTerminal.dir/controller/CameraController.cpp.o: ../controller/CameraController.cpp
 CMakeFiles/VehicleTerminal.dir/controller/CameraController.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/VehicleTerminal.dir/controller/CameraController.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/VehicleTerminal.dir/controller/CameraController.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/controller/CameraController.cpp.o -MF CMakeFiles/VehicleTerminal.dir/controller/CameraController.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/controller/CameraController.cpp.o -c /home/firefly/VehicleTerminal/controller/CameraController.cpp
 
 CMakeFiles/VehicleTerminal.dir/controller/CameraController.cpp.i: cmake_force
@@ -256,7 +354,7 @@ CMakeFiles/VehicleTerminal.dir/controller/CameraController.cpp.s: cmake_force
 CMakeFiles/VehicleTerminal.dir/controller/CameraImageProvider.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
 CMakeFiles/VehicleTerminal.dir/controller/CameraImageProvider.cpp.o: ../controller/CameraImageProvider.cpp
 CMakeFiles/VehicleTerminal.dir/controller/CameraImageProvider.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/VehicleTerminal.dir/controller/CameraImageProvider.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/VehicleTerminal.dir/controller/CameraImageProvider.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/controller/CameraImageProvider.cpp.o -MF CMakeFiles/VehicleTerminal.dir/controller/CameraImageProvider.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/controller/CameraImageProvider.cpp.o -c /home/firefly/VehicleTerminal/controller/CameraImageProvider.cpp
 
 CMakeFiles/VehicleTerminal.dir/controller/CameraImageProvider.cpp.i: cmake_force
@@ -270,7 +368,7 @@ CMakeFiles/VehicleTerminal.dir/controller/CameraImageProvider.cpp.s: cmake_force
 CMakeFiles/VehicleTerminal.dir/controller/GalleryController.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
 CMakeFiles/VehicleTerminal.dir/controller/GalleryController.cpp.o: ../controller/GalleryController.cpp
 CMakeFiles/VehicleTerminal.dir/controller/GalleryController.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/VehicleTerminal.dir/controller/GalleryController.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/VehicleTerminal.dir/controller/GalleryController.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/controller/GalleryController.cpp.o -MF CMakeFiles/VehicleTerminal.dir/controller/GalleryController.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/controller/GalleryController.cpp.o -c /home/firefly/VehicleTerminal/controller/GalleryController.cpp
 
 CMakeFiles/VehicleTerminal.dir/controller/GalleryController.cpp.i: cmake_force
@@ -284,7 +382,7 @@ CMakeFiles/VehicleTerminal.dir/controller/GalleryController.cpp.s: cmake_force
 CMakeFiles/VehicleTerminal.dir/controller/OnboardController.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
 CMakeFiles/VehicleTerminal.dir/controller/OnboardController.cpp.o: ../controller/OnboardController.cpp
 CMakeFiles/VehicleTerminal.dir/controller/OnboardController.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/VehicleTerminal.dir/controller/OnboardController.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/VehicleTerminal.dir/controller/OnboardController.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/controller/OnboardController.cpp.o -MF CMakeFiles/VehicleTerminal.dir/controller/OnboardController.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/controller/OnboardController.cpp.o -c /home/firefly/VehicleTerminal/controller/OnboardController.cpp
 
 CMakeFiles/VehicleTerminal.dir/controller/OnboardController.cpp.i: cmake_force
@@ -298,7 +396,7 @@ CMakeFiles/VehicleTerminal.dir/controller/OnboardController.cpp.s: cmake_force
 CMakeFiles/VehicleTerminal.dir/assistant/VehicleAssistant.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
 CMakeFiles/VehicleTerminal.dir/assistant/VehicleAssistant.cpp.o: ../assistant/VehicleAssistant.cpp
 CMakeFiles/VehicleTerminal.dir/assistant/VehicleAssistant.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/VehicleTerminal.dir/assistant/VehicleAssistant.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/VehicleTerminal.dir/assistant/VehicleAssistant.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/assistant/VehicleAssistant.cpp.o -MF CMakeFiles/VehicleTerminal.dir/assistant/VehicleAssistant.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/assistant/VehicleAssistant.cpp.o -c /home/firefly/VehicleTerminal/assistant/VehicleAssistant.cpp
 
 CMakeFiles/VehicleTerminal.dir/assistant/VehicleAssistant.cpp.i: cmake_force
@@ -312,7 +410,7 @@ CMakeFiles/VehicleTerminal.dir/assistant/VehicleAssistant.cpp.s: cmake_force
 CMakeFiles/VehicleTerminal.dir/conversation/ConversationManager.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
 CMakeFiles/VehicleTerminal.dir/conversation/ConversationManager.cpp.o: ../conversation/ConversationManager.cpp
 CMakeFiles/VehicleTerminal.dir/conversation/ConversationManager.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/VehicleTerminal.dir/conversation/ConversationManager.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/VehicleTerminal.dir/conversation/ConversationManager.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/conversation/ConversationManager.cpp.o -MF CMakeFiles/VehicleTerminal.dir/conversation/ConversationManager.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/conversation/ConversationManager.cpp.o -c /home/firefly/VehicleTerminal/conversation/ConversationManager.cpp
 
 CMakeFiles/VehicleTerminal.dir/conversation/ConversationManager.cpp.i: cmake_force
@@ -326,7 +424,7 @@ CMakeFiles/VehicleTerminal.dir/conversation/ConversationManager.cpp.s: cmake_for
 CMakeFiles/VehicleTerminal.dir/llm/LLMService.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
 CMakeFiles/VehicleTerminal.dir/llm/LLMService.cpp.o: ../llm/LLMService.cpp
 CMakeFiles/VehicleTerminal.dir/llm/LLMService.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/VehicleTerminal.dir/llm/LLMService.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object CMakeFiles/VehicleTerminal.dir/llm/LLMService.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/llm/LLMService.cpp.o -MF CMakeFiles/VehicleTerminal.dir/llm/LLMService.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/llm/LLMService.cpp.o -c /home/firefly/VehicleTerminal/llm/LLMService.cpp
 
 CMakeFiles/VehicleTerminal.dir/llm/LLMService.cpp.i: cmake_force
@@ -340,7 +438,7 @@ CMakeFiles/VehicleTerminal.dir/llm/LLMService.cpp.s: cmake_force
 CMakeFiles/VehicleTerminal.dir/llm/RKLLMWrapper.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
 CMakeFiles/VehicleTerminal.dir/llm/RKLLMWrapper.cpp.o: ../llm/RKLLMWrapper.cpp
 CMakeFiles/VehicleTerminal.dir/llm/RKLLMWrapper.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/VehicleTerminal.dir/llm/RKLLMWrapper.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object CMakeFiles/VehicleTerminal.dir/llm/RKLLMWrapper.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/llm/RKLLMWrapper.cpp.o -MF CMakeFiles/VehicleTerminal.dir/llm/RKLLMWrapper.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/llm/RKLLMWrapper.cpp.o -c /home/firefly/VehicleTerminal/llm/RKLLMWrapper.cpp
 
 CMakeFiles/VehicleTerminal.dir/llm/RKLLMWrapper.cpp.i: cmake_force
@@ -354,7 +452,7 @@ CMakeFiles/VehicleTerminal.dir/llm/RKLLMWrapper.cpp.s: cmake_force
 CMakeFiles/VehicleTerminal.dir/rag/KnowledgeBase.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
 CMakeFiles/VehicleTerminal.dir/rag/KnowledgeBase.cpp.o: ../rag/KnowledgeBase.cpp
 CMakeFiles/VehicleTerminal.dir/rag/KnowledgeBase.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/VehicleTerminal.dir/rag/KnowledgeBase.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building CXX object CMakeFiles/VehicleTerminal.dir/rag/KnowledgeBase.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/rag/KnowledgeBase.cpp.o -MF CMakeFiles/VehicleTerminal.dir/rag/KnowledgeBase.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/rag/KnowledgeBase.cpp.o -c /home/firefly/VehicleTerminal/rag/KnowledgeBase.cpp
 
 CMakeFiles/VehicleTerminal.dir/rag/KnowledgeBase.cpp.i: cmake_force
@@ -368,7 +466,7 @@ CMakeFiles/VehicleTerminal.dir/rag/KnowledgeBase.cpp.s: cmake_force
 CMakeFiles/VehicleTerminal.dir/rag/RAGService.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
 CMakeFiles/VehicleTerminal.dir/rag/RAGService.cpp.o: ../rag/RAGService.cpp
 CMakeFiles/VehicleTerminal.dir/rag/RAGService.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/VehicleTerminal.dir/rag/RAGService.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building CXX object CMakeFiles/VehicleTerminal.dir/rag/RAGService.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/rag/RAGService.cpp.o -MF CMakeFiles/VehicleTerminal.dir/rag/RAGService.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/rag/RAGService.cpp.o -c /home/firefly/VehicleTerminal/rag/RAGService.cpp
 
 CMakeFiles/VehicleTerminal.dir/rag/RAGService.cpp.i: cmake_force
@@ -382,7 +480,7 @@ CMakeFiles/VehicleTerminal.dir/rag/RAGService.cpp.s: cmake_force
 CMakeFiles/VehicleTerminal.dir/rag/PromptBuilder.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
 CMakeFiles/VehicleTerminal.dir/rag/PromptBuilder.cpp.o: ../rag/PromptBuilder.cpp
 CMakeFiles/VehicleTerminal.dir/rag/PromptBuilder.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/VehicleTerminal.dir/rag/PromptBuilder.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building CXX object CMakeFiles/VehicleTerminal.dir/rag/PromptBuilder.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/rag/PromptBuilder.cpp.o -MF CMakeFiles/VehicleTerminal.dir/rag/PromptBuilder.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/rag/PromptBuilder.cpp.o -c /home/firefly/VehicleTerminal/rag/PromptBuilder.cpp
 
 CMakeFiles/VehicleTerminal.dir/rag/PromptBuilder.cpp.i: cmake_force
@@ -396,7 +494,7 @@ CMakeFiles/VehicleTerminal.dir/rag/PromptBuilder.cpp.s: cmake_force
 CMakeFiles/VehicleTerminal.dir/rag/Retriever.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
 CMakeFiles/VehicleTerminal.dir/rag/Retriever.cpp.o: ../rag/Retriever.cpp
 CMakeFiles/VehicleTerminal.dir/rag/Retriever.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/VehicleTerminal.dir/rag/Retriever.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building CXX object CMakeFiles/VehicleTerminal.dir/rag/Retriever.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/rag/Retriever.cpp.o -MF CMakeFiles/VehicleTerminal.dir/rag/Retriever.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/rag/Retriever.cpp.o -c /home/firefly/VehicleTerminal/rag/Retriever.cpp
 
 CMakeFiles/VehicleTerminal.dir/rag/Retriever.cpp.i: cmake_force
@@ -410,7 +508,7 @@ CMakeFiles/VehicleTerminal.dir/rag/Retriever.cpp.s: cmake_force
 CMakeFiles/VehicleTerminal.dir/qrc_resources.cpp.o: CMakeFiles/VehicleTerminal.dir/flags.make
 CMakeFiles/VehicleTerminal.dir/qrc_resources.cpp.o: qrc_resources.cpp
 CMakeFiles/VehicleTerminal.dir/qrc_resources.cpp.o: CMakeFiles/VehicleTerminal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/VehicleTerminal.dir/qrc_resources.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building CXX object CMakeFiles/VehicleTerminal.dir/qrc_resources.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VehicleTerminal.dir/qrc_resources.cpp.o -MF CMakeFiles/VehicleTerminal.dir/qrc_resources.cpp.o.d -o CMakeFiles/VehicleTerminal.dir/qrc_resources.cpp.o -c /home/firefly/VehicleTerminal/build/qrc_resources.cpp
 
 CMakeFiles/VehicleTerminal.dir/qrc_resources.cpp.i: cmake_force
@@ -425,7 +523,14 @@ CMakeFiles/VehicleTerminal.dir/qrc_resources.cpp.s: cmake_force
 VehicleTerminal_OBJECTS = \
 "CMakeFiles/VehicleTerminal.dir/VehicleTerminal_autogen/mocs_compilation.cpp.o" \
 "CMakeFiles/VehicleTerminal.dir/main.cpp.o" \
+"CMakeFiles/VehicleTerminal.dir/audio/AudioInputService.cpp.o" \
+"CMakeFiles/VehicleTerminal.dir/audio/WakeWordService.cpp.o" \
+"CMakeFiles/VehicleTerminal.dir/audio/VADService.cpp.o" \
+"CMakeFiles/VehicleTerminal.dir/audio/ASRService.cpp.o" \
+"CMakeFiles/VehicleTerminal.dir/audio/VoiceController.cpp.o" \
+"CMakeFiles/VehicleTerminal.dir/audio/VoiceCommandNormalizer.cpp.o" \
 "CMakeFiles/VehicleTerminal.dir/camera/CameraService.cpp.o" \
+"CMakeFiles/VehicleTerminal.dir/vision/VisionServiceManager.cpp.o" \
 "CMakeFiles/VehicleTerminal.dir/fatigue/FatigueEventTracker.cpp.o" \
 "CMakeFiles/VehicleTerminal.dir/fatigue/FatigueVision.cpp.o" \
 "CMakeFiles/VehicleTerminal.dir/fatigue/FatigueService.cpp.o" \
@@ -453,7 +558,14 @@ VehicleTerminal_EXTERNAL_OBJECTS =
 
 VehicleTerminal: CMakeFiles/VehicleTerminal.dir/VehicleTerminal_autogen/mocs_compilation.cpp.o
 VehicleTerminal: CMakeFiles/VehicleTerminal.dir/main.cpp.o
+VehicleTerminal: CMakeFiles/VehicleTerminal.dir/audio/AudioInputService.cpp.o
+VehicleTerminal: CMakeFiles/VehicleTerminal.dir/audio/WakeWordService.cpp.o
+VehicleTerminal: CMakeFiles/VehicleTerminal.dir/audio/VADService.cpp.o
+VehicleTerminal: CMakeFiles/VehicleTerminal.dir/audio/ASRService.cpp.o
+VehicleTerminal: CMakeFiles/VehicleTerminal.dir/audio/VoiceController.cpp.o
+VehicleTerminal: CMakeFiles/VehicleTerminal.dir/audio/VoiceCommandNormalizer.cpp.o
 VehicleTerminal: CMakeFiles/VehicleTerminal.dir/camera/CameraService.cpp.o
+VehicleTerminal: CMakeFiles/VehicleTerminal.dir/vision/VisionServiceManager.cpp.o
 VehicleTerminal: CMakeFiles/VehicleTerminal.dir/fatigue/FatigueEventTracker.cpp.o
 VehicleTerminal: CMakeFiles/VehicleTerminal.dir/fatigue/FatigueVision.cpp.o
 VehicleTerminal: CMakeFiles/VehicleTerminal.dir/fatigue/FatigueService.cpp.o
@@ -513,6 +625,8 @@ VehicleTerminal: /usr/lib/aarch64-linux-gnu/libopencv_viz.so.4.5.4d
 VehicleTerminal: /usr/lib/aarch64-linux-gnu/libopencv_wechat_qrcode.so.4.5.4d
 VehicleTerminal: /usr/lib/aarch64-linux-gnu/libopencv_xobjdetect.so.4.5.4d
 VehicleTerminal: /usr/lib/aarch64-linux-gnu/libopencv_xphoto.so.4.5.4d
+VehicleTerminal: ../model/third_party/sherpa-onnx-v1.13.4-linux-aarch64-shared-cpu/lib/libsherpa-onnx-c-api.so
+VehicleTerminal: ../model/third_party/sherpa-onnx-v1.13.4-linux-aarch64-shared-cpu/lib/libonnxruntime.so
 VehicleTerminal: ../lib/librkllmrt.so
 VehicleTerminal: ../lib/librknnrt.so
 VehicleTerminal: /usr/lib/aarch64-linux-gnu/libQt5Gui.so.5.15.3
@@ -540,7 +654,7 @@ VehicleTerminal: /usr/lib/aarch64-linux-gnu/libopencv_photo.so.4.5.4d
 VehicleTerminal: /usr/lib/aarch64-linux-gnu/libopencv_imgproc.so.4.5.4d
 VehicleTerminal: /usr/lib/aarch64-linux-gnu/libopencv_core.so.4.5.4d
 VehicleTerminal: CMakeFiles/VehicleTerminal.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Linking CXX executable VehicleTerminal"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/firefly/VehicleTerminal/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Linking CXX executable VehicleTerminal"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/VehicleTerminal.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

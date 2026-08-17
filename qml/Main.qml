@@ -14,19 +14,71 @@ ApplicationWindow {
     visible:true
     
     Loader {
-
         id: pageLoader
 
         anchors.fill: parent
-
         z: 100
+
+
+        /*
+        * 页面切走时，立即告诉 VehicleAssistant：
+        * Weather.qml 已经不在当前页面。
+        */
+        onSourceChanged: {
+
+            var currentPage =
+                pageLoader.source.toString()
+
+            if (
+                currentPage.indexOf(
+                    "Weather.qml"
+                )
+                ===
+                -1
+            )
+            {
+                vehicleAssistant
+                    .setWeatherPageActive(
+                        false
+                    )
+            }
+        }
 
 
         onLoaded: {
 
             /*
-            * Weather.qml 如果有 backRequested 信号，
-            * 就连接返回操作。
+            * ====================================================
+            * Weather 页面状态
+            * ====================================================
+            *
+            * 只有真正加载成功后才设置 true。
+            */
+            var currentPage =
+                pageLoader.source.toString()
+
+            if (
+                currentPage.indexOf(
+                    "Weather.qml"
+                )
+                !==
+                -1
+            )
+            {
+                console.log(
+                    "[Main.qml] Weather page active"
+                )
+
+                vehicleAssistant
+                    .setWeatherPageActive(
+                        true
+                    )
+            }
+
+
+            /*
+            * 你原来已有的 Weather.qml 返回连接。
+            * 这一部分继续保留。
             */
             if (
                 item
@@ -352,6 +404,79 @@ ApplicationWindow {
 
         /*
         * ============================================================
+        * Weather.qml 页面内语音天气查询
+        * ============================================================
+        */
+        function onWeatherPageQueryRequested(city)
+        {
+            console.log(
+                "[Main.qml] weather page query requested:",
+                city
+            )
+
+
+            /*
+            * 当前必须已经加载 Weather.qml。
+            */
+            if (
+                pageLoader.item
+                &&
+                pageLoader.item.queryCityFromVoice
+            )
+            {
+                pageLoader.item
+                    .queryCityFromVoice(
+                        city
+                    )
+
+                return
+            }
+
+
+            console.log(
+                "[Main.qml] Weather.qml is not available"
+            )
+        }
+        /*
+        * ============================================================
+        * 用户消息已经被 VehicleAssistant 正式接受
+        *
+        * 键盘输入、语音输入以后都统一走这里。
+        * ============================================================
+        */
+        function onUserMessageAccepted(message)
+        {
+            console.log(
+                "[Main.qml] user message accepted:",
+                message
+            )
+
+
+            /*
+            * 添加用户消息。
+            */
+            chatModel.append({
+                "role": "User",
+                "message": message
+            })
+
+
+            /*
+            * 创建本轮 AI 回答占位。
+            *
+            * 后面的 onAnswerToken()
+            * 会持续往这条消息追加 token。
+            */
+            chatModel.append({
+                "role": "AI",
+                "message": ""
+            })
+
+
+            chatList.positionViewAtEnd()
+        }
+        /*
+        * ============================================================
         * 历史会话删除成功
         * ============================================================
         */
@@ -608,6 +733,89 @@ ApplicationWindow {
 
         }
 
+        function onCloseCameraPage()
+        {
+            console.log(
+                "[Main.qml] close camera page"
+            )
+
+
+            var currentPage =
+                pageLoader.source.toString()
+
+
+            /*
+            * 只有当前真的处于 Camera.qml
+            * 才关闭。
+            *
+            * 防止：
+            *
+            * 当前正在 Gallery.qml
+            * 用户说“关闭摄像头”
+            *
+            * 却把 Gallery 一起关闭。
+            */
+            if (
+                currentPage.indexOf(
+                    "Camera.qml"
+                ) !== -1
+            )
+            {
+                pageLoader.source = ""
+            }
+        }
+
+        function onCloseGalleryPage()
+        {
+            console.log(
+                "[Main.qml] close gallery page"
+            )
+
+
+            var currentPage =
+                pageLoader.source.toString()
+
+
+            if (
+                currentPage.indexOf(
+                    "Gallery.qml"
+                ) !== -1
+            )
+            {
+                pageLoader.source = ""
+            }
+        }
+
+        function onOpenWeatherPage()
+        {
+            console.log(
+                "[Main.qml] open weather page"
+            )
+
+            onboardController.hideKeyboard()
+
+            mainWindow.contentItem
+                .forceActiveFocus()
+
+            pageLoader.source =
+                "qrc:/qml/Weather.qml"
+        }
+        function onReturnToMainPage()
+        {
+            console.log(
+                "[Main.qml] return to main page"
+            )
+
+
+            onboardController.hideKeyboard()
+
+            mainWindow.contentItem
+                .forceActiveFocus()
+
+
+            pageLoader.source = ""
+        }
+        
         function onOpenGalleryPage()
         {
 
@@ -639,50 +847,95 @@ ApplicationWindow {
 
         function onAnswerToken(token)
         {
-
-
-            var index =
-            chatModel.count-1
-
-
-
-            if(chatModel.get(index).role !== "AI")
+            /*
+            * ========================================================
+            * 防御检查
+            * ========================================================
+            *
+            * 正常情况下：
+            *
+            * userMessageAccepted()
+            * 已经提前创建：
+            *
+            * User
+            * AI空占位
+            *
+            * 这里仍然做保护，
+            * 避免任何异常时访问 -1。
+            */
+            if (chatModel.count <= 0)
             {
+                console.log(
+                    "[Main.qml] answerToken ignored:"
+                    + " chatModel is empty"
+                )
 
-                return;
-
+                return
             }
 
 
+            var index =
+                chatModel.count - 1
+
+
+            var item =
+                chatModel.get(index)
+
+
+            if (!item)
+            {
+                console.log(
+                    "[Main.qml] answerToken ignored:"
+                    + " last item is undefined"
+                )
+
+                return
+            }
+
+
+            if (item.role !== "AI")
+            {
+                console.log(
+                    "[Main.qml] answerToken ignored:"
+                    + " last message is not AI"
+                )
+
+                return
+            }
+
 
             var oldText =
-                chatModel.get(index).message;
+                item.message
 
+
+            /*
+            * 防止极端情况下 message 为 undefined。
+            */
+            if (oldText === undefined ||
+                oldText === null)
+            {
+                oldText = ""
+            }
 
 
             chatModel.setProperty(
-
                 index,
-
                 "message",
-
                 oldText + token
-
-            );
-
-
-            chatList.positionViewAtEnd();
+            )
 
 
+            chatList.positionViewAtEnd()
         }
 
 
 
         function onAnswerFinished()
         {
-
-            chatList.positionViewAtEnd()
-
+            if (chatModel.count > 0)
+            {
+                chatList.positionViewAtEnd()
+            }
         }
 
 
@@ -1529,25 +1782,6 @@ ApplicationWindow {
                         questionInput.text = ""
 
 
-                        /*
-                        * 用户消息。
-                        */
-                        chatModel.append({
-                            "role": "User",
-                            "message": question
-                        })
-
-
-                        /*
-                        * AI 占位。
-                        */
-                        chatModel.append({
-                            "role": "AI",
-                            "message": ""
-                        })
-
-
-                        chatList.positionViewAtEnd()
 
 
                         /*

@@ -1,0 +1,117 @@
+{
+    "createdAt": "2026-08-17T17:33:55",
+    "id": "6b18c7e1-5684-4991-abdc-c42c203aab81",
+    "messages": [
+        {
+            "content": "打开摄像头。",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T17:34:15"
+        },
+        {
+            "content": "正在打开相机。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T17:34:15"
+        },
+        {
+            "content": "打开相册。",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T17:34:23"
+        },
+        {
+            "content": "正在打开相册。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T17:34:24"
+        },
+        {
+            "content": "关闭相册。",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T17:34:30"
+        },
+        {
+            "content": "已关闭相册。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T17:34:30"
+        },
+        {
+            "content": "打开摄像头。",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T17:34:38"
+        },
+        {
+            "content": "正在打开相机。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T17:34:39"
+        },
+        {
+            "content": "关闭摄像头。",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T17:34:43"
+        },
+        {
+            "content": "已关闭相机界面。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T17:34:43"
+        },
+        {
+            "content": "打开相机。",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T17:34:51"
+        },
+        {
+            "content": "正在打开相机。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T17:34:51"
+        },
+        {
+            "content": "关闭相机。",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T17:34:56"
+        },
+        {
+            "content": "已关闭相机界面。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T17:34:56"
+        },
+        {
+            "content": "打开摄像头。",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T17:35:01"
+        },
+        {
+            "content": "正在打开相机。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T17:35:02"
+        },
+        {
+            "content": "关闭摄像头。",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T17:35:07"
+        },
+        {
+            "content": "已关闭相机界面。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T17:35:07"
+        }
+    ],
+    "summary": "",
+    "title": "打开摄像头。",
+    "updatedAt": "2026-08-17T17:35:07"
+}

@@ -1,0 +1,51 @@
+{
+    "createdAt": "2026-08-17T18:48:47",
+    "id": "2b034619-39fa-4d62-8b08-89d7cc2d0134",
+    "messages": [
+        {
+            "content": "打开摄像头。",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T18:49:07"
+        },
+        {
+            "content": "摄像头已经处于开启状态。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T18:49:07"
+        },
+        {
+            "content": "打开相机。",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T18:49:12"
+        },
+        {
+            "content": "正在打开相机。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T18:49:12"
+        },
+        {
+            "content": "拍照。",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T18:49:16"
+        },
+        {
+            "content": "已执行拍照。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T18:49:16"
+        },
+        {
+            "content": "摄像头。",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T18:49:22"
+        }
+    ],
+    "summary": "",
+    "title": "打开摄像头。",
+    "updatedAt": "2026-08-17T18:49:22"
+}

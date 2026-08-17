@@ -1,0 +1,21 @@
+{
+    "createdAt": "2026-08-17T14:39:20",
+    "id": "15886307-bc61-4581-a96c-42e2f3859134",
+    "messages": [
+        {
+            "content": "打开摄像头。",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T14:39:40"
+        },
+        {
+            "content": "正在打开摄像头",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T14:39:40"
+        }
+    ],
+    "summary": "",
+    "title": "打开摄像头。",
+    "updatedAt": "2026-08-17T14:39:40"
+}

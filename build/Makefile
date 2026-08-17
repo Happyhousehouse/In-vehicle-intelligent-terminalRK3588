@@ -190,6 +190,150 @@ assistant/VehicleAssistant.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/assistant/VehicleAssistant.cpp.s
 .PHONY : assistant/VehicleAssistant.cpp.s
 
+audio/ASRService.o: audio/ASRService.cpp.o
+.PHONY : audio/ASRService.o
+
+# target to build an object file
+audio/ASRService.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/audio/ASRService.cpp.o
+.PHONY : audio/ASRService.cpp.o
+
+audio/ASRService.i: audio/ASRService.cpp.i
+.PHONY : audio/ASRService.i
+
+# target to preprocess a source file
+audio/ASRService.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/audio/ASRService.cpp.i
+.PHONY : audio/ASRService.cpp.i
+
+audio/ASRService.s: audio/ASRService.cpp.s
+.PHONY : audio/ASRService.s
+
+# target to generate assembly for a file
+audio/ASRService.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/audio/ASRService.cpp.s
+.PHONY : audio/ASRService.cpp.s
+
+audio/AudioInputService.o: audio/AudioInputService.cpp.o
+.PHONY : audio/AudioInputService.o
+
+# target to build an object file
+audio/AudioInputService.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/audio/AudioInputService.cpp.o
+.PHONY : audio/AudioInputService.cpp.o
+
+audio/AudioInputService.i: audio/AudioInputService.cpp.i
+.PHONY : audio/AudioInputService.i
+
+# target to preprocess a source file
+audio/AudioInputService.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/audio/AudioInputService.cpp.i
+.PHONY : audio/AudioInputService.cpp.i
+
+audio/AudioInputService.s: audio/AudioInputService.cpp.s
+.PHONY : audio/AudioInputService.s
+
+# target to generate assembly for a file
+audio/AudioInputService.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/audio/AudioInputService.cpp.s
+.PHONY : audio/AudioInputService.cpp.s
+
+audio/VADService.o: audio/VADService.cpp.o
+.PHONY : audio/VADService.o
+
+# target to build an object file
+audio/VADService.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/audio/VADService.cpp.o
+.PHONY : audio/VADService.cpp.o
+
+audio/VADService.i: audio/VADService.cpp.i
+.PHONY : audio/VADService.i
+
+# target to preprocess a source file
+audio/VADService.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/audio/VADService.cpp.i
+.PHONY : audio/VADService.cpp.i
+
+audio/VADService.s: audio/VADService.cpp.s
+.PHONY : audio/VADService.s
+
+# target to generate assembly for a file
+audio/VADService.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/audio/VADService.cpp.s
+.PHONY : audio/VADService.cpp.s
+
+audio/VoiceCommandNormalizer.o: audio/VoiceCommandNormalizer.cpp.o
+.PHONY : audio/VoiceCommandNormalizer.o
+
+# target to build an object file
+audio/VoiceCommandNormalizer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/audio/VoiceCommandNormalizer.cpp.o
+.PHONY : audio/VoiceCommandNormalizer.cpp.o
+
+audio/VoiceCommandNormalizer.i: audio/VoiceCommandNormalizer.cpp.i
+.PHONY : audio/VoiceCommandNormalizer.i
+
+# target to preprocess a source file
+audio/VoiceCommandNormalizer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/audio/VoiceCommandNormalizer.cpp.i
+.PHONY : audio/VoiceCommandNormalizer.cpp.i
+
+audio/VoiceCommandNormalizer.s: audio/VoiceCommandNormalizer.cpp.s
+.PHONY : audio/VoiceCommandNormalizer.s
+
+# target to generate assembly for a file
+audio/VoiceCommandNormalizer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/audio/VoiceCommandNormalizer.cpp.s
+.PHONY : audio/VoiceCommandNormalizer.cpp.s
+
+audio/VoiceController.o: audio/VoiceController.cpp.o
+.PHONY : audio/VoiceController.o
+
+# target to build an object file
+audio/VoiceController.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/audio/VoiceController.cpp.o
+.PHONY : audio/VoiceController.cpp.o
+
+audio/VoiceController.i: audio/VoiceController.cpp.i
+.PHONY : audio/VoiceController.i
+
+# target to preprocess a source file
+audio/VoiceController.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/audio/VoiceController.cpp.i
+.PHONY : audio/VoiceController.cpp.i
+
+audio/VoiceController.s: audio/VoiceController.cpp.s
+.PHONY : audio/VoiceController.s
+
+# target to generate assembly for a file
+audio/VoiceController.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/audio/VoiceController.cpp.s
+.PHONY : audio/VoiceController.cpp.s
+
+audio/WakeWordService.o: audio/WakeWordService.cpp.o
+.PHONY : audio/WakeWordService.o
+
+# target to build an object file
+audio/WakeWordService.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/audio/WakeWordService.cpp.o
+.PHONY : audio/WakeWordService.cpp.o
+
+audio/WakeWordService.i: audio/WakeWordService.cpp.i
+.PHONY : audio/WakeWordService.i
+
+# target to preprocess a source file
+audio/WakeWordService.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/audio/WakeWordService.cpp.i
+.PHONY : audio/WakeWordService.cpp.i
+
+audio/WakeWordService.s: audio/WakeWordService.cpp.s
+.PHONY : audio/WakeWordService.s
+
+# target to generate assembly for a file
+audio/WakeWordService.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/audio/WakeWordService.cpp.s
+.PHONY : audio/WakeWordService.cpp.s
+
 camera/CameraService.o: camera/CameraService.cpp.o
 .PHONY : camera/CameraService.o
 
@@ -694,6 +838,30 @@ rag/Retriever.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/rag/Retriever.cpp.s
 .PHONY : rag/Retriever.cpp.s
 
+vision/VisionServiceManager.o: vision/VisionServiceManager.cpp.o
+.PHONY : vision/VisionServiceManager.o
+
+# target to build an object file
+vision/VisionServiceManager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/vision/VisionServiceManager.cpp.o
+.PHONY : vision/VisionServiceManager.cpp.o
+
+vision/VisionServiceManager.i: vision/VisionServiceManager.cpp.i
+.PHONY : vision/VisionServiceManager.i
+
+# target to preprocess a source file
+vision/VisionServiceManager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/vision/VisionServiceManager.cpp.i
+.PHONY : vision/VisionServiceManager.cpp.i
+
+vision/VisionServiceManager.s: vision/VisionServiceManager.cpp.s
+.PHONY : vision/VisionServiceManager.s
+
+# target to generate assembly for a file
+vision/VisionServiceManager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/vision/VisionServiceManager.cpp.s
+.PHONY : vision/VisionServiceManager.cpp.s
+
 weather/WeatherService.o: weather/WeatherService.cpp.o
 .PHONY : weather/WeatherService.o
 
@@ -734,6 +902,24 @@ help:
 	@echo "... assistant/VehicleAssistant.o"
 	@echo "... assistant/VehicleAssistant.i"
 	@echo "... assistant/VehicleAssistant.s"
+	@echo "... audio/ASRService.o"
+	@echo "... audio/ASRService.i"
+	@echo "... audio/ASRService.s"
+	@echo "... audio/AudioInputService.o"
+	@echo "... audio/AudioInputService.i"
+	@echo "... audio/AudioInputService.s"
+	@echo "... audio/VADService.o"
+	@echo "... audio/VADService.i"
+	@echo "... audio/VADService.s"
+	@echo "... audio/VoiceCommandNormalizer.o"
+	@echo "... audio/VoiceCommandNormalizer.i"
+	@echo "... audio/VoiceCommandNormalizer.s"
+	@echo "... audio/VoiceController.o"
+	@echo "... audio/VoiceController.i"
+	@echo "... audio/VoiceController.s"
+	@echo "... audio/WakeWordService.o"
+	@echo "... audio/WakeWordService.i"
+	@echo "... audio/WakeWordService.s"
 	@echo "... camera/CameraService.o"
 	@echo "... camera/CameraService.i"
 	@echo "... camera/CameraService.s"
@@ -797,6 +983,9 @@ help:
 	@echo "... rag/Retriever.o"
 	@echo "... rag/Retriever.i"
 	@echo "... rag/Retriever.s"
+	@echo "... vision/VisionServiceManager.o"
+	@echo "... vision/VisionServiceManager.i"
+	@echo "... vision/VisionServiceManager.s"
 	@echo "... weather/WeatherService.o"
 	@echo "... weather/WeatherService.i"
 	@echo "... weather/WeatherService.s"

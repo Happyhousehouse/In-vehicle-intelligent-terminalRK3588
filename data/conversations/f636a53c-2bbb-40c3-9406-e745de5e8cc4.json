@@ -1,0 +1,81 @@
+{
+    "createdAt": "2026-08-17T21:57:51",
+    "id": "f636a53c-2bbb-40c3-9406-e745de5e8cc4",
+    "messages": [
+        {
+            "content": "今天气怎么样",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T21:57:51"
+        },
+        {
+            "content": "深圳今天天气为阴，当前温度27.4℃，体感温度33.6℃；今天最高32.6℃，最低27.1℃；湿度93％，风速8.7 km/h，降雨概率87％。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T21:57:52"
+        },
+        {
+            "content": "停止回答",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T21:57:58"
+        },
+        {
+            "content": "作为汽车智能助手，我无法提供特定车型或型号的详细信息、参数数据，因为您的资料内容未在此处。如果提供了相关技术规格文档，我可以为您分析其性能指标（如动力输出、加速时间、扭矩分布等）或在安全操作层面给出建议。\n\n请补充具体信息",
+            "role": "assistant",
+            "status": "interrupted",
+            "time": "2026-08-17T21:58:04"
+        },
+        {
+            "content": "你好，小车",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T21:58:10"
+        },
+        {
+            "content": "你好！我是汽车智能助手，很高兴为您服务。请问有什么可以帮助您的吗？比如车辆保养、故障诊断或驾驶技巧等",
+            "role": "assistant",
+            "status": "interrupted",
+            "time": "2026-08-17T21:58:13"
+        },
+        {
+            "content": "呃，继续回答",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T21:58:19"
+        },
+        {
+            "content": "您好！我是您专属的汽车智能助手，随时为您服务。请问有什么可以帮您？比如车辆保养、故障诊断、驾驶技巧或最新的技术资讯？",
+            "role": "assistant",
+            "status": "interrupted",
+            "time": "2026-08-17T21:58:22"
+        },
+        {
+            "content": "打开相机",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T21:58:26"
+        },
+        {
+            "content": "正在打开相机。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T21:58:26"
+        },
+        {
+            "content": "关闭相机",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T21:58:29"
+        },
+        {
+            "content": "相机已关闭。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T21:58:29"
+        }
+    ],
+    "summary": "",
+    "title": "今天气怎么样",
+    "updatedAt": "2026-08-17T21:58:29"
+}

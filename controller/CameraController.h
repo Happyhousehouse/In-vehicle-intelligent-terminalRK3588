@@ -45,7 +45,7 @@ public:
 
 
     ~CameraController();
-
+    bool isPreviewActive() const;
 
 public slots:
 

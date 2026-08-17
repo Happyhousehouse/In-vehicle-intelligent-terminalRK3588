@@ -221,6 +221,9 @@
 		"/usr/share/cmake-3.22/Modules/FindPackageMessage.cmake",
 		"/usr/lib/aarch64-linux-gnu/cmake/opencv4/OpenCVModules.cmake",
 		"/usr/lib/aarch64-linux-gnu/cmake/opencv4/OpenCVModules-release.cmake",
+		"/usr/share/cmake-3.22/Modules/FindALSA.cmake",
+		"/usr/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake",
+		"/usr/share/cmake-3.22/Modules/FindPackageMessage.cmake",
 		"/home/firefly/VehicleTerminal/resources.qrc"
 	],
 	"CMAKE_SOURCE_DIR" : "/home/firefly/VehicleTerminal",
@@ -232,6 +235,42 @@
 			"/home/firefly/VehicleTerminal/assistant/VehicleAssistant.h",
 			"MU",
 			"DOKHWH3PII/moc_VehicleAssistant.cpp",
+			null
+		],
+		[
+			"/home/firefly/VehicleTerminal/audio/ASRService.h",
+			"MU",
+			"PZONOMFGYT/moc_ASRService.cpp",
+			null
+		],
+		[
+			"/home/firefly/VehicleTerminal/audio/AudioInputService.h",
+			"MU",
+			"PZONOMFGYT/moc_AudioInputService.cpp",
+			null
+		],
+		[
+			"/home/firefly/VehicleTerminal/audio/VADService.h",
+			"MU",
+			"PZONOMFGYT/moc_VADService.cpp",
+			null
+		],
+		[
+			"/home/firefly/VehicleTerminal/audio/VoiceCommandNormalizer.h",
+			"MU",
+			"PZONOMFGYT/moc_VoiceCommandNormalizer.cpp",
+			null
+		],
+		[
+			"/home/firefly/VehicleTerminal/audio/VoiceController.h",
+			"MU",
+			"PZONOMFGYT/moc_VoiceController.cpp",
+			null
+		],
+		[
+			"/home/firefly/VehicleTerminal/audio/WakeWordService.h",
+			"MU",
+			"PZONOMFGYT/moc_WakeWordService.cpp",
 			null
 		],
 		[
@@ -355,6 +394,12 @@
 			null
 		],
 		[
+			"/home/firefly/VehicleTerminal/vision/VisionServiceManager.h",
+			"MU",
+			"YWCEO5NH3S/moc_VisionServiceManager.cpp",
+			null
+		],
+		[
 			"/home/firefly/VehicleTerminal/weather/WeatherService.h",
 			"MU",
 			"6YT3GII5UT/moc_WeatherService.cpp",
@@ -384,7 +429,9 @@
 	],
 	"MOC_INCLUDES" : 
 	[
+		"/home/firefly/VehicleTerminal/audio",
 		"/home/firefly/VehicleTerminal",
+		"/home/firefly/VehicleTerminal/model/third_party/sherpa-onnx-v1.13.4-linux-aarch64-shared-cpu/include",
 		"/home/firefly/VehicleTerminal/include",
 		"/home/firefly/VehicleTerminal/assistant",
 		"/home/firefly/VehicleTerminal/conversation",
@@ -442,6 +489,20 @@
 			"MU",
 			null
 		],
+		[ "/home/firefly/VehicleTerminal/audio/ASRService.cpp", "MU", null ],
+		[
+			"/home/firefly/VehicleTerminal/audio/AudioInputService.cpp",
+			"MU",
+			null
+		],
+		[ "/home/firefly/VehicleTerminal/audio/VADService.cpp", "MU", null ],
+		[
+			"/home/firefly/VehicleTerminal/audio/VoiceCommandNormalizer.cpp",
+			"MU",
+			null
+		],
+		[ "/home/firefly/VehicleTerminal/audio/VoiceController.cpp", "MU", null ],
+		[ "/home/firefly/VehicleTerminal/audio/WakeWordService.cpp", "MU", null ],
 		[ "/home/firefly/VehicleTerminal/camera/CameraService.cpp", "MU", null ],
 		[
 			"/home/firefly/VehicleTerminal/controller/CameraController.cpp",
@@ -502,6 +563,11 @@
 		[ "/home/firefly/VehicleTerminal/rag/PromptBuilder.cpp", "MU", null ],
 		[ "/home/firefly/VehicleTerminal/rag/RAGService.cpp", "MU", null ],
 		[ "/home/firefly/VehicleTerminal/rag/Retriever.cpp", "MU", null ],
+		[
+			"/home/firefly/VehicleTerminal/vision/VisionServiceManager.cpp",
+			"MU",
+			null
+		],
 		[
 			"/home/firefly/VehicleTerminal/weather/WeatherService.cpp",
 			"MU",

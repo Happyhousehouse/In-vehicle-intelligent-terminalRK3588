@@ -1,0 +1,75 @@
+{
+    "createdAt": "2026-08-17T21:25:57",
+    "id": "24ca25cf-dd4f-4093-a8c6-2cbc2500ffc3",
+    "messages": [
+        {
+            "content": "关闭疲劳检测",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T21:25:57"
+        },
+        {
+            "content": "疲劳检测已关闭。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T21:25:57"
+        },
+        {
+            "content": "关闭疲劳检测",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T21:26:01"
+        },
+        {
+            "content": "疲劳检测已经处于关闭状态。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T21:26:01"
+        },
+        {
+            "content": "打开相机",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T21:26:06"
+        },
+        {
+            "content": "正在打开相机。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T21:26:06"
+        },
+        {
+            "content": "打开相机",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T21:26:12"
+        },
+        {
+            "content": "正在打开相机。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T21:26:12"
+        },
+        {
+            "content": "关闭相机",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T21:26:17"
+        },
+        {
+            "content": "相机已关闭。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T21:26:17"
+        },
+        {
+            "content": "管皮箱",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T21:26:21"
+        }
+    ],
+    "summary": "",
+    "title": "关闭疲劳检测",
+    "updatedAt": "2026-08-17T21:26:21"
+}

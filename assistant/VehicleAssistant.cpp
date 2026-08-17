@@ -7,7 +7,9 @@
 #include <QVariantMap>
 
 #include "../weather/WeatherService.h"
-#include "../fatigue/FatigueService.h"
+
+#include "../vision/VisionServiceManager.h"
+
 VehicleAssistant::VehicleAssistant(
     QObject *parent
 )
@@ -380,24 +382,6 @@ void VehicleAssistant::setWeatherService(
         << "WeatherService connected";
 }
 
-// ============================================================
-// FatigueService
-// ============================================================
-
-void VehicleAssistant::setFatigueService(
-    FatigueService *service
-)
-{
-    fatigueService_ =
-        service;
-
-
-    qDebug()
-        << "[VehicleAssistant]"
-        << "FatigueService connected:"
-        << (fatigueService_ != nullptr);
-}
-
 
 
 QString VehicleAssistant::currentConversationId() const
@@ -474,7 +458,39 @@ bool VehicleAssistant::isStopping() const
     return stopRequested_.load();
 }
 
+/*
+ * ============================================================
+ * Weather 页面状态
+ * ============================================================
+ */
 
+void VehicleAssistant::setWeatherPageActive(
+    bool active
+)
+{
+    if (
+        weatherPageActive_
+        ==
+        active
+    )
+    {
+        return;
+    }
+
+    weatherPageActive_ =
+        active;
+
+    qDebug()
+        << "[VehicleAssistant]"
+        << "weather page active ="
+        << weatherPageActive_;
+}
+
+
+bool VehicleAssistant::isWeatherPageActive() const
+{
+    return weatherPageActive_;
+}
 /*
  * ============================================================
  * 状态修改
@@ -610,6 +626,208 @@ void VehicleAssistant::chat(
 
         joinFinishedThread();
     }
+    /*
+    * ============================================================
+    * Weather.qml 页面内语音天气查询
+    * ============================================================
+    *
+    * Weather.qml 当前正在显示时：
+    *
+    * “广州天气怎么样”
+    * “查询深圳天气”
+    * “告诉我北京现在什么天气”
+    *
+    * 不进入 AI 聊天历史，
+    * 而是直接把城市交给 Weather.qml。
+    * ============================================================
+    */
+
+    /*
+    * ============================================================
+    * 退出 Weather.qml
+    * ============================================================
+    *
+    * 必须放在：
+    *
+    * weatherPageActive_ && isWeatherQuestion(cmd)
+    *
+    * 前面。
+    *
+    * 因为“退出天气模块”本身也包含“天气”，
+    * 如果放在后面，就会先被当成天气查询。
+    * ============================================================
+    */
+    if (
+        weatherPageActive_
+        &&
+        (
+            cmd == QStringLiteral("退出天气模块")
+            ||
+            cmd == QStringLiteral("推出天气模块")
+            ||
+            cmd == QStringLiteral("关闭天气模块")
+            ||
+            cmd == QStringLiteral("退出天气页面")
+            ||
+            cmd == QStringLiteral("推出天气页面")
+            ||
+            cmd == QStringLiteral("关闭天气页面")
+            ||
+            cmd == QStringLiteral("退出天气界面")
+            ||
+            cmd == QStringLiteral("推出天气界面")
+            ||
+            cmd == QStringLiteral("关闭天气界面")
+        )
+    )
+    {
+        qDebug()
+            << "[VehicleAssistant]"
+            << "exit Weather.qml command:"
+            << cmd;
+
+        QMetaObject::invokeMethod(
+            this,
+
+            [this]()
+            {
+                emit returnToMainPage();
+            },
+
+            Qt::QueuedConnection
+        );
+
+        /*
+        * 这里属于页面控制命令。
+        *
+        * 因为此位置还没有进入 AI 聊天历史，
+        * 不调用 finishLocalAnswer()。
+        *
+        * 只告诉 VoiceController：
+        * 本轮命令已经处理完成。
+        */
+        emit answerFinished();
+
+        return;
+    }
+    if (
+        weatherPageActive_
+        &&
+        isWeatherQuestion(
+            cmd
+        )
+    )
+    {
+        /*
+        * “打开天气页面”属于页面控制，
+        * 不能误当成页面内部的天气查询。
+        */
+        const bool openWeatherCommand =
+            cmd.contains(
+                QStringLiteral(
+                    "打开天气页面"
+                )
+            )
+            ||
+            cmd.contains(
+                QStringLiteral(
+                    "打开天气界面"
+                )
+            )
+            ||
+            cmd.contains(
+                QStringLiteral(
+                    "进入天气页面"
+                )
+            )
+            ||
+            cmd.contains(
+                QStringLiteral(
+                    "进入天气界面"
+                )
+            )
+            ||
+            cmd.contains(
+                QStringLiteral(
+                    "打开天气模块"
+                )
+            )
+            ||
+            cmd
+            ==
+            QStringLiteral(
+                "打开天气"
+            );
+
+
+        if (!openWeatherCommand)
+        {
+            const QString city =
+                extractWeatherCity(
+                    cmd
+                );
+
+
+            qDebug()
+                << "[VehicleAssistant]"
+                << "route weather query to Weather.qml"
+                << "city ="
+                << city;
+
+
+            /*
+            * 不调用：
+            *
+            * userMessageAccepted()
+            * appendUserMessage()
+            * startWeatherCitySearch()
+            *
+            * 所以不会进入 AI 聊天框。
+            */
+            emit weatherPageQueryRequested(
+                city
+            );
+
+
+            /*
+            * 非常重要：
+            *
+            * VoiceController 已经把这一轮状态切到了 ANSWERING。
+            * 虽然这次不需要 AI 回答，
+            * 仍然必须告诉 VoiceController：
+            * 本轮命令处理完成。
+            *
+            * 否则语音状态会一直卡在 ANSWERING。
+            */
+            emit answerFinished();
+
+
+            return;
+        }
+    }
+    /*
+    * ========================================================
+    * 保存用户消息。
+    * ========================================================
+    */
+
+    /*
+    * ========================================================
+    * 用户消息已经被正式接受。
+    *
+    * 通知QML：
+    * 现在可以创建
+    *
+    * User消息
+    * AI回复占位
+    *
+    * 键盘输入和语音输入都统一走这里。
+    * ========================================================
+    */
+    emit userMessageAccepted(
+        cmd
+    );
+
 
     /*
     * ========================================================
@@ -671,11 +889,11 @@ void VehicleAssistant::chat(
         // 服务没有绑定
         // ====================================================
 
-        if (!fatigueService_)
+        if (!visionManager_)
         {
             finishLocalAnswer(
                 QStringLiteral(
-                    "疲劳检测服务当前不可用。"
+                    "视觉服务当前不可用。"
                 )
             );
 
@@ -729,8 +947,8 @@ void VehicleAssistant::chat(
         if (statusQuery)
         {
             if (
-                fatigueService_
-                    ->isRunning()
+                visionManager_
+                    ->isFatigueEnabled()
             )
             {
                 finishLocalAnswer(
@@ -779,8 +997,8 @@ void VehicleAssistant::chat(
         {
             // 已经关闭
             if (
-                !fatigueService_
-                    ->isRunning()
+                !visionManager_
+                    ->isFatigueEnabled()
             )
             {
                 finishLocalAnswer(
@@ -793,10 +1011,8 @@ void VehicleAssistant::chat(
             }
 
 
-            fatigueService_
-                ->setMonitoringEnabled(
-                    false
-                );
+            visionManager_
+                ->disableFatigue();
 
 
             finishLocalAnswer(
@@ -836,8 +1052,8 @@ void VehicleAssistant::chat(
         {
             // 已经打开
             if (
-                fatigueService_
-                    ->isRunning()
+                visionManager_
+                    ->isFatigueEnabled()
             )
             {
                 finishLocalAnswer(
@@ -851,10 +1067,8 @@ void VehicleAssistant::chat(
 
 
             const bool started =
-                fatigueService_
-                    ->setMonitoringEnabled(
-                        true
-                    );
+                visionManager_
+                    ->enableFatigue();
 
 
             if (started)
@@ -878,6 +1092,63 @@ void VehicleAssistant::chat(
             return;
         }
     }
+
+    /*
+    * ========================================================
+    * Weather Page
+    * ========================================================
+    *
+    * 控制天气页面本身。
+    *
+    * 必须放在 isWeatherQuestion(cmd) 前面，
+    * 否则“打开天气”会被普通天气查询提前匹配。
+    */
+    if (
+        cmd.contains(
+            QStringLiteral("打开天气页面")
+        )
+        ||
+        cmd.contains(
+            QStringLiteral("打开天气界面")
+        )
+        ||
+        cmd.contains(
+            QStringLiteral("进入天气页面")
+        )
+        ||
+        cmd.contains(
+            QStringLiteral("进入天气界面")
+        )
+        ||
+        cmd.contains(
+            QStringLiteral("打开天气模块")
+        )
+        ||
+        cmd == QStringLiteral("打开天气")
+    )
+    {
+        QMetaObject::invokeMethod(
+            this,
+
+            [this]()
+            {
+                emit openWeatherPage();
+            },
+
+            Qt::QueuedConnection
+        );
+
+
+        finishLocalAnswer(
+            QStringLiteral(
+                "正在打开天气页面。"
+            )
+        );
+
+
+        return;
+    }
+
     /*
     * ========================================================
     * Weather
@@ -994,147 +1265,534 @@ void VehicleAssistant::chat(
         return;
     }
 
-    /*
-     * 相册。
-     */
+   /*
+    * ============================================================
+    * Page Navigation
+    * ============================================================
+    *
+    * 通用页面退出：
+    *
+    * 返回主页
+    * 返回主界面
+    * 回到主页
+    * 关闭当前页面
+    * ============================================================
+    */
+
     if (
-        cmd.contains("打开相册")
+        cmd.contains(
+            QStringLiteral("返回主页")
+        )
         ||
-        cmd.contains("查看相册")
+        cmd.contains(
+            QStringLiteral("回到主页")
+        )
         ||
-        cmd.contains("打开照片")
+        cmd.contains(
+            QStringLiteral("返回主界面")
+        )
         ||
-        cmd.contains("查看照片")
+        cmd.contains(
+            QStringLiteral("回到主界面")
+        )
+        ||
+        cmd.contains(
+            QStringLiteral("返回首页")
+        )
+        ||
+        cmd.contains(
+            QStringLiteral("关闭当前页面")
+        )
+        ||
+        cmd.contains(
+            QStringLiteral("退出当前页面")
+        )
     )
     {
-        QMetaObject::invokeMethod(
-            this,
+        emit returnToMainPage();
 
-            [this]()
+
+        finishLocalAnswer(
+            QStringLiteral(
+                "已返回主界面。"
+            )
+        );
+
+
+        return;
+    }
+
+    /*
+    * ============================================================
+    * Camera Business
+    * ============================================================
+    *
+    * 注意：
+    *
+    * 这里控制的是“相机业务”，
+    * 不是 CameraService。
+    *
+    * CameraService 仍然作为底层全局视觉输入持续运行。
+    * ============================================================
+    */
+    /*
+    * ============================================================
+    * Camera Device
+    *
+    * 底层摄像头服务
+    * ============================================================
+    */
+
+
+    /*
+    * ------------------------------------------------------------
+    * 打开 / 开启摄像头
+    *
+    * 只启动 CameraService。
+    * 不打开 Camera.qml。
+    * ------------------------------------------------------------
+    */
+
+    if (
+        cmd.contains(
+            QStringLiteral("打开摄像头")
+        )
+        ||
+        cmd.contains(
+            QStringLiteral("开启摄像头")
+        )
+        ||
+        cmd.contains(
+            QStringLiteral("启动摄像头")
+        )
+    )
+    {
+        if (!visionManager_)
+        {
+            finishLocalAnswer(
+                QStringLiteral(
+                    "视觉服务当前不可用。"
+                )
+            );
+
+            return;
+        }
+
+
+        const bool alreadyRunning =
+            visionManager_
+                ->isCameraRunning();
+
+
+        if (
+            !visionManager_
+                ->openCameraDevice()
+        )
+        {
+            finishLocalAnswer(
+                QStringLiteral(
+                    "摄像头启动失败。"
+                )
+            );
+
+            return;
+        }
+
+
+        if (alreadyRunning)
+        {
+            finishLocalAnswer(
+                QStringLiteral(
+                    "摄像头已经处于开启状态。"
+                )
+            );
+        }
+        else
+        {
+            finishLocalAnswer(
+                QStringLiteral(
+                    "摄像头已开启。"
+                )
+            );
+        }
+
+
+        return;
+    }
+
+    /*
+    * ------------------------------------------------------------
+    * 关闭底层摄像头
+    *
+    * 这里必须处理上层依赖。
+    * ------------------------------------------------------------
+    */
+
+    if (
+        cmd.contains(
+            QStringLiteral("关闭摄像头")
+        )
+        ||
+        cmd.contains(
+            QStringLiteral("停止摄像头")
+        )
+        ||
+        cmd.contains(
+            QStringLiteral("退出摄像头")
+        )
+    )
+    {
+        if (!visionManager_)
+        {
+            finishLocalAnswer(
+                QStringLiteral(
+                    "视觉服务当前不可用。"
+                )
+            );
+
+            return;
+        }
+
+
+        const bool cameraBusinessWasActive =
+            visionManager_
+                ->isCameraBusinessActive();
+
+
+        const auto result =
+            visionManager_
+                ->closeCameraDevice();
+
+
+        switch (result)
+        {
+            case
+            VisionServiceManager::CloseCameraResult::Closed:
             {
-                emit openGalleryPage();
-            },
+                if (cameraBusinessWasActive)
+                {
+                    finishLocalAnswer(
+                        QStringLiteral(
+                            "相机界面已关闭，摄像头已关闭。"
+                        )
+                    );
+                }
+                else
+                {
+                    finishLocalAnswer(
+                        QStringLiteral(
+                            "摄像头已关闭。"
+                        )
+                    );
+                }
 
-            Qt::QueuedConnection
-        );
-
-
-        const QString answer =
-            QStringLiteral(
-                "正在打开相册"
-            );
-
-
-        conversationManager_
-            .appendAssistantMessage(
-                answer
-            );
-
-
-        conversationManager_
-            .saveCurrent();
+                break;
+            }
 
 
-        emit answerToken(
-            answer
-        );
-
-
-        emit answerFinished();
-
-
-        return;
-    }
-
-
-    /*
-     * 摄像头。
-     */
-    if (
-        cmd.contains("打开摄像头")
-        ||
-        cmd.contains("开启摄像头")
-        ||
-        cmd.contains("打开相机")
-    )
-    {
-        QMetaObject::invokeMethod(
-            this,
-
-            [this]()
+            case
+            VisionServiceManager::CloseCameraResult::AlreadyStopped:
             {
-                emit openCameraPage();
-            },
+                if (cameraBusinessWasActive)
+                {
+                    finishLocalAnswer(
+                        QStringLiteral(
+                            "相机界面已关闭，摄像头已经处于关闭状态。"
+                        )
+                    );
+                }
+                else
+                {
+                    finishLocalAnswer(
+                        QStringLiteral(
+                            "摄像头已经处于关闭状态。"
+                        )
+                    );
+                }
 
-            Qt::QueuedConnection
-        );
-
-
-        const QString answer =
-            QStringLiteral(
-                "正在打开摄像头"
-            );
-
-
-        conversationManager_
-            .appendAssistantMessage(
-                answer
-            );
-
-
-        conversationManager_
-            .saveCurrent();
+                break;
+            }
 
 
-        emit answerToken(
-            answer
-        );
+            case
+            VisionServiceManager::CloseCameraResult::BlockedByFatigue:
+            {
+                if (cameraBusinessWasActive)
+                {
+                    finishLocalAnswer(
+                        QStringLiteral(
+                            "相机界面已关闭，但疲劳检测正在使用摄像头，摄像头保持开启。"
+                        )
+                    );
+                }
+                else
+                {
+                    finishLocalAnswer(
+                        QStringLiteral(
+                            "疲劳检测正在使用摄像头，当前不能关闭摄像头。"
+                        )
+                    );
+                }
 
-
-        emit answerFinished();
+                break;
+            }
+        }
 
 
         return;
     }
+    /*
+    * ============================================================
+    * Camera Business
+    * ============================================================
+    */
 
 
     /*
-     * 拍照。
-     */
+    * ------------------------------------------------------------
+    * 打开相机
+    *
+    * 相机业务依赖 CameraService。
+    *
+    * 如果底层摄像头已经关闭，
+    * VisionServiceManager 自动重新开启。
+    * ------------------------------------------------------------
+    */
+
     if (
-        cmd.contains("拍照")
+        cmd.contains(
+            QStringLiteral("打开相机")
+        )
         ||
-        cmd.contains("拍一张")
+        cmd.contains(
+            QStringLiteral("开启相机")
+        )
+        ||
+        cmd.contains(
+            QStringLiteral("进入相机")
+        )
     )
     {
-        const QString answer =
+        if (!visionManager_)
+        {
+            finishLocalAnswer(
+                QStringLiteral(
+                    "相机功能当前不可用。"
+                )
+            );
+
+            return;
+        }
+
+
+        if (
+            visionManager_
+                ->openCameraBusiness()
+        )
+        {
+            finishLocalAnswer(
+                QStringLiteral(
+                    "正在打开相机。"
+                )
+            );
+        }
+        else
+        {
+            finishLocalAnswer(
+                QStringLiteral(
+                    "相机启动失败，无法获取摄像头画面。"
+                )
+            );
+        }
+
+
+        return;
+    }
+    
+    /*
+    * ------------------------------------------------------------
+    * 关闭相机业务
+    *
+    * 只关闭 Camera.qml / 预览。
+    * 不关闭底层 CameraService。
+    * ------------------------------------------------------------
+    */
+
+    if (
+        cmd.contains(
+            QStringLiteral("关闭相机")
+        )
+        ||
+        cmd.contains(
+            QStringLiteral("退出相机")
+        )
+    )
+    {
+        if (!visionManager_)
+        {
+            finishLocalAnswer(
+                QStringLiteral(
+                    "相机功能当前不可用。"
+                )
+            );
+
+            return;
+        }
+
+
+        visionManager_
+            ->closeCameraBusiness();
+
+
+        finishLocalAnswer(
             QStringLiteral(
-                "拍照功能暂未绑定"
-            );
-
-
-        conversationManager_
-            .appendAssistantMessage(
-                answer
-            );
-
-
-        conversationManager_
-            .saveCurrent();
-
-
-        emit answerToken(
-            answer
+                "相机已关闭。"
+            )
         );
 
 
-        emit answerFinished();
+        return;
+    }
+    /*
+    * ------------------------------------------------------------
+    * 拍照
+    * ------------------------------------------------------------
+    */
+
+    if (
+        cmd.contains(
+            QStringLiteral("拍照")
+        )
+        ||
+        cmd.contains(
+            QStringLiteral("拍一张")
+        )
+        ||
+        cmd.contains(
+            QStringLiteral("拍张照片")
+        )
+        ||
+        cmd.contains(
+            QStringLiteral("拍一张照片")
+        )
+    )
+    {
+        if (!visionManager_)
+        {
+            finishLocalAnswer(
+                QStringLiteral(
+                    "相机功能当前不可用。"
+                )
+            );
+
+            return;
+        }
+
+
+        if (
+            visionManager_
+                ->capturePhoto()
+        )
+        {
+            finishLocalAnswer(
+                QStringLiteral(
+                    "已执行拍照。"
+                )
+            );
+        }
+        else
+        {
+            finishLocalAnswer(
+                QStringLiteral(
+                    "拍照失败，摄像头当前不可用。"
+                )
+            );
+        }
 
 
         return;
     }
 
+    /*
+    * ============================================================
+    * Gallery Business
+    * ============================================================
+    */
 
+
+    /*
+    * ------------------------------------------------------------
+    * 关闭相册
+    * ------------------------------------------------------------
+    */
+
+    if (
+        cmd.contains(
+            QStringLiteral("关闭相册")
+        )
+        ||
+        cmd.contains(
+            QStringLiteral("退出相册")
+        )
+        ||
+        cmd.contains(
+            QStringLiteral("关闭照片")
+        )
+        ||
+        cmd.contains(
+            QStringLiteral("退出照片")
+        )
+    )
+    {
+        emit closeGalleryPage();
+
+
+        finishLocalAnswer(
+            QStringLiteral(
+                "已关闭相册。"
+            )
+        );
+
+
+        return;
+    }
+
+    /*
+    * ------------------------------------------------------------
+    * 打开相册
+    * ------------------------------------------------------------
+    */
+
+    if (
+        cmd.contains(
+            QStringLiteral("打开相册")
+        )
+        ||
+        cmd.contains(
+            QStringLiteral("查看相册")
+        )
+        ||
+        cmd.contains(
+            QStringLiteral("打开照片")
+        )
+        ||
+        cmd.contains(
+            QStringLiteral("查看照片")
+        )
+    )
+    {
+        emit openGalleryPage();
+
+
+        finishLocalAnswer(
+            QStringLiteral(
+                "正在打开相册。"
+            )
+        );
+
+
+        return;
+    }
     /*
      * ========================================================
      * RKLLM 推理
@@ -1632,7 +2290,7 @@ void VehicleAssistant::newConversation()
 
 
     /*
-     * AI 正在生成时不能切换会话。
+     * AI正在回答时不能切换会话。
      */
     if (llmRunning_.load())
     {
@@ -1640,7 +2298,6 @@ void VehicleAssistant::newConversation()
             << "[VehicleAssistant]"
             << "★ newConversation rejected:"
             << "LLM still running";
-
 
         emit conversationOperationRejected(
             QStringLiteral(
@@ -1653,25 +2310,14 @@ void VehicleAssistant::newConversation()
 
 
     /*
-     * 回收上一轮已经完成的线程。
+     * 回收已经结束的旧LLM线程。
      */
     {
         std::lock_guard<std::mutex> lock(
             llmMutex_
         );
 
-
-        qDebug()
-            << "[VehicleAssistant]"
-            << "★ joining old thread";
-
-
         joinFinishedThread();
-
-
-        qDebug()
-            << "[VehicleAssistant]"
-            << "★ old thread joined";
     }
 
 
@@ -1680,21 +2326,10 @@ void VehicleAssistant::newConversation()
 
 
     /*
-     * 清理上一会话的 RKLLM KV Cache。
+     * 清除RKLLM历史上下文。
      */
-    qDebug()
-        << "[VehicleAssistant]"
-        << "★ clearing RKLLM history";
-
-
     const bool resetOk =
         llm_.resetContext(true);
-
-
-    qDebug()
-        << "[VehicleAssistant]"
-        << "★ resetContext result ="
-        << resetOk;
 
 
     if (!resetOk)
@@ -1703,7 +2338,6 @@ void VehicleAssistant::newConversation()
             << "[VehicleAssistant]"
             << "★ new conversation failed:"
             << "resetContext failed";
-
 
         emit conversationOperationRejected(
             QStringLiteral(
@@ -1716,42 +2350,31 @@ void VehicleAssistant::newConversation()
 
 
     /*
-    * 新对话绝对不能继续使用
-    * 上一个历史会话的恢复上下文。
-    */
+     * 新会话不能继续恢复旧历史。
+     */
     restoreHistoryOnNextPrompt_ =
         false;
 
+    restoredHistoryContext_.clear();
 
-    restoredHistoryContext_
-        .clear();
+
     /*
-     * 使旧 generation 的 queued token 失效。
+     * 只废弃一次旧generation。
      */
     generationId_.fetch_add(1);
 
-
     stopRequested_.store(false);
 
 
     /*
-    * 保存旧会话。
-    */
-    conversationManager_
-        .saveCurrent();
+     * 保存旧会话。
+     */
+    conversationManager_.saveCurrent();
 
 
     /*
-    * 废弃旧 generation。
-    */
-    generationId_.fetch_add(1);
-
-    stopRequested_.store(false);
-
-
-    /*
-    * 创建新的 conversation ID。
-    */
+     * 只创建一次新ID。
+     */
     currentConversationId_ =
         QUuid::createUuid()
             .toString(
@@ -1760,28 +2383,19 @@ void VehicleAssistant::newConversation()
 
 
     /*
-    * 创建新的持久化会话。
-    */
+     * ConversationManager和VehicleAssistant
+     * 使用同一个ID。
+     */
     conversationManager_
         .startNewConversation(
             currentConversationId_
         );
-
-    /*
-     * 创建新的会话 ID。
-     */
-    currentConversationId_ =
-        QUuid::createUuid()
-            .toString(
-                QUuid::WithoutBraces
-            );
 
 
     qDebug()
         << "[VehicleAssistant]"
         << "★ old conversation ="
         << oldId;
-
 
     qDebug()
         << "[VehicleAssistant]"
@@ -1791,11 +2405,6 @@ void VehicleAssistant::newConversation()
 
     emit currentConversationIdChanged();
 
-
-    /*
-     * QML 收到这个信号以后
-     * chatModel.clear()。
-     */
     emit newConversationStarted(
         currentConversationId_
     );
@@ -1805,7 +2414,6 @@ void VehicleAssistant::newConversation()
         << "[VehicleAssistant]"
         << "★ newConversation finished";
 }
-
 void VehicleAssistant::openConversation(
     const QString &conversationId
 )
@@ -2423,7 +3031,71 @@ QString VehicleAssistant::extractWeatherCity(
     const QString cmd =
         text.trimmed();
 
+        /*
+     * ========================================================
+     * 城市名称清洗
+     * ========================================================
+     *
+     * 防止语音表达中的时间词进入城市名：
+     *
+     * 今天广州  -> 广州
+     * 广州今天  -> 广州
+     * 现在深圳  -> 深圳
+     * 北京现在  -> 北京
+     */
+    const auto cleanCity =
+        [](QString city)
+        {
+            city =
+                city.trimmed();
 
+            const QStringList timeWords = {
+                QStringLiteral("今天"),
+                QStringLiteral("今日"),
+                QStringLiteral("现在"),
+                QStringLiteral("当前")
+            };
+
+
+            bool changed = true;
+
+            while (changed)
+            {
+                changed = false;
+
+                for (const QString &word : timeWords)
+                {
+                    if (city.startsWith(word))
+                    {
+                        city.remove(
+                            0,
+                            word.length()
+                        );
+
+                        city =
+                            city.trimmed();
+
+                        changed = true;
+                    }
+
+
+                    if (city.endsWith(word))
+                    {
+                        city.chop(
+                            word.length()
+                        );
+
+                        city =
+                            city.trimmed();
+
+                        changed = true;
+                    }
+                }
+            }
+
+
+            return city;
+        };
     /*
      * ========================================================
      * 模式1
@@ -2458,9 +3130,9 @@ QString VehicleAssistant::extractWeatherCity(
         if (match.hasMatch())
         {
             QString city =
-                match
-                    .captured(1)
-                    .trimmed();
+                cleanCity(
+                    match.captured(1)
+                );
 
 
             if (!city.isEmpty())
@@ -2504,9 +3176,9 @@ QString VehicleAssistant::extractWeatherCity(
         if (match.hasMatch())
         {
             QString city =
-                match
-                    .captured(1)
-                    .trimmed();
+                cleanCity(
+                    match.captured(1)
+                );
 
 
             /*
@@ -2573,10 +3245,9 @@ QString VehicleAssistant::extractWeatherCity(
         if (match.hasMatch())
         {
             QString city =
-                match
-                    .captured(1)
-                    .trimmed();
-
+                cleanCity(
+                    match.captured(1)
+                );
 
             if (!city.isEmpty())
             {
@@ -2585,7 +3256,80 @@ QString VehicleAssistant::extractWeatherCity(
         }
     }
 
+    /*
+    * ========================================================
+    * 模式4
+    *
+    * 更自然的语音表达：
+    *
+    * 告诉我广州的天气
+    * 广州今天什么天气
+    * 广州现在天气怎么样
+    * ========================================================
+    */
+    {
+        const QRegularExpression regex(
+            QStringLiteral(
+                "^(?:告诉我|跟我说一下|说一下)?"
+                "\\s*"
+                "([\\p{Han}A-Za-z·\\-\\s]{2,30}?)"
+                "(?:地区)?"
+                "(?:的)?"
+                "(?:今天|今日|现在|当前)?"
+                "\\s*"
+                "(?:是什么天气|什么天气|天气)"
+                "(?:怎么样|如何|情况)?"
+                "[？?。！!]*"
+                "\\s*$"
+            )
+        );
 
+
+        const QRegularExpressionMatch match =
+            regex.match(
+                cmd
+            );
+
+
+        if (match.hasMatch())
+        {
+            QString city =
+                cleanCity(
+                    match.captured(1)
+                );
+
+
+            /*
+            * 防止：
+            *
+            * 今天天气怎么样
+            * 当前天气如何
+            *
+            * 被误认为城市。
+            */
+            const QStringList invalidCities = {
+                QStringLiteral("今天"),
+                QStringLiteral("今日"),
+                QStringLiteral("现在"),
+                QStringLiteral("当前"),
+                QStringLiteral("本地"),
+                QStringLiteral("这里"),
+                QStringLiteral("这边")
+            };
+
+
+            if (
+                !city.isEmpty()
+                &&
+                !invalidCities.contains(
+                    city
+                )
+            )
+            {
+                return city;
+            }
+        }
+    }
     /*
      * 没有指定城市。
      *
@@ -2824,4 +3568,79 @@ void VehicleAssistant::startWeatherCitySearch(
         ->searchCity(
             city
         );
+}
+
+void VehicleAssistant::setVisionServiceManager(
+    VisionServiceManager *manager
+)
+{
+    if (visionManager_ == manager)
+    {
+        return;
+    }
+
+
+    /*
+     * 清掉旧 Manager 与 VehicleAssistant 的连接。
+     */
+    if (visionManager_)
+    {
+        QObject::disconnect(
+            visionManager_,
+            nullptr,
+            this,
+            nullptr
+        );
+    }
+
+
+    visionManager_ =
+        manager;
+
+
+    if (!visionManager_)
+    {
+        return;
+    }
+
+
+    /*
+     * ========================================================
+     * Vision Manager 请求打开相机页面
+     * ========================================================
+     */
+    QObject::connect(
+        visionManager_,
+        &VisionServiceManager::openCameraPageRequested,
+
+        this,
+
+        [this]()
+        {
+            emit openCameraPage();
+        }
+    );
+
+
+    /*
+     * ========================================================
+     * Vision Manager 请求关闭相机页面
+     * ========================================================
+     */
+    QObject::connect(
+        visionManager_,
+        &VisionServiceManager::closeCameraPageRequested,
+
+        this,
+
+        [this]()
+        {
+            emit closeCameraPage();
+        }
+    );
+
+
+    qDebug()
+        << "[VehicleAssistant]"
+        << "VisionServiceManager connected";
 }

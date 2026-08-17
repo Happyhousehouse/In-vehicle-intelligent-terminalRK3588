@@ -1,0 +1,45 @@
+{
+    "createdAt": "2026-08-17T22:24:48",
+    "id": "72734843-a96f-44b0-b755-25867904be90",
+    "messages": [
+        {
+            "content": "今天天气怎么样",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T22:24:48"
+        },
+        {
+            "content": "深圳今天天气为阴，当前温度27.3℃，体感温度33.4℃；今天最高32.6℃，最低27.1℃；湿度93％，风速8.5 km/h，降雨概率87％。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T22:24:48"
+        },
+        {
+            "content": "先着回答",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T22:24:53"
+        },
+        {
+            "content": "您好，我是**汽车智能助手**。目前我尚未掌握您具体提到的“资料”（例如：某篇新闻报道、官方公告、技术文档或历史对话等）。如果您",
+            "role": "assistant",
+            "status": "interrupted",
+            "time": "2026-08-17T22:24:56"
+        },
+        {
+            "content": "打开天气模块",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T22:25:00"
+        },
+        {
+            "content": "正在打开天气页面。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T22:25:00"
+        }
+    ],
+    "summary": "",
+    "title": "今天天气怎么样",
+    "updatedAt": "2026-08-17T22:25:00"
+}

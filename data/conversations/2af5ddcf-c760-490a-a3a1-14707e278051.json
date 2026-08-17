@@ -1,0 +1,33 @@
+{
+    "createdAt": "2026-08-17T21:17:49",
+    "id": "2af5ddcf-c760-490a-a3a1-14707e278051",
+    "messages": [
+        {
+            "content": "打开相机",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T21:17:49"
+        },
+        {
+            "content": "正在打开相机。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T21:17:49"
+        },
+        {
+            "content": "关闭相机",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T21:17:52"
+        },
+        {
+            "content": "相机已关闭。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T21:17:52"
+        }
+    ],
+    "summary": "",
+    "title": "打开相机",
+    "updatedAt": "2026-08-17T21:17:52"
+}

@@ -196,3 +196,8 @@ void CameraController::capturePhoto()
         );
     }
 }
+
+bool CameraController::isPreviewActive() const
+{
+    return timer_.isActive();
+}

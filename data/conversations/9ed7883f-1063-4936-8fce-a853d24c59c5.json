@@ -1,0 +1,45 @@
+{
+    "createdAt": "2026-08-17T22:34:48",
+    "id": "9ed7883f-1063-4936-8fce-a853d24c59c5",
+    "messages": [
+        {
+            "content": "打开天气模块",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T22:34:48"
+        },
+        {
+            "content": "正在打开天气页面。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T22:34:48"
+        },
+        {
+            "content": "打开相机模块",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T22:35:13"
+        },
+        {
+            "content": "正在打开相机。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T22:35:13"
+        },
+        {
+            "content": "关闭相机",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T22:35:16"
+        },
+        {
+            "content": "相机已关闭。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T22:35:16"
+        }
+    ],
+    "summary": "",
+    "title": "打开天气模块",
+    "updatedAt": "2026-08-17T22:35:16"
+}

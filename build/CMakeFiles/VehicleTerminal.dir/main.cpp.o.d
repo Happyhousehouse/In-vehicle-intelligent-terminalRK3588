@@ -286,9 +286,41 @@ CMakeFiles/VehicleTerminal.dir/main.cpp.o: \
  /usr/include/aarch64-linux-gnu/qt5/QtQml/qqmlcontext.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QDebug \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qdebug.h \
- /home/firefly/VehicleTerminal/controller/CameraController.h \
+ /home/firefly/VehicleTerminal/audio/AudioInputService.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QObject \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qobject.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QByteArray \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qbytearray.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QString \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qstring.h \
+ /usr/include/alsa/asoundlib.h /usr/include/unistd.h \
+ /usr/include/aarch64-linux-gnu/bits/posix_opt.h \
+ /usr/include/aarch64-linux-gnu/bits/environments.h \
+ /usr/include/aarch64-linux-gnu/bits/confname.h \
+ /usr/include/aarch64-linux-gnu/bits/getopt_posix.h \
+ /usr/include/aarch64-linux-gnu/bits/getopt_core.h \
+ /usr/include/aarch64-linux-gnu/bits/unistd_ext.h \
+ /usr/include/linux/close_range.h /usr/include/fcntl.h \
+ /usr/include/aarch64-linux-gnu/bits/fcntl.h \
+ /usr/include/aarch64-linux-gnu/bits/fcntl-linux.h \
+ /usr/include/aarch64-linux-gnu/bits/types/struct_iovec.h \
+ /usr/include/linux/falloc.h /usr/include/aarch64-linux-gnu/bits/stat.h \
+ /usr/include/aarch64-linux-gnu/bits/struct_stat.h /usr/include/poll.h \
+ /usr/include/aarch64-linux-gnu/sys/poll.h \
+ /usr/include/aarch64-linux-gnu/bits/poll.h /usr/include/alsa/asoundef.h \
+ /usr/include/alsa/version.h /usr/include/alsa/global.h \
+ /usr/include/alsa/input.h /usr/include/alsa/output.h \
+ /usr/include/alsa/error.h /usr/include/alsa/conf.h \
+ /usr/include/alsa/pcm.h /usr/include/alsa/rawmidi.h \
+ /usr/include/alsa/timer.h /usr/include/alsa/hwdep.h \
+ /usr/include/alsa/control.h /usr/include/alsa/mixer.h \
+ /usr/include/alsa/seq_event.h /usr/include/alsa/seq.h \
+ /usr/include/alsa/seqmid.h /usr/include/alsa/seq_midi_event.h \
+ /usr/include/c++/11/thread /usr/include/c++/11/bits/std_thread.h \
+ /usr/include/c++/11/bits/this_thread_sleep.h \
+ /home/firefly/VehicleTerminal/audio/WakeWordService.h \
+ /home/firefly/VehicleTerminal/model/third_party/sherpa-onnx-v1.13.4-linux-aarch64-shared-cpu/include/sherpa-onnx/c-api/c-api.h \
+ /home/firefly/VehicleTerminal/controller/CameraController.h \
  /usr/include/aarch64-linux-gnu/qt5/QtGui/QImage \
  /usr/include/aarch64-linux-gnu/qt5/QtGui/qimage.h \
  /usr/include/aarch64-linux-gnu/qt5/QtGui/qcolor.h \
@@ -306,15 +338,11 @@ CMakeFiles/VehicleTerminal.dir/main.cpp.o: \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QTimer \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qtimer.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qbasictimer.h \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/QString \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/qstring.h \
  /home/firefly/VehicleTerminal/controller/../camera/CameraService.h \
  /usr/include/c++/11/mutex /usr/include/c++/11/bits/std_mutex.h \
- /usr/include/c++/11/bits/unique_lock.h /usr/include/c++/11/thread \
- /usr/include/c++/11/bits/std_thread.h \
- /usr/include/c++/11/bits/this_thread_sleep.h \
- /usr/include/linux/videodev2.h /usr/include/aarch64-linux-gnu/sys/time.h \
- /usr/include/linux/ioctl.h /usr/include/aarch64-linux-gnu/asm/ioctl.h \
+ /usr/include/c++/11/bits/unique_lock.h /usr/include/linux/videodev2.h \
+ /usr/include/aarch64-linux-gnu/sys/time.h /usr/include/linux/ioctl.h \
+ /usr/include/aarch64-linux-gnu/asm/ioctl.h \
  /usr/include/asm-generic/ioctl.h /usr/include/linux/types.h \
  /usr/include/aarch64-linux-gnu/asm/types.h \
  /usr/include/asm-generic/types.h /usr/include/asm-generic/int-ll64.h \
@@ -550,4 +578,8 @@ CMakeFiles/VehicleTerminal.dir/main.cpp.o: \
  /home/firefly/VehicleTerminal/fatigue/FatigueEventTracker.h \
  /home/firefly/VehicleTerminal/fatigue/FatigueTypes.h \
  /home/firefly/VehicleTerminal/fatigue/FatigueDecision.h \
- /home/firefly/VehicleTerminal/fatigue/FatigueWindowAnalyzer.h
+ /home/firefly/VehicleTerminal/fatigue/FatigueWindowAnalyzer.h \
+ /home/firefly/VehicleTerminal/audio/VADService.h \
+ /home/firefly/VehicleTerminal/audio/ASRService.h \
+ /home/firefly/VehicleTerminal/vision/VisionServiceManager.h \
+ /home/firefly/VehicleTerminal/audio/VoiceController.h

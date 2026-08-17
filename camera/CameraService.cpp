@@ -15,19 +15,21 @@
 
 CameraService::CameraService()
 {
+    fd_ = -1;
 
-    fd_=-1;
+    width_ = 0;
 
-    width_=0;
+    height_ = 0;
 
-    height_=0;
+    running_ = false;
 
-    running_=false;
-
+    streaming_ = false;
 }
 
-
-
+bool CameraService::isRunning() const
+{
+    return running_.load();
+}
 
 CameraService::~CameraService()
 {
@@ -45,98 +47,115 @@ CameraService::~CameraService()
 
 
 bool CameraService::start(
-        const std::string& device,
-        int width,
-        int height
+    const std::string& device,
+    int width,
+    int height
 )
 {
-
-
-    width_=width;
-
-    height_=height;
-
-
-
-    fd_=::open(
-
-        device.c_str(),
-
-        O_RDWR
-
+    std::lock_guard<std::mutex> lifecycleLock(
+        lifecycleMutex_
     );
 
 
-
-    if(fd_<0)
+    /*
+     * 已经运行。
+     */
+    if (running_.load())
     {
+        std::cout
+            << "[CameraService] already running"
+            << std::endl;
 
-        perror("open camera");
-
-        return false;
-
+        return true;
     }
 
 
+    /*
+     * 理论上 stop() 后这里应该已经干净。
+     *
+     * 为了保险，如果还残留 fd，
+     * 先清理。
+     */
+    if (fd_ >= 0)
+    {
+        releaseResources();
+    }
 
 
+    width_ = width;
 
-    if(!set_format())
+    height_ = height;
+
+
+    fd_ = ::open(
+        device.c_str(),
+        O_RDWR
+    );
+
+
+    if (fd_ < 0)
+    {
+        perror("open camera");
+
         return false;
+    }
 
 
+    if (!set_format())
+    {
+        releaseResources();
 
-
-    if(!init_mmap())
         return false;
+    }
 
 
+    if (!init_mmap())
+    {
+        releaseResources();
 
-
+        return false;
+    }
 
 
     v4l2_buf_type type =
         V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
 
 
-
-
-    if(ioctl(
-        fd_,
-        VIDIOC_STREAMON,
-        &type
-    )<0)
-
+    if (
+        ioctl(
+            fd_,
+            VIDIOC_STREAMON,
+            &type
+        )
+        < 0
+    )
     {
-
         perror("streamon");
 
-        return false;
+        releaseResources();
 
+        return false;
     }
 
 
+    streaming_.store(true);
+
+    running_.store(true);
 
 
+    captureThread_ =
+        std::thread(
+            &CameraService::captureLoop,
+            this
+        );
 
 
-    running_=true;
-
-
-
-    captureThread_=std::thread(
-
-        &CameraService::captureLoop,
-
-        this
-
-    );
-
-
+    std::cout
+        << "[CameraService] started"
+        << std::endl;
 
 
     return true;
-
 }
 
 
@@ -423,16 +442,22 @@ void CameraService::captureLoop()
 
 
 
-        if(ioctl(
-            fd_,
-            VIDIOC_DQBUF,
-            &buf
-        )<0)
-
+        if (
+            ioctl(
+                fd_,
+                VIDIOC_DQBUF,
+                &buf
+            )
+            < 0
+        )
         {
+            if (!running_.load())
+            {
+                break;
+            }
+
 
             continue;
-
         }
 
 
@@ -501,14 +526,16 @@ void CameraService::captureLoop()
 
 
 
+        if (!running_.load())
+        {
+            break;
+        }
+
+
         ioctl(
-
             fd_,
-
             VIDIOC_QBUF,
-
             &buf
-
         );
 
 
@@ -562,43 +589,80 @@ cv::Mat CameraService::capture()
 
 
 
+void CameraService::releaseResources()
+{
+    /*
+     * mmap
+     */
+    for (auto& b : buffers_)
+    {
+        if (
+            b.start != nullptr
+            &&
+            b.start != MAP_FAILED
+        )
+        {
+            munmap(
+                b.start,
+                b.length
+            );
 
+
+            b.start = nullptr;
+
+            b.length = 0;
+        }
+    }
+
+
+    buffers_.clear();
+
+
+    /*
+     * fd
+     */
+    if (fd_ >= 0)
+    {
+        ::close(
+            fd_
+        );
+
+        fd_ = -1;
+    }
+
+
+    streaming_.store(false);
+}
 
 
 
 void CameraService::stop()
 {
+    std::lock_guard<std::mutex> lifecycleLock(
+        lifecycleMutex_
+    );
+
+
     std::cout
         << "[CameraService] stop begin"
         << std::endl;
 
 
-    running_ = false;
+    /*
+     * 首先告诉采集线程退出。
+     */
+    running_.store(false);
 
 
-    // ========================================================
-    // 1. 等采集线程退出
-    // ========================================================
-
-    if(captureThread_.joinable())
-    {
-        std::cout
-            << "[CameraService] joining capture thread"
-            << std::endl;
-
-        captureThread_.join();
-
-        std::cout
-            << "[CameraService] capture thread joined"
-            << std::endl;
-    }
-
-
-    // ========================================================
-    // 2. 关闭 V4L2
-    // ========================================================
-
-    if(fd_ >= 0)
+    /*
+     * STREAMOFF 可以让阻塞中的 DQBUF 返回，
+     * 避免 join 长时间卡住。
+     */
+    if (
+        fd_ >= 0
+        &&
+        streaming_.exchange(false)
+    )
     {
         std::cout
             << "[CameraService] streamoff"
@@ -614,53 +678,44 @@ void CameraService::stop()
             VIDIOC_STREAMOFF,
             &type
         );
+    }
 
 
-        // ====================================================
-        // 3. munmap
-        // ====================================================
-
+    /*
+     * 此时采集线程应该可以退出。
+     */
+    if (captureThread_.joinable())
+    {
         std::cout
-            << "[CameraService] munmap buffers"
+            << "[CameraService] joining capture thread"
             << std::endl;
 
 
-        for(auto& b : buffers_)
-        {
-            if(
-                b.start != nullptr &&
-                b.start != MAP_FAILED
-            )
-            {
-                munmap(
-                    b.start,
-                    b.length
-                );
+        captureThread_.join();
 
-
-                // 防止以后重复 munmap
-                b.start = nullptr;
-
-                b.length = 0;
-            }
-        }
-
-
-        buffers_.clear();
-
-
-        // ====================================================
-        // 4. close fd
-        // ====================================================
 
         std::cout
-            << "[CameraService] close fd"
+            << "[CameraService] capture thread joined"
             << std::endl;
+    }
 
 
-        ::close(fd_);
+    releaseResources();
 
-        fd_ = -1;
+
+    /*
+     * 摄像头关闭后，
+     * latestFrame 也必须清掉。
+     *
+     * 否则上层可能拿到关闭前最后一帧，
+     * 误认为摄像头仍然工作。
+     */
+    {
+        std::lock_guard<std::mutex> frameLock(
+            frameMutex_
+        );
+
+        latestFrame_.release();
     }
 
 

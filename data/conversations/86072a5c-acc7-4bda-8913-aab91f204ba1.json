@@ -1,0 +1,33 @@
+{
+    "createdAt": "2026-08-17T22:38:17",
+    "id": "86072a5c-acc7-4bda-8913-aab91f204ba1",
+    "messages": [
+        {
+            "content": "打开天气模块",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T22:38:17"
+        },
+        {
+            "content": "正在打开天气页面。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T22:38:17"
+        },
+        {
+            "content": "你好，小车",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T22:38:38"
+        },
+        {
+            "content": "您好！我是汽车智能助手。请问您需要关于**车辆故障诊断、自动驾驶系统控制或新能源汽车充电安全**等方面的",
+            "role": "assistant",
+            "status": "interrupted",
+            "time": "2026-08-17T22:38:41"
+        }
+    ],
+    "summary": "",
+    "title": "打开天气模块",
+    "updatedAt": "2026-08-17T22:38:41"
+}

@@ -1,0 +1,21 @@
+{
+    "createdAt": "2026-08-17T21:10:56",
+    "id": "b3e5294a-5a6f-4c67-89be-e5c212aa4243",
+    "messages": [
+        {
+            "content": "打开相机",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T21:10:56"
+        },
+        {
+            "content": "正在打开相机。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T21:10:56"
+        }
+    ],
+    "summary": "",
+    "title": "打开相机",
+    "updatedAt": "2026-08-17T21:10:56"
+}

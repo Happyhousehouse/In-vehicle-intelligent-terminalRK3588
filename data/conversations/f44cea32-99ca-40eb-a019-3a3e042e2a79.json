@@ -1,0 +1,75 @@
+{
+    "createdAt": "2026-08-17T21:12:50",
+    "id": "f44cea32-99ca-40eb-a019-3a3e042e2a79",
+    "messages": [
+        {
+            "content": "打开相机",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T21:12:50"
+        },
+        {
+            "content": "正在打开相机。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T21:12:50"
+        },
+        {
+            "content": "关闭相机",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T21:12:54"
+        },
+        {
+            "content": "相机已关闭。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T21:12:54"
+        },
+        {
+            "content": "打开相册",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T21:12:58"
+        },
+        {
+            "content": "正在打开相册。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T21:12:58"
+        },
+        {
+            "content": "查看图片",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T21:13:02"
+        },
+        {
+            "content": "您好！作为汽车智能助手，您想让我看看图片吗？😊  \n\n不过，**我无法直接访问或读取您本地的任何文件/附件**。我的功能受限于网络条件和技术限制（尤其是针对非公开资料）。  \n\n如果您能提供：  \n- **图片链接/二维码**  \n- **描述车辆型号、驾驶场景**  \n- 其他文字信息（如车型、行驶状态等）  \n\n我会立即为您生成准确的回答！ 🚗💨\n",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T21:13:12"
+        },
+        {
+            "content": "你好，小车",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T21:13:15"
+        },
+        {
+            "content": "您好呀！👋 我是汽车智能助手，能帮您在路上找到最合适的停车位置、导航路线或驾驶建议吗？😊  \n\n不过您想问我的是关于“小”车的问题吗？比如：  \n- **车型**：丰田雅力士、本田 CR-V、特斯拉 Model Y 等常见车型？  \n- **使用场景**：日常通勤、周末出游，还是露营/旅行？  \n- **具体需求**：停车建议、导航规划、车辆保养提醒或事故处理？  \n\n告诉我更多细节，我会给您专属的解答！🚗💨\n",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T21:13:27"
+        },
+        {
+            "content": "去相册",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T21:13:29"
+        }
+    ],
+    "summary": "",
+    "title": "打开相机",
+    "updatedAt": "2026-08-17T21:13:29"
+}

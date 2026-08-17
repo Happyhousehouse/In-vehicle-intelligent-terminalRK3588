@@ -10,6 +10,12 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/mocs_compilation.cpp" "CMakeFiles/VehicleTerminal.dir/VehicleTerminal_autogen/mocs_compilation.cpp.o" "gcc" "CMakeFiles/VehicleTerminal.dir/VehicleTerminal_autogen/mocs_compilation.cpp.o.d"
   "/home/firefly/VehicleTerminal/assistant/VehicleAssistant.cpp" "CMakeFiles/VehicleTerminal.dir/assistant/VehicleAssistant.cpp.o" "gcc" "CMakeFiles/VehicleTerminal.dir/assistant/VehicleAssistant.cpp.o.d"
+  "/home/firefly/VehicleTerminal/audio/ASRService.cpp" "CMakeFiles/VehicleTerminal.dir/audio/ASRService.cpp.o" "gcc" "CMakeFiles/VehicleTerminal.dir/audio/ASRService.cpp.o.d"
+  "/home/firefly/VehicleTerminal/audio/AudioInputService.cpp" "CMakeFiles/VehicleTerminal.dir/audio/AudioInputService.cpp.o" "gcc" "CMakeFiles/VehicleTerminal.dir/audio/AudioInputService.cpp.o.d"
+  "/home/firefly/VehicleTerminal/audio/VADService.cpp" "CMakeFiles/VehicleTerminal.dir/audio/VADService.cpp.o" "gcc" "CMakeFiles/VehicleTerminal.dir/audio/VADService.cpp.o.d"
+  "/home/firefly/VehicleTerminal/audio/VoiceCommandNormalizer.cpp" "CMakeFiles/VehicleTerminal.dir/audio/VoiceCommandNormalizer.cpp.o" "gcc" "CMakeFiles/VehicleTerminal.dir/audio/VoiceCommandNormalizer.cpp.o.d"
+  "/home/firefly/VehicleTerminal/audio/VoiceController.cpp" "CMakeFiles/VehicleTerminal.dir/audio/VoiceController.cpp.o" "gcc" "CMakeFiles/VehicleTerminal.dir/audio/VoiceController.cpp.o.d"
+  "/home/firefly/VehicleTerminal/audio/WakeWordService.cpp" "CMakeFiles/VehicleTerminal.dir/audio/WakeWordService.cpp.o" "gcc" "CMakeFiles/VehicleTerminal.dir/audio/WakeWordService.cpp.o.d"
   "/home/firefly/VehicleTerminal/camera/CameraService.cpp" "CMakeFiles/VehicleTerminal.dir/camera/CameraService.cpp.o" "gcc" "CMakeFiles/VehicleTerminal.dir/camera/CameraService.cpp.o.d"
   "/home/firefly/VehicleTerminal/controller/CameraController.cpp" "CMakeFiles/VehicleTerminal.dir/controller/CameraController.cpp.o" "gcc" "CMakeFiles/VehicleTerminal.dir/controller/CameraController.cpp.o.d"
   "/home/firefly/VehicleTerminal/controller/CameraImageProvider.cpp" "CMakeFiles/VehicleTerminal.dir/controller/CameraImageProvider.cpp.o" "gcc" "CMakeFiles/VehicleTerminal.dir/controller/CameraImageProvider.cpp.o.d"
@@ -31,6 +37,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/firefly/VehicleTerminal/rag/PromptBuilder.cpp" "CMakeFiles/VehicleTerminal.dir/rag/PromptBuilder.cpp.o" "gcc" "CMakeFiles/VehicleTerminal.dir/rag/PromptBuilder.cpp.o.d"
   "/home/firefly/VehicleTerminal/rag/RAGService.cpp" "CMakeFiles/VehicleTerminal.dir/rag/RAGService.cpp.o" "gcc" "CMakeFiles/VehicleTerminal.dir/rag/RAGService.cpp.o.d"
   "/home/firefly/VehicleTerminal/rag/Retriever.cpp" "CMakeFiles/VehicleTerminal.dir/rag/Retriever.cpp.o" "gcc" "CMakeFiles/VehicleTerminal.dir/rag/Retriever.cpp.o.d"
+  "/home/firefly/VehicleTerminal/vision/VisionServiceManager.cpp" "CMakeFiles/VehicleTerminal.dir/vision/VisionServiceManager.cpp.o" "gcc" "CMakeFiles/VehicleTerminal.dir/vision/VisionServiceManager.cpp.o.d"
   "/home/firefly/VehicleTerminal/weather/WeatherService.cpp" "CMakeFiles/VehicleTerminal.dir/weather/WeatherService.cpp.o" "gcc" "CMakeFiles/VehicleTerminal.dir/weather/WeatherService.cpp.o.d"
   )
 

@@ -283,6 +283,45 @@ CMakeFiles/VehicleTerminal.dir/VehicleTerminal_autogen/mocs_compilation.cpp.o: \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qjsonobject.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QVariantList \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qvariant.h \
+ /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/PZONOMFGYT/moc_ASRService.cpp \
+ /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/PZONOMFGYT/../../../audio/ASRService.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QByteArray \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qbytearray.h \
+ /home/firefly/VehicleTerminal/model/third_party/sherpa-onnx-v1.13.4-linux-aarch64-shared-cpu/include/sherpa-onnx/c-api/c-api.h \
+ /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/PZONOMFGYT/moc_AudioInputService.cpp \
+ /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/PZONOMFGYT/../../../audio/AudioInputService.h \
+ /usr/include/alsa/asoundlib.h /usr/include/unistd.h \
+ /usr/include/aarch64-linux-gnu/bits/posix_opt.h \
+ /usr/include/aarch64-linux-gnu/bits/environments.h \
+ /usr/include/aarch64-linux-gnu/bits/confname.h \
+ /usr/include/aarch64-linux-gnu/bits/getopt_posix.h \
+ /usr/include/aarch64-linux-gnu/bits/getopt_core.h \
+ /usr/include/aarch64-linux-gnu/bits/unistd_ext.h \
+ /usr/include/linux/close_range.h /usr/include/fcntl.h \
+ /usr/include/aarch64-linux-gnu/bits/fcntl.h \
+ /usr/include/aarch64-linux-gnu/bits/fcntl-linux.h \
+ /usr/include/aarch64-linux-gnu/bits/types/struct_iovec.h \
+ /usr/include/linux/falloc.h /usr/include/aarch64-linux-gnu/bits/stat.h \
+ /usr/include/aarch64-linux-gnu/bits/struct_stat.h /usr/include/poll.h \
+ /usr/include/aarch64-linux-gnu/sys/poll.h \
+ /usr/include/aarch64-linux-gnu/bits/poll.h /usr/include/alsa/asoundef.h \
+ /usr/include/alsa/version.h /usr/include/alsa/global.h \
+ /usr/include/alsa/input.h /usr/include/alsa/output.h \
+ /usr/include/alsa/error.h /usr/include/alsa/conf.h \
+ /usr/include/alsa/pcm.h /usr/include/alsa/rawmidi.h \
+ /usr/include/alsa/timer.h /usr/include/alsa/hwdep.h \
+ /usr/include/alsa/control.h /usr/include/alsa/mixer.h \
+ /usr/include/alsa/seq_event.h /usr/include/alsa/seq.h \
+ /usr/include/alsa/seqmid.h /usr/include/alsa/seq_midi_event.h \
+ /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/PZONOMFGYT/moc_VADService.cpp \
+ /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/PZONOMFGYT/../../../audio/VADService.h \
+ /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/PZONOMFGYT/moc_VoiceController.cpp \
+ /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/PZONOMFGYT/../../../audio/VoiceController.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QTimer \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qtimer.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qbasictimer.h \
+ /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/PZONOMFGYT/moc_WakeWordService.cpp \
+ /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/PZONOMFGYT/../../../audio/WakeWordService.h \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/NPUKSKGWT2/moc_CameraController.cpp \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/NPUKSKGWT2/../../../controller/CameraController.h \
  /usr/include/aarch64-linux-gnu/qt5/QtGui/QImage \
@@ -305,9 +344,6 @@ CMakeFiles/VehicleTerminal.dir/VehicleTerminal_autogen/mocs_compilation.cpp.o: \
  /usr/include/aarch64-linux-gnu/qt5/QtGui/qregion.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qdatastream.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qline.h \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/QTimer \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/qtimer.h \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/qbasictimer.h \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/NPUKSKGWT2/../../../controller/../camera/CameraService.h \
  /usr/include/linux/videodev2.h /usr/include/aarch64-linux-gnu/sys/time.h \
  /usr/include/linux/ioctl.h /usr/include/aarch64-linux-gnu/asm/ioctl.h \
@@ -518,6 +554,8 @@ CMakeFiles/VehicleTerminal.dir/VehicleTerminal_autogen/mocs_compilation.cpp.o: \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/GKUHBQZPF4/../../../fatigue/FatigueTypes.h \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/GKUHBQZPF4/../../../fatigue/FatigueDecision.h \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/GKUHBQZPF4/../../../fatigue/FatigueWindowAnalyzer.h \
+ /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/YWCEO5NH3S/moc_VisionServiceManager.cpp \
+ /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/YWCEO5NH3S/../../../vision/VisionServiceManager.h \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/6YT3GII5UT/moc_WeatherService.cpp \
  /home/firefly/VehicleTerminal/build/VehicleTerminal_autogen/6YT3GII5UT/../../../weather/WeatherService.h \
  /usr/include/aarch64-linux-gnu/qt5/QtNetwork/QNetworkAccessManager \

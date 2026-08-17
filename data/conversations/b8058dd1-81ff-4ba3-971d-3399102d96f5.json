@@ -1,0 +1,27 @@
+{
+    "createdAt": "2026-08-17T22:29:39",
+    "id": "b8058dd1-81ff-4ba3-971d-3399102d96f5",
+    "messages": [
+        {
+            "content": "打开天气模块",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T22:29:39"
+        },
+        {
+            "content": "正在打开天气页面。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-17T22:29:39"
+        },
+        {
+            "content": "广州",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-17T22:29:55"
+        }
+    ],
+    "summary": "",
+    "title": "打开天气模块",
+    "updatedAt": "2026-08-17T22:29:55"
+}
