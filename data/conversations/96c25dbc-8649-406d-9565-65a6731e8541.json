@@ -1,0 +1,27 @@
+{
+    "createdAt": "2026-08-24T12:20:25",
+    "id": "96c25dbc-8649-406d-9565-65a6731e8541",
+    "messages": [
+        {
+            "content": "打开相机",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-24T12:20:25"
+        },
+        {
+            "content": "正在打开相机。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-24T12:20:25"
+        },
+        {
+            "content": "你好，小车",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-24T12:20:37"
+        }
+    ],
+    "summary": "",
+    "title": "打开相机",
+    "updatedAt": "2026-08-24T12:20:37"
+}

@@ -1,0 +1,15 @@
+{
+    "createdAt": "2026-08-24T12:04:53",
+    "id": "5cbdafb7-51e3-4f8c-8db1-0d2826d7ef90",
+    "messages": [
+        {
+            "content": "打开相",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-24T12:04:53"
+        }
+    ],
+    "summary": "",
+    "title": "打开相",
+    "updatedAt": "2026-08-24T12:04:53"
+}

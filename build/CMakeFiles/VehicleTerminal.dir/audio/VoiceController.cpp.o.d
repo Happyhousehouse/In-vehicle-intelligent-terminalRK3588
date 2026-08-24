@@ -243,10 +243,10 @@ CMakeFiles/VehicleTerminal.dir/audio/VoiceController.cpp.o: \
  /home/firefly/VehicleTerminal/audio/WakeWordService.h \
  /home/firefly/VehicleTerminal/model/third_party/sherpa-onnx-v1.13.4-linux-aarch64-shared-cpu/include/sherpa-onnx/c-api/c-api.h \
  /home/firefly/VehicleTerminal/audio/VADService.h \
- /home/firefly/VehicleTerminal/audio/ASRService.h \
  /usr/include/c++/11/mutex /usr/include/c++/11/bits/std_mutex.h \
- /usr/include/c++/11/bits/unique_lock.h /usr/include/c++/11/thread \
- /usr/include/c++/11/bits/std_thread.h \
+ /usr/include/c++/11/bits/unique_lock.h \
+ /home/firefly/VehicleTerminal/audio/ASRService.h \
+ /usr/include/c++/11/thread /usr/include/c++/11/bits/std_thread.h \
  /usr/include/c++/11/bits/unique_ptr.h \
  /usr/include/c++/11/bits/this_thread_sleep.h \
  /home/firefly/VehicleTerminal/audio/VoiceCommandNormalizer.h \
@@ -292,5 +292,35 @@ CMakeFiles/VehicleTerminal.dir/audio/VoiceController.cpp.o: \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qjsonobject.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QVariantList \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qvariant.h \
+ /home/firefly/VehicleTerminal/audio/TTSService.h \
+ /usr/include/alsa/asoundlib.h /usr/include/unistd.h \
+ /usr/include/aarch64-linux-gnu/bits/posix_opt.h \
+ /usr/include/aarch64-linux-gnu/bits/environments.h \
+ /usr/include/aarch64-linux-gnu/bits/confname.h \
+ /usr/include/aarch64-linux-gnu/bits/getopt_posix.h \
+ /usr/include/aarch64-linux-gnu/bits/getopt_core.h \
+ /usr/include/aarch64-linux-gnu/bits/unistd_ext.h \
+ /usr/include/linux/close_range.h /usr/include/fcntl.h \
+ /usr/include/aarch64-linux-gnu/bits/fcntl.h \
+ /usr/include/aarch64-linux-gnu/bits/fcntl-linux.h \
+ /usr/include/aarch64-linux-gnu/bits/types/struct_iovec.h \
+ /usr/include/linux/falloc.h /usr/include/aarch64-linux-gnu/bits/stat.h \
+ /usr/include/aarch64-linux-gnu/bits/struct_stat.h /usr/include/poll.h \
+ /usr/include/aarch64-linux-gnu/sys/poll.h \
+ /usr/include/aarch64-linux-gnu/bits/poll.h /usr/include/alsa/asoundef.h \
+ /usr/include/alsa/version.h /usr/include/alsa/global.h \
+ /usr/include/alsa/input.h /usr/include/alsa/output.h \
+ /usr/include/alsa/error.h /usr/include/alsa/conf.h \
+ /usr/include/alsa/pcm.h /usr/include/alsa/rawmidi.h \
+ /usr/include/alsa/timer.h /usr/include/alsa/hwdep.h \
+ /usr/include/alsa/control.h /usr/include/alsa/mixer.h \
+ /usr/include/alsa/seq_event.h /usr/include/alsa/seq.h \
+ /usr/include/alsa/seqmid.h /usr/include/alsa/seq_midi_event.h \
+ /usr/include/c++/11/condition_variable /usr/include/c++/11/deque \
+ /usr/include/c++/11/bits/stl_deque.h /usr/include/c++/11/bits/deque.tcc \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QDebug \
- /usr/include/aarch64-linux-gnu/qt5/QtCore/qdebug.h
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qdebug.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QRegularExpression \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qregularexpression.h \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/QVector \
+ /usr/include/aarch64-linux-gnu/qt5/QtCore/qvector.h

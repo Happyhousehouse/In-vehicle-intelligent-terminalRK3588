@@ -1922,7 +1922,90 @@ void VehicleAssistant::chat(
                         << "generation ="
                         << currentGeneration;
 
+                    /*
+                    * ========================================================
+                    * TTS 分句缓存
+                    * ========================================================
+                    *
+                    * RKLLM token 不一定刚好是一句话。
+                    * 所以先不断累积。
+                    *
+                    * 遇到：
+                    * 。！？；
+                    *
+                    * 就切出一句交给 TTS。
+                    */
+                    QString speechBuffer;
 
+
+                    /*
+                    * 把一句完整语音文本安全地发送回 Qt 主线程。
+                    */
+                    auto postSpeechChunk =
+                        [this, currentGeneration](
+                            const QString &text,
+                            int pauseAfterMs
+                        )
+                        {
+                            const QString chunk =
+                                text.trimmed();
+
+                            if (chunk.isEmpty())
+                            {
+                                return;
+                            }
+
+
+                            QMetaObject::invokeMethod(
+                                this,
+
+                                [
+                                    this,
+                                    currentGeneration,
+                                    chunk,
+                                    pauseAfterMs
+                                ]()
+                                {
+                                    /*
+                                    * 已经切换到其他 generation，
+                                    * 旧语音不能再播。
+                                    */
+                                    if (
+                                        generationId_.load()
+                                        !=
+                                        currentGeneration
+                                    )
+                                    {
+                                        return;
+                                    }
+
+
+                                    /*
+                                    * 用户已经说了“停止回答”。
+                                    *
+                                    * 未进入 TTS 的句子直接丢弃。
+                                    */
+                                    if (stopRequested_.load())
+                                    {
+                                        return;
+                                    }
+
+
+                                    qDebug()
+                                        << "[VehicleAssistant]"
+                                        << "speech chunk:"
+                                        << chunk;
+
+
+                                    emit answerSpeechChunkReady(
+                                        chunk,
+                                        pauseAfterMs
+                                    );
+                                },
+
+                                Qt::QueuedConnection
+                            );
+                        };
                     /*
                      * RAG 增强。
                      */
@@ -1942,7 +2025,9 @@ void VehicleAssistant::chat(
 
                         [
                             this,
-                            currentGeneration
+                            currentGeneration,
+                            &speechBuffer,
+                            &postSpeechChunk
                         ](
                             const std::string &token
                         )
@@ -1979,10 +2064,471 @@ void VehicleAssistant::chat(
                             }
 
 
+                            /*
+                            * ========================================================
+                            * 当前 token
+                            * ========================================================
+                            */
                             const QString qtoken =
-                                QString::fromStdString(
-                                    token
+                                QString::fromUtf8(
+                                    token.data(),
+                                    static_cast<int>(
+                                        token.size()
+                                    )
                                 );
+
+
+                            /*
+                            * ========================================================
+                            * TTS 分句缓存
+                            * ========================================================
+                            */
+                            QString speechToken = qtoken;
+
+                            // Preserve newlines until their context is known.
+                            // A trailing single newline is held in speechBuffer
+                            // because the next RKLLM token may turn it into a
+                            // paragraph break ("\n\n").
+                            speechToken.replace(
+                                QStringLiteral("\r\n"),
+                                QStringLiteral("\n"));
+                            speechToken.replace('\r', '\n');
+
+                            speechBuffer += speechToken;
+
+
+                            /*
+                            * 强分句符号。
+                            *
+                            * 模型只要输出这些符号，
+                            * 就可以立即开始朗读这一句。
+                            */
+                            const QString hardDelimiters =
+                                QStringLiteral("。！？；");
+
+
+                            /*
+                            * 弱分句符号。
+                            *
+                            * 当一句话太长时，
+                            * 尽量在逗号等位置切开。
+                            */
+                            const QString softStops =
+                                QStringLiteral(
+                                    "，、,:："
+                                );
+
+
+                            /*
+                            * 弱标点前至少保留 10 个字符。
+                            *
+                            * 这样逗号子句能够在上一段播放期间提前生成，
+                            * 又不会把回答切成过短的两三个字。
+                            */
+                            constexpr int kEarlySoftStopMinChars =
+                                10;
+
+
+                            /*
+                            * 最长大约 48 个字符。
+                            *
+                            * 防止模型几十个字都不输出任何标点，
+                            * 导致 TTS 一直不开始讲话。
+                            */
+                            constexpr int kMaxSpeechChunkChars =
+                                48;
+
+
+                            const auto isProtectedSoftStop =
+                                [&speechBuffer](int position)
+                                {
+                                    if (
+                                        position < 0
+                                        ||
+                                        position >= speechBuffer.size()
+                                    )
+                                    {
+                                        return false;
+                                    }
+
+                                    const QChar symbol =
+                                        speechBuffer.at(position);
+
+                                    const bool numericSeparator =
+                                        position > 0
+                                        &&
+                                        position + 1 < speechBuffer.size()
+                                        &&
+                                        speechBuffer.at(position - 1).isDigit()
+                                        &&
+                                        speechBuffer.at(position + 1).isDigit()
+                                        &&
+                                        (symbol == ',' || symbol == ':');
+
+                                    if (numericSeparator)
+                                        return true;
+
+                                    if (symbol == ':')
+                                    {
+                                        const QString prefix =
+                                            speechBuffer
+                                                .left(position)
+                                                .toLower();
+
+                                        if (
+                                            prefix.endsWith(
+                                                QStringLiteral("http"))
+                                            ||
+                                            prefix.endsWith(
+                                                QStringLiteral("https"))
+                                        )
+                                        {
+                                            return true;
+                                        }
+                                    }
+
+                                    return false;
+                                };
+
+
+                            /*
+                            * ========================================================
+                            * 可能一个 token 里面包含两句话，
+                            * 所以这里必须 while。
+                            * ========================================================
+                            */
+                            while (!speechBuffer.isEmpty())
+                            {
+                                int cutPos = -1;
+                                int pauseAfterMs = 0;
+                                bool normalizedNewline = false;
+                                bool pendingBoundaryLookahead = false;
+
+
+                                /*
+                                * ----------------------------------------------------
+                                * 第一优先级：
+                                * 找完整句子的结束符。
+                                * ----------------------------------------------------
+                                */
+                                for (
+                                    int i = 0;
+                                    i < speechBuffer.size();
+                                    ++i
+                                )
+                                {
+                                    if (
+                                        hardDelimiters.contains(
+                                            speechBuffer.at(i)
+                                        )
+                                    )
+                                    {
+                                        // Hold a trailing terminator for one
+                                        // token of lookahead. A following
+                                        // blank line upgrades this boundary
+                                        // from sentence (60 ms) to paragraph
+                                        // (120 ms).
+                                        if (i + 1 == speechBuffer.size())
+                                        {
+                                            pendingBoundaryLookahead = true;
+                                            break;
+                                        }
+
+                                        if (speechBuffer.at(i + 1) == '\n')
+                                            continue;
+
+                                        cutPos =
+                                            i + 1;
+
+                                        pauseAfterMs = 60;
+
+                                        break;
+                                    }
+
+                                    if (speechBuffer.at(i) == '\n')
+                                    {
+                                        int newlineEnd = i;
+                                        while (
+                                            newlineEnd < speechBuffer.size()
+                                            &&
+                                            speechBuffer.at(newlineEnd) == '\n'
+                                        )
+                                        {
+                                            ++newlineEnd;
+                                        }
+
+                                        const int newlineCount =
+                                            newlineEnd - i;
+
+                                        // Wait for one character of lookahead
+                                        // before classifying a single newline.
+                                        if (
+                                            newlineCount == 1
+                                            &&
+                                            newlineEnd == speechBuffer.size()
+                                        )
+                                        {
+                                            pendingBoundaryLookahead = true;
+                                            break;
+                                        }
+
+                                        int previous = i - 1;
+                                        while (
+                                            previous >= 0
+                                            &&
+                                            speechBuffer.at(previous).isSpace()
+                                        )
+                                        {
+                                            --previous;
+                                        }
+
+                                        int next = newlineEnd;
+                                        while (
+                                            next < speechBuffer.size()
+                                            &&
+                                            speechBuffer.at(next).isSpace()
+                                        )
+                                        {
+                                            ++next;
+                                        }
+
+                                        const QChar previousChar =
+                                            previous >= 0
+                                                ? speechBuffer.at(previous)
+                                                : QChar();
+                                        const QChar nextChar =
+                                            next < speechBuffer.size()
+                                                ? speechBuffer.at(next)
+                                                : QChar();
+
+                                        const bool paragraphBreak =
+                                            newlineCount >= 2;
+                                        const bool listBreak =
+                                            next < speechBuffer.size()
+                                            &&
+                                            (nextChar == '-'
+                                             || nextChar == '*'
+                                             || nextChar == '#'
+                                             || nextChar.isDigit());
+                                        const bool afterStrongPunctuation =
+                                            hardDelimiters.contains(previousChar);
+                                        const bool afterWeakPunctuation =
+                                            softStops.contains(previousChar);
+
+                                        if (
+                                            paragraphBreak
+                                            ||
+                                            listBreak
+                                            ||
+                                            afterStrongPunctuation
+                                            ||
+                                            afterWeakPunctuation
+                                        )
+                                        {
+                                            cutPos = newlineEnd;
+                                            pauseAfterMs =
+                                                paragraphBreak ? 120
+                                                : listBreak ? 70
+                                                : afterStrongPunctuation ? 60
+                                                : 25;
+                                            break;
+                                        }
+
+                                        // Ordinary line wrapping is not a
+                                        // spoken boundary. Chinese is joined
+                                        // directly; ASCII words retain a space.
+                                        const bool asciiWordWrap =
+                                            previousChar.unicode() < 128
+                                            &&
+                                            nextChar.unicode() < 128
+                                            &&
+                                            previousChar.isLetterOrNumber()
+                                            &&
+                                            nextChar.isLetterOrNumber();
+
+                                        speechBuffer.replace(
+                                            i,
+                                            newlineCount,
+                                            asciiWordWrap
+                                                ? QStringLiteral(" ")
+                                                : QString());
+                                        normalizedNewline = true;
+                                        break;
+                                    }
+                                }
+
+                                if (normalizedNewline)
+                                    continue;
+
+
+                                /*
+                                * ----------------------------------------------------
+                                * 第二优先级：
+                                *
+                                * 已经有足够长的逗号子句时立即提交。
+                                *
+                                * Matcha 内部可能再次按逗号拆成多次推理，
+                                * 但旧实现要等这些推理全部结束才交给播放线程，
+                                * 容易让上一句播放完以后队列断流。
+                                * ----------------------------------------------------
+                                */
+                                if (
+                                    cutPos < 0
+                                    &&
+                                    !pendingBoundaryLookahead
+                                    &&
+                                    speechBuffer.size()
+                                        >=
+                                        kEarlySoftStopMinChars
+                                )
+                                {
+                                    for (
+                                        int i =
+                                            kEarlySoftStopMinChars - 1;
+                                        i < speechBuffer.size();
+                                        ++i
+                                    )
+                                    {
+                                        if (
+                                            !softStops.contains(
+                                                speechBuffer.at(i)
+                                            )
+                                        )
+                                        {
+                                            continue;
+                                        }
+
+                                        // 1,000, 12:30 and https: are not
+                                        // spoken phrase boundaries.
+                                        if (isProtectedSoftStop(i))
+                                            continue;
+
+                                        // Hold a trailing weak stop for one
+                                        // token. The following token may be a
+                                        // newline/list marker whose pause rule
+                                        // takes priority.
+                                        if (i + 1 == speechBuffer.size())
+                                        {
+                                            pendingBoundaryLookahead = true;
+                                            break;
+                                        }
+
+                                        cutPos = i + 1;
+                                        pauseAfterMs = 25;
+                                        break;
+                                    }
+                                }
+
+
+                                /*
+                                * ----------------------------------------------------
+                                * 第三优先级：
+                                *
+                                * 如果超过 48 个字仍然没有句号，
+                                * 尝试在最近的逗号位置切开。
+                                * ----------------------------------------------------
+                                */
+                                if (
+                                    cutPos < 0
+                                    &&
+                                    !pendingBoundaryLookahead
+                                    &&
+                                    speechBuffer.size()
+                                        >=
+                                        kMaxSpeechChunkChars
+                                )
+                                {
+                                    const int limit =
+                                        qMin(
+                                            kMaxSpeechChunkChars,
+                                            speechBuffer.size()
+                                        );
+
+
+                                    /*
+                                    * 从后向前寻找逗号。
+                                    *
+                                    * 不要在太靠前的位置切，
+                                    * 否则句子会过短。
+                                    */
+                                    for (
+                                        int i = limit - 1;
+                                        i >= 18;
+                                        --i
+                                    )
+                                    {
+                                        if (
+                                            softStops.contains(
+                                                speechBuffer.at(i)
+                                            )
+                                        )
+                                        {
+                                            if (isProtectedSoftStop(i))
+                                                continue;
+
+                                            cutPos =
+                                                i + 1;
+
+                                            pauseAfterMs = 25;
+
+                                            break;
+                                        }
+                                    }
+
+
+                                    /*
+                                    * 连逗号都没有，
+                                    * 那只能按长度强制切。
+                                    */
+                                    if (cutPos < 0)
+                                    {
+                                        cutPos =
+                                            limit;
+
+                                        pauseAfterMs = 0;
+                                    }
+                                }
+
+
+                                /*
+                                * 当前还不足一句。
+                                *
+                                * 继续等待 RKLLM 后面的 token。
+                                */
+                                if (cutPos < 0)
+                                {
+                                    break;
+                                }
+
+
+                                /*
+                                * 取出一句。
+                                */
+                                const QString chunk =
+                                    speechBuffer
+                                        .left(
+                                            cutPos
+                                        )
+                                        .trimmed();
+
+
+                                /*
+                                * 从缓存删除已经取出的部分。
+                                */
+                                speechBuffer.remove(
+                                    0,
+                                    cutPos
+                                );
+
+
+                                if (!chunk.isEmpty())
+                                {
+                                    postSpeechChunk(
+                                        chunk,
+                                        pauseAfterMs
+                                    );
+                                }
+                            }
 
 
                             /*
@@ -2053,8 +2599,27 @@ void VehicleAssistant::chat(
 
                     const bool wasStopped =
                         stopRequested_.load();
+                    if (!wasStopped)
+                    {
+                        const QString tail =
+                            speechBuffer.trimmed();
 
 
+                        if (!tail.isEmpty())
+                        {
+                            int tailPauseMs = 0;
+                            const QChar last = tail.back();
+                            if (QStringLiteral("。！？；.!?;").contains(last))
+                                tailPauseMs = 60;
+                            else if (QStringLiteral("，、,:：").contains(last))
+                                tailPauseMs = 25;
+
+                            postSpeechChunk(
+                                tail,
+                                tailPauseMs
+                            );
+                        }
+                    }
                     qDebug()
                         << "[VehicleAssistant]"
                         << "LLM worker finished"
@@ -2122,8 +2687,6 @@ void VehicleAssistant::chat(
                             */
                             conversationManager_
                                 .saveCurrent();
-
-
                             if (wasStopped)
                             {
                                 emit answerStopped();
@@ -3497,6 +4060,16 @@ void VehicleAssistant::finishLocalAnswer(
     emit answerToken(
         answer
     );
+    /*
+    * 本地回答同样可以交给 TTS。
+    */
+    if (!answer.trimmed().isEmpty())
+    {
+        emit answerSpeechChunkReady(
+            answer.trimmed(),
+            60
+        );
+    }
 
 
     emit answerFinished();

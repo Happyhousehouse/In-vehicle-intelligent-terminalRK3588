@@ -1,0 +1,15 @@
+{
+    "createdAt": "2026-08-21T17:09:55",
+    "id": "e9ac49a2-3612-4587-ba7b-d37dd6978a7e",
+    "messages": [
+        {
+            "content": "你是谁",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-21T17:09:55"
+        }
+    ],
+    "summary": "",
+    "title": "你是谁",
+    "updatedAt": "2026-08-21T17:09:55"
+}

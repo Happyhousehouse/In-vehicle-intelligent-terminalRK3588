@@ -2,6 +2,7 @@
 #include "DOKHWH3PII/moc_VehicleAssistant.cpp"
 #include "PZONOMFGYT/moc_ASRService.cpp"
 #include "PZONOMFGYT/moc_AudioInputService.cpp"
+#include "PZONOMFGYT/moc_TTSService.cpp"
 #include "PZONOMFGYT/moc_VADService.cpp"
 #include "PZONOMFGYT/moc_VoiceController.cpp"
 #include "PZONOMFGYT/moc_WakeWordService.cpp"

@@ -172,7 +172,27 @@ signals:
     void answerToken(
         QString token
     );
-
+    /*
+    * ============================================================
+    * 一轮完整回答文本
+    * ============================================================
+    *
+    * 和 answerToken() 不同：
+    *
+    * answerToken()
+    *     → 给 QML 做流式显示
+    *
+    * answerTextReady()
+    *     → 一整段回答完成以后一次性发出
+    *     → 后续交给 TTSService
+    *
+    * 如果用户主动停止回答，
+    * 不发送这个信号，避免朗读残缺回答。
+    */
+    void answerSpeechChunkReady(
+        QString text,
+        int pauseAfterMs
+    );
     /*
     * Weather.qml 已经打开时，
     * 将语音识别出来的城市交给 Weather.qml。

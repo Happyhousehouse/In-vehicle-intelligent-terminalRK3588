@@ -1,0 +1,45 @@
+{
+    "createdAt": "2026-08-21T15:01:30",
+    "id": "3cdd2a70-18ab-430d-a21f-b5c309284f8b",
+    "messages": [
+        {
+            "content": "你是谁",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-21T15:01:31"
+        },
+        {
+            "content": "我是**大模型**。作为阿里巴巴推出的通义千问系列（Qwen）中的**Qwen3.5**，我具备强大的语言理解、逻辑推理和代码生成能力。如果您有任何关于汽车智能助手的问题或需要帮助，随时告诉我！\n",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-21T15:01:35"
+        },
+        {
+            "content": "开相机",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-21T15:01:52"
+        },
+        {
+            "content": "您好！我是**通义千问 Qwen3.5**。我目前并非“开相机”，但我可以为您解答关于摄影、摄像或相关设备的问题，例如：\n\n- 拍摄技巧与注意事项  \n- 使用相机的功能（如自动对焦、夜景模式等）",
+            "role": "assistant",
+            "status": "interrupted",
+            "time": "2026-08-21T15:01:57"
+        },
+        {
+            "content": "你好，小车",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-21T15:02:17"
+        },
+        {
+            "content": "您好！我是**大模型**。作为阿里巴巴推出的通义千问系列中的**Qwen3.5**，我具备强大的语言理解、逻辑推理和代码生成",
+            "role": "assistant",
+            "status": "interrupted",
+            "time": "2026-08-21T15:02:41"
+        }
+    ],
+    "summary": "",
+    "title": "你是谁",
+    "updatedAt": "2026-08-21T15:02:41"
+}

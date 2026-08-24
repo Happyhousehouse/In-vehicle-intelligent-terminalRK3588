@@ -2,6 +2,7 @@
 
 #include <QDebug>
 
+#include <algorithm>
 #include <cstring>
 
 
@@ -135,6 +136,15 @@ void VADService::startListening()
         return;
     }
 
+    std::lock_guard<std::mutex> lock(
+        vadMutex_
+    );
+
+    if (!initialized_.load() || !vad_)
+    {
+        return;
+    }
+
 
     /*
      * 清掉上一轮残留状态。
@@ -146,6 +156,8 @@ void VADService::startListening()
 
     speechActive_ =
         false;
+
+    listeningPcmHistory_.clear();
 
 
     listening_.store(
@@ -164,6 +176,10 @@ void VADService::startListening()
 
 void VADService::stopListening()
 {
+    std::lock_guard<std::mutex> lock(
+        vadMutex_
+    );
+
     if (!listening_.exchange(false))
     {
         return;
@@ -172,6 +188,8 @@ void VADService::stopListening()
 
     speechActive_ =
         false;
+
+    listeningPcmHistory_.clear();
 
 
     if (vad_)
@@ -206,6 +224,21 @@ void VADService::processPcm(
         return;
     }
 
+    std::lock_guard<std::mutex> lock(
+        vadMutex_
+    );
+
+    if (
+        !initialized_.load()
+        ||
+        !listening_.load()
+        ||
+        !vad_
+    )
+    {
+        return;
+    }
+
 
     if (
         pcm.isEmpty()
@@ -229,6 +262,11 @@ void VADService::processPcm(
         static_cast<int>(
             sizeof(int16_t)
         );
+
+    // Preserve the exact waveform timeline accepted by VAD. The buffer is
+    // reset for every listening turn and is small (about 0.96 MB even for a
+    // complete 30-second follow-up window).
+    listeningPcmHistory_.append(pcm);
 
 
     /*
@@ -334,14 +372,53 @@ void VADService::processPcm(
          * 但为了保持你的 Audio 模块接口统一，
          * 当前先转回 S16_LE QByteArray。
          */
+        const int historySamples =
+            listeningPcmHistory_.size()
+            /
+            static_cast<int>(sizeof(int16_t));
+        const bool segmentStartInHistory =
+            segment->start >= 0
+            &&
+            segment->start <= historySamples;
+        const int segmentStart =
+            segmentStartInHistory
+                ? segment->start
+                : 0;
+        const int wantedPreRollSamples =
+            kSampleRate * kPreRollMs / 1000;
+        const int prefixSamples =
+            segmentStartInHistory
+                ? std::min(
+                    wantedPreRollSamples,
+                    segmentStart)
+                : 0;
+        const int prefixStart =
+            segmentStart - prefixSamples;
+        const int segmentEnd =
+            segmentStartInHistory
+                ? segmentStart + segment->n
+                : 0;
+        const bool segmentEndInHistory =
+            segmentStartInHistory
+            &&
+            segmentEnd >= segmentStart
+            &&
+            segmentEnd <= historySamples;
+        const int wantedPostRollSamples =
+            kSampleRate * kPostRollMs / 1000;
+        const int suffixSamples =
+            segmentEndInHistory
+                ? std::min(
+                    wantedPostRollSamples,
+                    historySamples - segmentEnd)
+                : 0;
+
         QByteArray output;
 
         output.resize(
-            segment->n
+            (prefixSamples + segment->n + suffixSamples)
             *
-            static_cast<int>(
-                sizeof(int16_t)
-            )
+            static_cast<int>(sizeof(int16_t))
         );
 
 
@@ -349,6 +426,17 @@ void VADService::processPcm(
             reinterpret_cast<int16_t *>(
                 output.data()
             );
+
+        if (prefixSamples > 0)
+        {
+            std::memcpy(
+                dst,
+                listeningPcmHistory_.constData()
+                    + prefixStart *
+                        static_cast<int>(sizeof(int16_t)),
+                static_cast<size_t>(prefixSamples) *
+                    sizeof(int16_t));
+        }
 
 
         for (
@@ -371,10 +459,21 @@ void VADService::processPcm(
             }
 
 
-            dst[i] =
+            dst[prefixSamples + i] =
                 static_cast<int16_t>(
                     v * 32767.0f
                 );
+        }
+
+        if (suffixSamples > 0)
+        {
+            std::memcpy(
+                dst + prefixSamples + segment->n,
+                listeningPcmHistory_.constData()
+                    + segmentEnd *
+                        static_cast<int>(sizeof(int16_t)),
+                static_cast<size_t>(suffixSamples) *
+                    sizeof(int16_t));
         }
 
 
@@ -391,6 +490,16 @@ void VADService::processPcm(
             << "Speech ended,"
             << "duration ="
             << duration
+            << "seconds"
+            << "segmentStart ="
+            << segment->start
+            << "preRoll ="
+            << static_cast<double>(prefixSamples)
+                / kSampleRate
+            << "seconds"
+            << "postRoll ="
+            << static_cast<double>(suffixSamples)
+                / kSampleRate
             << "seconds";
 
 
@@ -418,6 +527,8 @@ void VADService::processPcm(
         listening_.store(
             false
         );
+
+        listeningPcmHistory_.clear();
 
 
         emit speechSegmentReady(

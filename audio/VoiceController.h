@@ -10,6 +10,7 @@ class WakeWordService;
 class VADService;
 class ASRService;
 class VehicleAssistant;
+class TTSService;
 
 
 /*
@@ -63,6 +64,7 @@ public:
         VADService *vadService,
         ASRService *asrService,
         VehicleAssistant *assistant,
+        TTSService *ttsService,
         QObject *parent = nullptr
     );
 
@@ -184,7 +186,34 @@ private slots:
         const QString &error
     );
 
+    /*
+    * VehicleAssistant生成出一段可以朗读的文本。
+    */
+    void onAssistantSpeechChunkReady(
+        const QString &text,
+        int pauseAfterMs
+    );
 
+
+    /*
+    * TTS真正开始播放。
+    *
+    * 从这一刻开始关闭VAD，
+    * 避免麦克风收到扬声器自己的声音。
+    */
+    void onTtsSpeechStarted();
+
+
+    /*
+    * 整轮TTS真正播放结束。
+    */
+    void onTtsSpeechFinished();
+
+
+    /*
+    * 用户主动打断后，TTS队列和播放已经停止。
+    */
+    void onTtsSpeechStopped();
     /*
      * VehicleAssistant一轮回答真正结束。
      */
@@ -333,7 +362,18 @@ private:
     VehicleAssistant *assistant_ =
         nullptr;
 
+    TTSService *ttsService_ =
+        nullptr;
 
+
+    /*
+    * 当前扬声器是否正在播放AI语音。
+    *
+    * 用于屏蔽可能已经排进Qt事件队列的
+    * VAD speechStarted / speechSegmentReady。
+    */
+    bool ttsSpeaking_ =
+        false;
     /*
      * 当前Voice状态。
      */

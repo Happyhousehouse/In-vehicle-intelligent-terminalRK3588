@@ -238,6 +238,54 @@ audio/AudioInputService.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/audio/AudioInputService.cpp.s
 .PHONY : audio/AudioInputService.cpp.s
 
+audio/MatchaRknnEngine.o: audio/MatchaRknnEngine.cpp.o
+.PHONY : audio/MatchaRknnEngine.o
+
+# target to build an object file
+audio/MatchaRknnEngine.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/audio/MatchaRknnEngine.cpp.o
+.PHONY : audio/MatchaRknnEngine.cpp.o
+
+audio/MatchaRknnEngine.i: audio/MatchaRknnEngine.cpp.i
+.PHONY : audio/MatchaRknnEngine.i
+
+# target to preprocess a source file
+audio/MatchaRknnEngine.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/audio/MatchaRknnEngine.cpp.i
+.PHONY : audio/MatchaRknnEngine.cpp.i
+
+audio/MatchaRknnEngine.s: audio/MatchaRknnEngine.cpp.s
+.PHONY : audio/MatchaRknnEngine.s
+
+# target to generate assembly for a file
+audio/MatchaRknnEngine.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/audio/MatchaRknnEngine.cpp.s
+.PHONY : audio/MatchaRknnEngine.cpp.s
+
+audio/TTSService.o: audio/TTSService.cpp.o
+.PHONY : audio/TTSService.o
+
+# target to build an object file
+audio/TTSService.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/audio/TTSService.cpp.o
+.PHONY : audio/TTSService.cpp.o
+
+audio/TTSService.i: audio/TTSService.cpp.i
+.PHONY : audio/TTSService.i
+
+# target to preprocess a source file
+audio/TTSService.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/audio/TTSService.cpp.i
+.PHONY : audio/TTSService.cpp.i
+
+audio/TTSService.s: audio/TTSService.cpp.s
+.PHONY : audio/TTSService.s
+
+# target to generate assembly for a file
+audio/TTSService.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VehicleTerminal.dir/build.make CMakeFiles/VehicleTerminal.dir/audio/TTSService.cpp.s
+.PHONY : audio/TTSService.cpp.s
+
 audio/VADService.o: audio/VADService.cpp.o
 .PHONY : audio/VADService.o
 
@@ -908,6 +956,12 @@ help:
 	@echo "... audio/AudioInputService.o"
 	@echo "... audio/AudioInputService.i"
 	@echo "... audio/AudioInputService.s"
+	@echo "... audio/MatchaRknnEngine.o"
+	@echo "... audio/MatchaRknnEngine.i"
+	@echo "... audio/MatchaRknnEngine.s"
+	@echo "... audio/TTSService.o"
+	@echo "... audio/TTSService.i"
+	@echo "... audio/TTSService.s"
 	@echo "... audio/VADService.o"
 	@echo "... audio/VADService.i"
 	@echo "... audio/VADService.s"

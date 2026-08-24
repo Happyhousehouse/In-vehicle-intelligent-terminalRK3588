@@ -26,6 +26,7 @@
 #include "audio/ASRService.h"
 #include "vision/VisionServiceManager.h"
 #include "audio/VoiceController.h"
+#include "audio/TTSService.h"
 
 int main(int argc, char *argv[])
 {
@@ -55,6 +56,29 @@ int main(int argc, char *argv[])
     VADService vadService;
     ASRService asrService;
     AudioInputService audioInputService;
+    TTSService ttsService;
+
+    /*
+    * ============================================================
+    * TTS
+    * ============================================================
+    */
+
+    const std::string ttsModelPath =
+        "/home/firefly/VehicleTerminal/model/tts/"
+        "saved_v1";
+
+
+    if (!ttsService.init(ttsModelPath))
+    {
+        qWarning()
+            << "[Main] TTSService init failed";
+    }
+    else
+    {
+        qDebug()
+            << "[Main] TTSService ready";
+    }
 
     const std::string asrModelPath =
         "/home/firefly/VehicleTerminal/model/asr/"
@@ -162,7 +186,7 @@ int main(int argc, char *argv[])
 
     if (
         !audioInputService.open(
-            "hw:CARD=Camera,DEV=0",
+            "plughw:CARD=Device,DEV=0",
             16000,
             1
         )
@@ -399,7 +423,8 @@ int main(int argc, char *argv[])
         &wakeWordService,
         &vadService,
         &asrService,
-        &assistant
+        &assistant,
+        &ttsService
     );
 
 
@@ -641,6 +666,11 @@ int main(int argc, char *argv[])
 
     engine.load(url);
 
+    /*
+    * ============================================================
+    * TTS 独立测试
+    * ============================================================
+    */
 
     /*
         首次获取天气。

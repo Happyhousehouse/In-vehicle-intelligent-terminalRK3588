@@ -250,6 +250,18 @@
 			null
 		],
 		[
+			"/home/firefly/VehicleTerminal/audio/MatchaRknnEngine.h",
+			"MU",
+			"PZONOMFGYT/moc_MatchaRknnEngine.cpp",
+			null
+		],
+		[
+			"/home/firefly/VehicleTerminal/audio/TTSService.h",
+			"MU",
+			"PZONOMFGYT/moc_TTSService.cpp",
+			null
+		],
+		[
 			"/home/firefly/VehicleTerminal/audio/VADService.h",
 			"MU",
 			"PZONOMFGYT/moc_VADService.cpp",
@@ -495,6 +507,12 @@
 			"MU",
 			null
 		],
+		[
+			"/home/firefly/VehicleTerminal/audio/MatchaRknnEngine.cpp",
+			"MU",
+			null
+		],
+		[ "/home/firefly/VehicleTerminal/audio/TTSService.cpp", "MU", null ],
 		[ "/home/firefly/VehicleTerminal/audio/VADService.cpp", "MU", null ],
 		[
 			"/home/firefly/VehicleTerminal/audio/VoiceCommandNormalizer.cpp",

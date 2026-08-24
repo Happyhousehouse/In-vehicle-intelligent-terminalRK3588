@@ -234,6 +234,8 @@ CMakeFiles/VehicleTerminal.dir/audio/VADService.cpp.o: \
  /usr/include/c++/11/bits/parse_numbers.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QByteArray \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qbytearray.h \
+ /usr/include/c++/11/mutex /usr/include/c++/11/bits/std_mutex.h \
+ /usr/include/c++/11/bits/unique_lock.h \
  /home/firefly/VehicleTerminal/model/third_party/sherpa-onnx-v1.13.4-linux-aarch64-shared-cpu/include/sherpa-onnx/c-api/c-api.h \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/QDebug \
  /usr/include/aarch64-linux-gnu/qt5/QtCore/qdebug.h \

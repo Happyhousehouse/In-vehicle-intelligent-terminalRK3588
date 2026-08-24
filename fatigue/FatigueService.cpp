@@ -390,21 +390,32 @@ void FatigueService::processLoop()
 
 
     // ========================================================
-    // 疲劳检测目标采样率
+    // 疲劳检测自适应采样率：
     //
-    // 20 FPS
-    // ≈ 每 50ms 处理一次
+    // 检测到人脸或刚刚短暂丢失人脸：30 FPS（约 33ms）
+    // 长时间无人脸：                    15 FPS（约 66ms）
     //
-    // 注意：
-    // 不是“处理完以后再睡 50ms”，
-    // 而是一整个循环目标为 50ms。
+    // 注意：处理耗时包含在33/66ms周期内，不是在处理结束后
+    // 再额外等待一个完整周期。
     // ========================================================
 
-    constexpr int64_t targetFramePeriodMs = 33;
+    constexpr int64_t activeFramePeriodMs = 33;
+    constexpr int64_t idleFramePeriodMs = 66;
+    constexpr int64_t faceHoldMs = 1500;
+    constexpr int64_t periodicLogIntervalMs = 1000;
 
     FatigueWindowAnalyzer windowAnalyzer;
     FatigueDecision fatigueDecision;
-    int printCounter = 0;
+    int64_t targetFramePeriodMs = idleFramePeriodMs;
+
+    bool hasSeenFace = false;
+    bool hasLoggedFaceMode = false;
+    bool lastLoggedFaceRecentlySeen = false;
+
+    steady_clock::time_point lastFaceSeenAt;
+    steady_clock::time_point lastPeriodicLogAt =
+        steady_clock::now() -
+        milliseconds(periodicLogIntervalMs);
 
 
     // 用于打印 EyeState 状态变化
@@ -455,6 +466,28 @@ void FatigueService::processLoop()
 
         const auto visionEnd =
             steady_clock::now();
+
+
+        // Keep full-rate processing for a short grace period after one missed
+        // detection. This prevents the frame rate from oscillating when a
+        // driver turns their head or one detector frame is unstable.
+        if (result.faceDetected)
+        {
+            hasSeenFace = true;
+            lastFaceSeenAt = visionEnd;
+        }
+
+        const bool faceRecentlySeen =
+            hasSeenFace
+            &&
+            duration_cast<milliseconds>(
+                visionEnd - lastFaceSeenAt
+            ).count() <= faceHoldMs;
+
+        targetFramePeriodMs =
+            faceRecentlySeen
+                ? activeFramePeriodMs
+                : idleFramePeriodMs;
 
 
         const int64_t visionCostMs =
@@ -1303,13 +1336,26 @@ void FatigueService::processLoop()
         // 3. 当前阶段只验证 Face
         // ====================================================
 
-        ++printCounter;
+        const bool faceModeChanged =
+            !hasLoggedFaceMode
+            ||
+            faceRecentlySeen != lastLoggedFaceRecentlySeen;
+
+        const bool periodicLogDue =
+            duration_cast<milliseconds>(
+                visionEnd - lastPeriodicLogAt
+            ).count() >= periodicLogIntervalMs;
+
+        const bool shouldPrintStatus =
+            faceModeChanged || periodicLogDue;
 
 
-        // 大约每 10 次打印一次，避免终端刷屏
-        if (printCounter >= 10)
+        // 状态变化立即打印；稳定状态最多每秒打印一次。
+        if (shouldPrintStatus)
         {
-            printCounter = 0;
+            lastPeriodicLogAt = visionEnd;
+            hasLoggedFaceMode = true;
+            lastLoggedFaceRecentlySeen = faceRecentlySeen;
 
 
             // ========================================================
@@ -1480,15 +1526,12 @@ void FatigueService::processLoop()
 
         // ====================================================
         // ============================================================
-        // Target 20 FPS
+        // Adaptive target: 30 FPS with/recently after a face, otherwise 15 FPS.
         //
-        // 一个完整循环目标：50ms。
+        // Sleep until the target deadline rather than sleeping after work, so
+        // processing time is included in the requested frame period.
         //
-        // 如果本帧工作只用了 30ms：
-        // 再等待约 20ms。
-        //
-        // 如果本帧已经用了 60ms：
-        // sleep_until 会立即返回，
+        // 如果本帧处理超过目标周期，sleep_until 会立即返回，
         // 不再额外等待。
         // ============================================================
 

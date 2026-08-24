@@ -1,0 +1,15 @@
+{
+    "createdAt": "2026-08-24T11:54:45",
+    "id": "f38c92c1-e55e-4212-a257-2406df79be15",
+    "messages": [
+        {
+            "content": "介绍一下",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-24T11:54:45"
+        }
+    ],
+    "summary": "",
+    "title": "介绍一下",
+    "updatedAt": "2026-08-24T11:54:45"
+}

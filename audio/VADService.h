@@ -5,6 +5,7 @@
 
 #include <atomic>
 #include <cstdint>
+#include <mutex>
 #include <string>
 #include <vector>
 
@@ -96,7 +97,20 @@ private:
     bool speechActive_ =
         false;
 
+    // Exact PCM accepted since the latest startListening(). Sherpa exposes
+    // segment->start, so we can restore a short prefix that VAD excluded
+    // without duplicating samples already present in the segment.
+    QByteArray listeningPcmHistory_;
+
+    mutable std::mutex vadMutex_;
+
 
     static constexpr int kSampleRate =
         16000;
+
+    static constexpr int kPreRollMs =
+        250;
+
+    static constexpr int kPostRollMs =
+        300;
 };

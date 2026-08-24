@@ -1,0 +1,33 @@
+{
+    "createdAt": "2026-08-21T14:35:03",
+    "id": "890ee546-26a0-410f-a3e5-a309a491209f",
+    "messages": [
+        {
+            "content": "你是谁",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-21T14:35:03"
+        },
+        {
+            "content": "我是 Qwen3.5，是阿里巴巴最新推出的超大规模语言模型之一。我具备强大的多模态理解、逻辑推理和代码生成能力，专注于人工智能领域的研究和应用开发。如果您有任何具体问题或需要帮助，请随时告诉我！\n",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-21T14:35:07"
+        },
+        {
+            "content": "打开相机",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-21T14:35:28"
+        },
+        {
+            "content": "正在打开相机。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-21T14:35:28"
+        }
+    ],
+    "summary": "",
+    "title": "你是谁",
+    "updatedAt": "2026-08-21T14:35:28"
+}

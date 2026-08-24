@@ -1,0 +1,15 @@
+{
+    "createdAt": "2026-08-21T15:03:22",
+    "id": "6f56c1b8-c96d-4f76-a512-135c1ee2d4ea",
+    "messages": [
+        {
+            "content": "开相机",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-21T15:03:22"
+        }
+    ],
+    "summary": "",
+    "title": "开相机",
+    "updatedAt": "2026-08-21T15:03:22"
+}

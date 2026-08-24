@@ -10,7 +10,7 @@
 #include <cstdint>
 #include <string>
 #include <thread>
-
+#include <complex>
 
 class AudioInputService : public QObject
 {

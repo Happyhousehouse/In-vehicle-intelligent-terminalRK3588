@@ -1,0 +1,45 @@
+{
+    "createdAt": "2026-08-21T15:09:33",
+    "id": "cea55765-9158-49a0-83ee-6cc89535e114",
+    "messages": [
+        {
+            "content": "打开相机",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-21T15:09:33"
+        },
+        {
+            "content": "正在打开相机。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-21T15:09:33"
+        },
+        {
+            "content": "你好，小车",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-21T15:09:42"
+        },
+        {
+            "content": "您好！我是**汽车智能助手**。请问有什么可以帮到您的吗？无论是关于车辆保养、驾驶技巧、还是安全出行咨询，我都随时准备为您解答。\n",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-21T15:09:45"
+        },
+        {
+            "content": "你好，小车",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-21T15:10:01"
+        },
+        {
+            "content": "您好！我是**汽车智能助手**。请问有什么可以帮您？比如关于车辆保养、驾驶技巧或日常用车咨询。🚗💨\n",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-21T15:10:04"
+        }
+    ],
+    "summary": "",
+    "title": "打开相机",
+    "updatedAt": "2026-08-21T15:10:04"
+}

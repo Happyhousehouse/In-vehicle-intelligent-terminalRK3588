@@ -140,6 +140,10 @@ set(SOURCES
     audio/VoiceController.h
     audio/VoiceCommandNormalizer.cpp
     audio/VoiceCommandNormalizer.h
+    audio/TTSService.cpp
+    audio/TTSService.h
+    audio/MatchaRknnEngine.cpp
+    audio/MatchaRknnEngine.h
     # =====================
     # Camera模块
     # =====================
@@ -178,13 +182,6 @@ set(SOURCES
     photo/GalleryService.cpp
 
     photo/GalleryService.h
-
-    # =====================
-    # Audio
-    # =====================
-
-    audio/AudioInputService.cpp
-    audio/AudioInputService.h
 
     # =====================
     # Weather

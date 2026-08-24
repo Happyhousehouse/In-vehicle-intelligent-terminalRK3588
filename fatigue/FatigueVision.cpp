@@ -302,7 +302,6 @@ bool FatigueVision::initFaceModel()
         return false;
     }
 
-
     int ret = rknn_init(
         &faceCtx_,
         faceModelData_.data(),
@@ -322,6 +321,22 @@ bool FatigueVision::initFaceModel()
 
         faceCtx_ = 0;
 
+        return false;
+    }
+
+    ret = rknn_set_core_mask(
+        faceCtx_,
+        RKNN_NPU_CORE_0
+    );
+
+    if (ret != RKNN_SUCC)
+    {
+        std::cerr
+            << "[FatigueVision] Face core-0 pin failed, ret="
+            << ret
+            << std::endl;
+        rknn_destroy(faceCtx_);
+        faceCtx_ = 0;
         return false;
     }
 
@@ -372,6 +387,22 @@ bool FatigueVision::initPfldModel()
 
         pfldCtx_ = 0;
 
+        return false;
+    }
+
+    ret = rknn_set_core_mask(
+        pfldCtx_,
+        RKNN_NPU_CORE_0
+    );
+
+    if (ret != RKNN_SUCC)
+    {
+        std::cerr
+            << "[FatigueVision] PFLD core-0 pin failed, ret="
+            << ret
+            << std::endl;
+        rknn_destroy(pfldCtx_);
+        pfldCtx_ = 0;
         return false;
     }
 

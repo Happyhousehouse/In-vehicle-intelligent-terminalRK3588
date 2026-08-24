@@ -1,0 +1,45 @@
+{
+    "createdAt": "2026-08-24T14:08:02",
+    "id": "29bbfb78-7326-4b77-a341-f1d787fc8b9b",
+    "messages": [
+        {
+            "content": "请介绍一下自己",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-24T14:08:02"
+        },
+        {
+            "content": "你好！我是你的**汽车智能助手**。我来自一家专注于提供高端智慧驾驶服务的科技公司，致力于为用户构建安全、舒适且高效的智能出行体验。",
+            "role": "assistant",
+            "status": "interrupted",
+            "time": "2026-08-24T14:08:08"
+        },
+        {
+            "content": "打开相机",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-24T14:08:12"
+        },
+        {
+            "content": "正在打开相机。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-24T14:08:12"
+        },
+        {
+            "content": "关闭相机",
+            "role": "user",
+            "status": "complete",
+            "time": "2026-08-24T14:08:28"
+        },
+        {
+            "content": "相机已关闭。",
+            "role": "assistant",
+            "status": "complete",
+            "time": "2026-08-24T14:08:28"
+        }
+    ],
+    "summary": "",
+    "title": "请介绍一下自己",
+    "updatedAt": "2026-08-24T14:08:28"
+}
